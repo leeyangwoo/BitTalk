@@ -16,14 +16,17 @@ import java.util.LinkedList;
  */
 public class ChatroomActivity extends Activity {
 
+    InputMethodManager imm;     // 키보드 화면 제어를 위한 변수
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chatroom);
+        setContentView(R.layout.activity_chat_room);
         setTitle("채팅방");
 
         final ArrayList<LinkedList<String>> chatMsgList = new ArrayList<>();
         final ArrayList<String> chatRoomList = new ArrayList<>();
-        final EditText edtItem = (EditText)findViewById(R.id.chatroom_edtvMsg);
+        final EditText edtItem = (EditText) findViewById(R.id.chatroom_edtv_msg);
+        imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
         // 테스트용 채팅방 생성
         chatRoomList.add("시민은행");
@@ -31,9 +34,9 @@ public class ChatroomActivity extends Activity {
         chatMsgList.add(new LinkedList<String>(){});
         chatMsgList.get(0).add("[시민은행]당신의 개인정보가 도용되었습니다. 이를 해결하기 위해 주민등록번호와 계좌번호, 비밀번호가 필요합니다.");
 
-        ListView lvChatRoom = (ListView)findViewById(R.id.chatroom_lvChatRoom);
-        ListView lvChatMsg = (ListView)findViewById(R.id.chatroom_lvChatMsg);
-        Button btnSendMsg = (Button)findViewById(R.id.chatroom_btnSubmit);
+        ListView lvChatRoom = (ListView)findViewById(R.id.lvChatRoom);
+        ListView lvChatMsg = (ListView)findViewById(R.id.lvChatMsg);
+        Button btnSendMsg = (Button)findViewById(R.id.chatroom_btn_submit);
 
 
         final ArrayAdapter<String> chatMsgAdapter = new ArrayAdapter<String>(this,
@@ -51,6 +54,7 @@ public class ChatroomActivity extends Activity {
                 chatMsgList.get(0).add("[나]" + edtItem.getText().toString());
                 chatMsgAdapter.notifyDataSetChanged();
                 edtItem.setText("");
+                imm.hideSoftInputFromWindow(edtItem.getWindowToken(), 0);
             }
         });
 
