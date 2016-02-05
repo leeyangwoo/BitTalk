@@ -1,4 +1,4 @@
-package com.example.user.mainchattest;
+package com.example.bit_user.bitchatting;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainchatActivity extends AppCompatActivity {
+public class MainChatActivity extends AppCompatActivity {
 
     String[] strChatPersonList = new String[100];
     String[] strChatList = new String[100];
