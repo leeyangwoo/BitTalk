@@ -10,14 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.bit_user.loginactivity.LoginActivity">
 
-    <!-- Login progress -->
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone"/>
 
     <ScrollView
         android:id="@+id/login_form"
@@ -32,7 +24,7 @@
 
 
                 <AutoCompleteTextView
-                    android:id="@+id/id"
+                    android:id="@+id/login_edtText1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_id"
@@ -41,19 +33,16 @@
                     android:singleLine="true"/>
 
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/login_edtText2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
-                    android:imeActionId="@+id/login"
-                    android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true"/>
+                    android:maxLines="1" />
 
 
             <Button
-                android:id="@+id/login_sign_in_button"
+                android:id="@+id/login_btn1"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,7 +51,7 @@
                 android:textStyle="bold"/>
 
             <Button
-                android:id="@+id/login_sign_in_button1"
+                android:id="@+id/login_btn2"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

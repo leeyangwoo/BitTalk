@@ -6,7 +6,7 @@ import android.os.Bundle;
 /**
  * Created by bit-user on 2016-02-05.
  */
-public class ChatroomActivity extends Activity {
+public class ChatRoomActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);

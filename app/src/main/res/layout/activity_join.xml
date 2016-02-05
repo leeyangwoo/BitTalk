@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+
+
+    <RelativeLayout
+        android:layout_marginTop="50dp"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID"
+            android:id="@+id/join_textView1"
+            android:padding="10dp"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:id="@+id/join_textView2"
+            android:layout_below="@id/join_textView1"
+            android:padding="10dp"
+            android:textSize="20dp"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:id="@+id/join_textView3"
+            android:gravity="start"
+            android:layout_below="@id/join_textView2"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Psw confirm"
+            android:layout_below="@id/join_textView3"
+            android:id="@+id/join_textView4"
+            android:gravity="start"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:textAlignment="center" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Join"
+            android:id="@+id/join_btn1"
+            android:layout_below="@+id/join_textView4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/join_edtText1"
+            android:ems="9"
+            android:layout_centerHorizontal="true"
+            android:padding="15dp"
+            android:enabled="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="9"
+            android:id="@+id/join_edtText2"
+            android:layout_below="@+id/join_edtText1"
+            android:layout_centerHorizontal="true"
+            android:padding="15dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="9"
+            android:id="@+id/join_edtText3"
+            android:layout_below="@+id/join_edtText2"
+            android:layout_centerHorizontal="true"
+            android:padding="15dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="9"
+            android:id="@+id/join_edtText4"
+            android:layout_below="@+id/join_edtText3"
+            android:layout_centerHorizontal="true"
+            android:padding="15dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:text="Clear"
+            android:id="@+id/join_btn2"
+            android:layout_below="@+id/join_edtText4"
+            />
+    </RelativeLayout>
+
+
+</LinearLayout>

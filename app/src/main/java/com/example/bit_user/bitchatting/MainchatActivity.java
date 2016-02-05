@@ -22,7 +22,7 @@ public class MainChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mainchat);
 
         final ArrayList<String> chatList = new ArrayList<>();
-        ListView list = (ListView)findViewById(R.id.listView1);
+        ListView list = (ListView)findViewById(R.id.mainChat_listView1);
 
         // 임의의 채팅방 목록
 

@@ -1,5 +1,6 @@
 package com.example.bit_user.bitchatting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -7,12 +8,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.bit_user.bitchatting.R;
-
 public class LoginActivity extends AppCompatActivity {
 
-    private AutoCompleteTextView mIdView;
-    private EditText mPasswordView;
+    private AutoCompleteTextView id;
+    private EditText password;
 
 
     @Override
@@ -20,28 +19,28 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mIdView = (AutoCompleteTextView) findViewById(R.id.id);
-        mPasswordView = (EditText) findViewById(R.id.password);
+        id = (AutoCompleteTextView) findViewById(R.id.login_edtText1);
+        password = (EditText) findViewById(R.id.login_edtText2);
 
 
-        Button mSignInButton = (Button) findViewById(R.id.login_sign_in_button);
+        Button mSignInButton = (Button) findViewById(R.id.login_btn1);
         mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-/*                Intent mainsrc = new Intent(getApplicationContext(),
-                        MainsrcActivity.class);
-                startActivity(mainsrc);*/
+                Intent mainSrc = new Intent(getApplicationContext(),
+                        MainSrcActivity.class);
+                startActivity(mainSrc);
 
             }
         });
-        Button mJoinInButton = (Button)findViewById(R.id.login_sign_in_button1);
+        Button mJoinInButton = (Button)findViewById(R.id.login_btn2);
         mJoinInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                /*Intent joinac = new Intent(getApplicationContext(),
+                Intent join = new Intent(getApplicationContext(),
                         JoinActivity.class);
-                startActivity(joinac);*/
+                startActivity(join);
 
             }
         });

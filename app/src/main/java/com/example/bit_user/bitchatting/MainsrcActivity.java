@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainsrcActivity extends AppCompatActivity {
+public class MainSrcActivity extends AppCompatActivity {
     ArrayList<SearchResult> arResult;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class MainsrcActivity extends AppCompatActivity {
         arResult = new ArrayList<SearchResult>();
         SearchResult sr;
 
-        Button btnSrc= (Button)findViewById(R.id.mainsrc_btn_search);
+        Button btnSrc= (Button)findViewById(R.id.mainSrc_btn_search);
         btnSrc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +43,7 @@ public class MainsrcActivity extends AppCompatActivity {
         SearchResultAdapter srAdapter = new SearchResultAdapter(this,
                 R.layout.search_result, arResult);
 
-        ListView list = (ListView)findViewById(R.id.listView);
+        ListView list = (ListView)findViewById(R.id.mainSrc_listView);
         list.setAdapter(srAdapter);
 
         /*final String[] searchResult = {"김동영", "이양우", "최장원", "이동욱", "정재영", "강경미"};
@@ -65,16 +65,16 @@ class SearchResult{
 }
 
 class SearchResultAdapter extends BaseAdapter{
-    Context maincon;
+    Context mainCon;
     LayoutInflater inflater;
     ArrayList<SearchResult> arSrc;
     int layout;
 
-    public SearchResultAdapter(Context context, int alayout, ArrayList<SearchResult> aarSrc){
-        maincon = context;
+    public SearchResultAdapter(Context context, int aLayout, ArrayList<SearchResult> aarSrc){
+        mainCon = context;
         arSrc = aarSrc;
-        layout = alayout;
-        inflater = LayoutInflater.from(maincon);
+        layout = aLayout;
+        inflater = LayoutInflater.from(mainCon);
     }
 
     public int getCount(){
@@ -99,7 +99,7 @@ class SearchResultAdapter extends BaseAdapter{
         btn.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
                 String str = arSrc.get(pos).name + " 추가";
-                Toast.makeText(maincon, str, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mainCon, str, Toast.LENGTH_SHORT).show();
             }
         });
         return convertView;
