@@ -1,12 +1,20 @@
-<resources>
+ï»¿<resources>
     <string name="app_name">BitChatting</string>
 
-	
-	    <string name="app_name">Ã¤ÆÃ ¾îÇÃ</string>
 
+
+<<<<<<< HEAD
 
     <string name="prompt_id">Id</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">login</string>
     <string name="action_join">join</string>
+=======
+    <!-- Strings related to login -->
+ 
+    <string name="prompt_id">Id</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_join">register</string>
+>>>>>>> login2
 </resources>
