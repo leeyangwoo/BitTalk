@@ -1,3 +1,0 @@
-# BitTalk
-
-Chat wit BitTalk
