@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainSrcActivity extends AppCompatActivity {
+public class MainsrcActivity extends AppCompatActivity {
     ArrayList<SearchResult> arResult;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

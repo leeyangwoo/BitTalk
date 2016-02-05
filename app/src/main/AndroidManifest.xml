@@ -15,10 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ChatRoomActivity"></activity>
+        <activity android:name=".ChatroomActivity"></activity>
         <activity android:name=".JoinActivity"></activity>
-        <activity android:name=".MainChatActivity"></activity>
-        <activity android:name=".MainSrcActivity"></activity>
+        <activity android:name=".MainchatActivity"></activity>
+        <activity android:name=".MainsrcActivity"></activity>
     </application>
 
 </manifest>

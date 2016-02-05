@@ -14,7 +14,7 @@ import java.util.LinkedList;
 /**
  * Created by bit-user on 2016-02-05.
  */
-public class ChatRoomActivity extends Activity {
+public class ChatroomActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -23,7 +23,7 @@ public class ChatRoomActivity extends Activity {
 
         final ArrayList<LinkedList<String>> chatMsgList = new ArrayList<>();
         final ArrayList<String> chatRoomList = new ArrayList<>();
-        final EditText edtItem = (EditText)findViewById(R.id.chatroom_edtv_msg);
+        final EditText edtItem = (EditText)findViewById(R.id.chatroom_edtvMsg);
 
         // 테스트용 채팅방 생성
         chatRoomList.add("시민은행");
@@ -31,9 +31,9 @@ public class ChatRoomActivity extends Activity {
         chatMsgList.add(new LinkedList<String>(){});
         chatMsgList.get(0).add("[시민은행]당신의 개인정보가 도용되었습니다. 이를 해결하기 위해 주민등록번호와 계좌번호, 비밀번호가 필요합니다.");
 
-        ListView lvChatRoom = (ListView)findViewById(R.id.lvChatRoom);
-        ListView lvChatMsg = (ListView)findViewById(R.id.lvChatMsg);
-        Button btnSendMsg = (Button)findViewById(R.id.chatroom_btn_submit);
+        ListView lvChatRoom = (ListView)findViewById(R.id.chatroom_lvChatRoom);
+        ListView lvChatMsg = (ListView)findViewById(R.id.chatroom_lvChatMsg);
+        Button btnSendMsg = (Button)findViewById(R.id.chatroom_btnSubmit);
 
 
         final ArrayAdapter<String> chatMsgAdapter = new ArrayAdapter<String>(this,

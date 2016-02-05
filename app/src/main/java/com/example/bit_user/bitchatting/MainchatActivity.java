@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainChatActivity extends AppCompatActivity {
+public class MainchatActivity extends AppCompatActivity {
 
     String[] strChatPersonList = new String[100];
     String[] strChatList = new String[100];
