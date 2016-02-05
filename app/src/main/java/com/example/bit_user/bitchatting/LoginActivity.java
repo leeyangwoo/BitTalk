@@ -1,4 +1,4 @@
-package com.example.bit_user.loginactivity;
+package com.example.bit_user.bitchatting;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
