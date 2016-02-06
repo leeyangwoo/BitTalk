@@ -34,8 +34,8 @@ public class ChatroomActivity extends Activity {
         chatMsgList.add(new LinkedList<String>(){});
         chatMsgList.get(0).add("[시민은행]당신의 개인정보가 도용되었습니다. 이를 해결하기 위해 주민등록번호와 계좌번호, 비밀번호가 필요합니다.");
 
-        ListView lvChatRoom = (ListView)findViewById(R.id.lvChatRoom);
-        ListView lvChatMsg = (ListView)findViewById(R.id.lvChatMsg);
+        ListView lvChatRoom = (ListView)findViewById(R.id.chatroom_lvChatRoom);
+        ListView lvChatMsg = (ListView)findViewById(R.id.chatroom_lvChatMsg);
         Button btnSendMsg = (Button)findViewById(R.id.chatroom_btn_submit);
 
 
