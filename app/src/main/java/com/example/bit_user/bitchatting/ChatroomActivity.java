@@ -20,12 +20,12 @@ public class ChatroomActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_room);
+        setContentView(R.layout.activity_chatRoom);
         setTitle("채팅방");
 
         final ArrayList<LinkedList<String>> chatMsgList = new ArrayList<>();
         final ArrayList<String> chatRoomList = new ArrayList<>();
-        final EditText edtItem = (EditText) findViewById(R.id.chatroom_edtv_msg);
+        final EditText edtItem = (EditText) findViewById(R.id.chatroom_edtvMsg);
         imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
         // 테스트용 채팅방 생성
@@ -36,7 +36,7 @@ public class ChatroomActivity extends Activity {
 
         ListView lvChatRoom = (ListView)findViewById(R.id.chatroom_lvChatRoom);
         ListView lvChatMsg = (ListView)findViewById(R.id.chatroom_lvChatMsg);
-        Button btnSendMsg = (Button)findViewById(R.id.chatroom_btn_submit);
+        Button btnSendMsg = (Button)findViewById(R.id.chatroom_btnSubmit);
 
 
         final ArrayAdapter<String> chatMsgAdapter = new ArrayAdapter<String>(this,
