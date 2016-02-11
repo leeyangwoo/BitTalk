@@ -3,7 +3,7 @@
 <h5>Chat with BitTalk</h5>
 
 <br><br>
-<h3>GITHUB 규칙</h3>
+<h3>Github 규칙</h3>
 
 -- Remote(Origin)에서 최신 코드 받아오기
 <br>git pull origin master<br>
@@ -56,7 +56,7 @@ senderno int(11) 회원을 가리키는 외래키(메세지 보낸사람)<br>
 msg varchar2(200) 메세지 내용<br>
 sendtime datetime 메세지 전송시간<br>
 <br>
-
+<hr>
 <h3>BitTalk-Server</h3>
 <br>
 <h4>URL</h4>
@@ -65,7 +65,7 @@ sendtime datetime 메세지 전송시간<br>
 Parameter : <b>mid / mpasswd</b><br>
 회원가입 URL: <b>192.168.1.35/BitTalkServer/join.jsp</b><br>
 Parameter : <b>mid / mpasswd / mname</b>
-<hr>
+<br>
 <h5>회원 예제 데이터</h5>
 <ol>
   <ul>
