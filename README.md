@@ -6,7 +6,8 @@
 GITHUB 규칙
 
 -- Remote(Origin)에서 최신 코드 받아오기
-<br>git pull origin master<br><br><br>
+<br>git pull origin master<br>
+소스트리에서 pull하고 master 선택<br><br>
 
 
 -- 로컬에서 작업시 브랜치 따기<br>
@@ -15,9 +16,9 @@ git checkout (브랜치이름) -->브랜치이동/ git shell에서 브랜치 이
 
 
 -- 로컬에서 작업하면서 자기 브랜치에서 commit하기<br>
-1.git add .<br>
-2.git commit -m "작업 내용"<br>
-3.git push origin (브랜치이름)<br><br><br>
+1.git add . / 소스트리에서 스테이지에 올리기<br>
+2.git commit -m "작업 내용" / 소스트리에서 커밋버튼 누르고 작업메세지 작성<br>
+3.git push origin (브랜치이름) / 소스트리에서 푸시버튼 누르고 브랜치 선택<br><br><br>
 
 
 -- 로컬에서 작업 후 merge하기 전에 팀원들에게 알리고 검토받기<br>
@@ -56,9 +57,11 @@ sendtime datetime 메세지 전송시간<br>
 # BitTalk-Server
 <br>
 <h4>URL</h4>
-회원 리스트 받는 URL: <b>192.168.1.35/BitTalk-Server/index.jsp</b><br> 
-로그인할 URL: <b>192.168.1.35/BitTalk-Server/login.jsp</b><br>
-Parameter : <b>mid / mpasswd</b>
+회원 리스트 보기 URL: <b>192.168.1.35/BitTalkServer/index.jsp</b><br> 
+로그인할 URL: <b>192.168.1.35/BitTalkServer/login.jsp</b><br>
+Parameter : <b>mid / mpasswd</b><br>
+회원가입 URL: <b>192.168.1.35/BitTalkServer/join.jsp</b><br>
+Parameter : <b>mid / mpasswd / mname</b>
 <hr>
 <h5>회원 예제 데이터</h5>
 <ol>
