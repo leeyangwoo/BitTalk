@@ -1,8 +1,10 @@
 package com.example.bit_user.bitchatting;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +22,7 @@ public class ChatroomActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chatRoom);
+        setContentView(R.layout.activity_chatroom);
         setTitle("채팅방");
 
         final ArrayList<LinkedList<String>> chatMsgList = new ArrayList<>();

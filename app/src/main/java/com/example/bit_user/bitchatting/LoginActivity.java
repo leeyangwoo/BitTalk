@@ -2,11 +2,11 @@ package com.example.bit_user.bitchatting;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -28,7 +28,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Log.i("start", "start");
 
         id = (AutoCompleteTextView) findViewById(R.id.login_edtText1);
         password = (EditText) findViewById(R.id.login_edtText2);
@@ -79,8 +78,17 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject responseJSON = new JSONObject(sb.toString());
 
 
-                            System.out.println("response:" + responseJSON.toString());
-                            System.out.println((String)responseJSON.get("result"));
+
+                            System.out.println(responseJSON.get("result"));
+
+                            if(responseJSON.get("result").equals("success")){
+
+                            }else{
+                                Toast.makeText(getApplicationContext(),"Incorrect Id and Password",
+                                        Toast.LENGTH_SHORT).show();
+                                id.setText("");
+                                password.setText("");
+                            }
 
                         } catch (Exception e) {
                             e.printStackTrace();

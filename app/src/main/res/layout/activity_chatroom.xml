@@ -39,13 +39,13 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:transcriptMode="alwaysScroll"
-        android:id="@+id/lvChatMsg" />
+        android:id="@+id/chatroom_lvChatMsg" />
 
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/chatroom_edtv_msg"
+        android:id="@+id/chatroom_edtvMsg"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -55,14 +55,14 @@
         android:background="#cccccc"
         android:backgroundTintMode="add"
         android:width="250dp"
-        android:layout_alignTop="@+id/chatroom_btn_submit" />
+        android:layout_alignTop="@+id/chatroom_btnSubmit" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Button"
-        android:id="@+id/chatroom_btn_submit"
+        android:id="@+id/chatroom_btnSubmit"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
