@@ -1,9 +1,9 @@
 # BitTalk
 
-<h3>Chat with BitTalk</h3>
+<h5>Chat with BitTalk</h5>
 
 <br><br>
-GITHUB 규칙
+<h3>GITHUB 규칙</h3>
 
 -- Remote(Origin)에서 최신 코드 받아오기
 <br>git pull origin master<br>
@@ -25,28 +25,31 @@ git checkout (브랜치이름) -->브랜치이동/ git shell에서 브랜치 이
 
 <hr>
 
-#DB정보
+<h3>DB정보</h3>
 IP: 192.168.1.35:3306<br>
 DB명: bittalk<br>
 username: bit<br>
 password: qlxm<br>
 <br>
 
-<h2>테이블 구조</h2>
+<h4>테이블 구조</h4>
 <br>
-<h4>member(회원테이블)</h4><br>
+<h5>member(회원테이블)</h5><br>
 
 mno int(11) Auto increment PK(시퀀스값 고유번호)<br>
 mid varchar(15)(로그인할 때 필요한 id)<br>
 mpasswd varchar(20)(로그인할 때 필요한 비밀번호)<br>
 mname varchar(20)(닉네임, 한글이름)<br>
 <br>
-<h4>chatroom(채팅방테이블)</h4>
+<h5>chatroom(채팅방테이블)</h5>
 crno int(11) Auto increment PK(고유 채팅방번호)<br>
-mno1 int(11) 회원을 가리키는 외래키<br>
-mno2 int(11) 회원을 가리키는 외래키<br>
+numparticipant int(11) 채팅방 참가자 수<br>
 <br>
-<h4>chatmsg(채팅내용테이블)</h4>
+<h5>participate(대화방 참가 테이블)</h5>
+mno int(11) 회원을 가리키는 외래키  //  <i>mno와 crno가 함께 primary key</i><br>
+crno int(11) 채팅방을 가리키는 외래키<br>
+<br>
+<h5>chatmsg(채팅내용테이블)</h5>
 cmno int(11) Auto increment PK(고유 채팅내용번호)<br>
 crno int(11) 채팅방번호를 가리키는 외래키<br>
 senderno int(11) 회원을 가리키는 외래키(메세지 보낸사람)<br>
@@ -54,10 +57,10 @@ msg varchar2(200) 메세지 내용<br>
 sendtime datetime 메세지 전송시간<br>
 <br>
 
-# BitTalk-Server
+<h3>BitTalk-Server</h3>
 <br>
 <h4>URL</h4>
-회원 리스트 보기 URL: <b>192.168.1.35/BitTalkServer/index.jsp</b><br> 
+회원 예제 보기 URL: <b>192.168.1.35/BitTalkServer/index.jsp</b><br> 
 로그인할 URL: <b>192.168.1.35/BitTalkServer/login.jsp</b><br>
 Parameter : <b>mid / mpasswd</b><br>
 회원가입 URL: <b>192.168.1.35/BitTalkServer/join.jsp</b><br>
