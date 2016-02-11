@@ -1,6 +1,6 @@
 # BitTalk
 
-<h3>Chat wit BitTalk</h3>
+<h3>Chat with BitTalk</h3>
 
 <br><br>
 GITHUB 규칙
@@ -24,7 +24,7 @@ git checkout (브랜치이름) -->브랜치이동/ git shell에서 브랜치 이
 
 <hr>
 
-<h2>DB정보</h2><br>
+#DB정보
 IP: 192.168.1.35:3306<br>
 DB명: bittalk<br>
 username: bit<br>
@@ -52,3 +52,27 @@ senderno int(11) 회원을 가리키는 외래키(메세지 보낸사람)<br>
 msg varchar2(200) 메세지 내용<br>
 sendtime datetime 메세지 전송시간<br>
 <br>
+
+# BitTalk-Server
+<br>
+<h4>URL</h4>
+회원 리스트 받는 URL: <b>192.168.1.35/BitTalk-Server/index.jsp</b><br> 
+로그인할 URL: <b>192.168.1.35/BitTalk-Server/login.jsp</b><br>
+Parameter : <b>mid / mpasswd</b>
+<hr>
+<h5>회원 예제 데이터</h5>
+<ol>
+  <ul>
+    <li>mno: 1</li>
+    <li>mid: leeyang</li>
+    <li>mpasswd: 1111</li>
+    <li>mname: 이양우</li>
+  </ul>
+  <br>
+  <ul>
+    <li>mno: 2</li>
+    <li>mid: yangwoo</li>
+    <li>mpasswd: 1112</li>
+    <li>mname: 양우리</li>
+  </ul>
+</ol>
