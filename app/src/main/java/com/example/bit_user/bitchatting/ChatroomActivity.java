@@ -6,7 +6,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
  * Created by bit-user on 2016-02-05.
@@ -37,13 +36,13 @@ public class ChatroomActivity extends Activity {
 
         // 채팅 메시지 리스트뷰에 내용 입력
         ChatMsg chatMsg = new ChatMsg(0, 0, 2, chatRoom.getCrName(), chatRoom.getLastMsg()/*, new java.util.Date()*/);
-        LinkedList<ChatroomLvitem> dataChatMsg = new LinkedList<>();
+        ArrayList<ChatroomLvitem> dataChatMsg = new ArrayList<>();
         ChatroomLvitem chatroomLvitem = new ChatroomLvitem(chatMsg);
         dataChatMsg.add(chatroomLvitem);
         // 여기까지는 정상 동작 --------------------------------------------------------------------
 
-        //final ChatmsgAdapter adapterChatMsg = new ChatmsgAdapter(this, R.layout.chatroom_listviewitem, dataChatMsg);
-        //lvChatMsg.setAdapter(adapterChatMsg);
+        final ChatmsgAdapter adapterChatMsg = new ChatmsgAdapter(this, R.layout.chatroom_listviewitem, dataChatMsg);
+        lvChatMsg.setAdapter(adapterChatMsg);
 
 
 
