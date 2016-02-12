@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         Button mSignInButton = (Button) findViewById(R.id.login_btn1);
+        Button mJoinInButton =(Button)findViewById(R.id.login_btn2);
         mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,6 +143,14 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }.start();
 
+
+            }
+        });
+        mJoinInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent joinIntent = new Intent(getApplicationContext(),JoinActivity.class);
+                startActivity(joinIntent);
 
             }
         });
