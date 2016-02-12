@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.bit_user.loginactivity.LoginActivity">
 
-    
+
 
 
     <ScrollView
