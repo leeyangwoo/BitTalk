@@ -16,6 +16,8 @@ import java.util.ArrayList;
 
 public class MainsrcActivity extends AppCompatActivity {
     ArrayList<SearchResult> arResult;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
