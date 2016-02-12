@@ -34,7 +34,7 @@ password: qlxm<br>
 
 <h4>테이블 구조</h4>
 <br>
-<h5>member(회원테이블)</h5><br>
+<h5>member(회원테이블)</h5>
 
 mno int(11) Auto increment PK(시퀀스값 고유번호)<br>
 mid varchar(15)(로그인할 때 필요한 id)<br>
@@ -58,14 +58,15 @@ sendtime datetime 메세지 전송시간<br>
 <br>
 <hr>
 <h3>BitTalk-Server</h3>
-<br>
 <h4>URL</h4>
-회원 예제 보기 URL: <b>192.168.1.35/BitTalkServer/index.jsp</b><br> 
+테이블 상황 URL: <b>192.168.1.35/BitTalkServer/index.jsp</b><br> 
 로그인할 URL: <b>192.168.1.35/BitTalkServer/login.jsp</b><br>
 Parameter : <b>mid / mpasswd</b><br>
 회원가입 URL: <b>192.168.1.35/BitTalkServer/join.jsp</b><br>
-Parameter : <b>mid / mpasswd / mname</b>
-<br>
+Parameter : <b>mid / mpasswd / mname</b><br>
+대화 시작하기 URL: <b>192.168.1.35/BitTalkServer/talk.jsp</b> (mainsrc에서 id검색 후 대화시작)<br>
+Parameter : <b>mid(대화방 개설자)</b>
+<hr>
 <h5>회원 예제 데이터</h5>
 <ol>
   <ul>
