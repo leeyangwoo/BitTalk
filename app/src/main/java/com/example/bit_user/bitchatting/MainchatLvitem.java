@@ -4,6 +4,7 @@ package com.example.bit_user.bitchatting;
  * Created by bit-user on 2016-02-11.
  */
 public class MainchatLvitem {
+
     private String crName;
     private String lastMsg;
 
