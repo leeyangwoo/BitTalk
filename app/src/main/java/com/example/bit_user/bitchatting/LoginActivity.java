@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                             conn.setDoInput(true); //input을 사용하도록 설정 (default : true)
                             conn.setDoOutput(true); //output을 사용하도록 설정 (default : false)
 
-                            conn.setConnectTimeout(60); //타임아웃 시간 설정 (default : 무한대기)
+                            conn.setConnectTimeout(1000); //타임아웃 시간 설정 (default : 무한대기)
 
                             OutputStream os = conn.getOutputStream();
                             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8")); //캐릭터셋 설정
