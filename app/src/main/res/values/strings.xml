@@ -8,5 +8,8 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Login</string>
     <string name="action_join">register</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_confirm_password">This password is not  identical</string>
+    <string name="error_field_required">This id is empty</string>
 
 </resources>
