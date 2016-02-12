@@ -1,6 +1,9 @@
 package com.example.bit_user.bitchatting;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -8,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -22,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private AutoCompleteTextView id;
     private EditText password;
+    JSONObject responseJSON;
 
 
     @Override
@@ -31,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
 
         id = (AutoCompleteTextView) findViewById(R.id.login_edtText1);
         password = (EditText) findViewById(R.id.login_edtText2);
+
 
 
         Button mSignInButton = (Button) findViewById(R.id.login_btn1);
@@ -75,20 +81,54 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 sb.append(line);
                             }
-                            JSONObject responseJSON = new JSONObject(sb.toString());
+                            responseJSON = new JSONObject(sb.toString());
 
 
+                            //Can't create handler inside thread that has not called Looper.prepare()
+                            //Non UI Thread 에서는 UI작업을 할수 없기에 요렇게 추가해서 해줘야함
+                            Handler h = new Handler(Looper.getMainLooper());
+                            h.post(new Runnable() {
+                                public void run() {
+                                    try {
 
-                            System.out.println(responseJSON.get("result"));
 
-                            if(responseJSON.get("result").equals("success")){
+                                        if(responseJSON.get("result").equals("success")){
 
-                            }else{
-                                Toast.makeText(getApplicationContext(),"Incorrect Id and Password",
-                                        Toast.LENGTH_SHORT).show();
-                                id.setText("");
-                                password.setText("");
-                            }
+                                            Toast.makeText(getApplicationContext(), "Successfully Logged In!",
+                                                    Toast.LENGTH_SHORT).show();
+
+                                            DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+
+                                            //SQLite로 DB를 세션처럼 들고다니기 위해 테이블을 전부 리셋시켜서 한개만 생성.
+                                            db.resetTables();
+
+                                            //유저를 한명 추가해서 세션처럼 사용함.
+                                            db.addUser((responseJSON.getJSONObject("member").get("mno")).toString(),
+                                                    (responseJSON.getJSONObject("member").get("mid")).toString(),
+                                                    (responseJSON.getJSONObject("member").get("mpasswd")).toString(),
+                                                    (responseJSON.getJSONObject("member").get("mname")).toString());
+
+                                            //확인차 콘솔창에서 출력.
+                                            System.out.println(db.getUserDetails().values());
+                                            
+                                            Intent myIntent = new Intent(getApplicationContext(),MainsrcActivity.class);
+                                            startActivity(myIntent);
+
+                                        }else{
+                                            Toast.makeText(getApplicationContext(), "Incorrect Id or Password",
+                                                    Toast.LENGTH_SHORT).show();
+                                            id.setText("");
+                                            password.setText("");
+                                            id.requestFocus();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            });
+
+
 
                         } catch (Exception e) {
                             e.printStackTrace();
