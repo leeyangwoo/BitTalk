@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,33 +20,35 @@ public class MainchatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainchat);
 
-        final ArrayList<String> chatList = new ArrayList<>();
-        ListView list = (ListView)findViewById(R.id.mainChat_listView1);
+        ListView lvMainChat = (ListView)findViewById(R.id.mainChat_listView1);
 
-        // 임의의 채팅방 목록
+        ArrayList<MainchatLvitem> dataMainChat = new ArrayList<>();
+        MainchatLvitem[] mainchatLvitem = new MainchatLvitem[100];
+        mainchatLvitem[0] = new MainchatLvitem("Barack Obama", "Good afternoon");
+        mainchatLvitem[1] = new MainchatLvitem("Nitta Emi", "Fighto dayo!");
+        mainchatLvitem[2] = new MainchatLvitem("Hong Jin-ho", "Hi, everyone! Hi, everyone!");
+        mainchatLvitem[3] = new MainchatLvitem("Bladimir Putin", "Harasho");
 
-        strChatPersonList[0] = "시민은행";
-        strChatPersonList[1] = "김미영팀장";
-        strChatPersonList[2] = "국가정보원";
-        strChatList[0] = "귀하의 개인정보가 도용...";
-        strChatList[1] = "80만원 대.츌";
-        strChatList[2] = "시계 받으세요.";
-        nChatNum = 3;
+        for(int i = 0; i < 4; i++)
+            dataMainChat.add(mainchatLvitem[i]);
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, chatList);
-        list.setAdapter(adapter);
 
-        // 미리 만들어진 채팅방 목록을 자동으로 불러오기
-        /*for(String strChat : strChatList) {
-            chatList.add(strChatPersonList + "\n" + strChat);
-            adapter.notifyDataSetChanged();
-        }*/
-        for(int i = 0; i < nChatNum; i++) {
-            chatList.add(strChatPersonList[i] + "\n" + strChatList[i]);
-            adapter.notifyDataSetChanged();
-        }
+        final MainchatAdapter adapterMainChat = new MainchatAdapter(this, R.layout.mainchat_listviewitem, dataMainChat);
+        lvMainChat.setAdapter(adapterMainChat);
 
+        lvMainChat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 해당 채팅 상대와 마지막 메시지를 Toast로 표시해 본다.
+                String strTmp = adapterMainChat.getChatRoomInfo(position).getCrName() + "\n"
+                        + adapterMainChat.getChatRoomInfo(position).getLastMsg();
+                Toast.makeText(getApplicationContext(), strTmp, Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+        /*
         // 리스트의 항목을 누르면 해당 채팅방이 선택됨
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -60,5 +61,6 @@ public class MainchatActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
+        */
     }
 }
