@@ -14,4 +14,7 @@ public class MainchatLvitem {
 
     public String getCrName() { return crName; }
     public String getLastMsg() { return lastMsg; }
+
+    public void setCrName() { this.crName = crName; }
+    public void setLastMsg() { this.lastMsg = lastMsg; }
 }
