@@ -1,22 +1,33 @@
 package com.example.bit_user.bitchatting;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MainsrcActivity extends AppCompatActivity {
     ArrayList<SearchResult> arResult;
-
+    Button btnSrc;
+    EditText edtvSrc;
+    JSONArray responseJSONarr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,23 +35,38 @@ public class MainsrcActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mainsrc);
         setTitle("대화상대 찾기");
 
-        arResult = new ArrayList<SearchResult>();
+        arResult = new ArrayList<>();
         SearchResult sr;
 
-        Button btnSrc= (Button)findViewById(R.id.mainSrc_btn_search);
+        edtvSrc = (EditText)findViewById(R.id.mainSrc_edt_search);
+        btnSrc= (Button)findViewById(R.id.mainSrc_btn_search);
         btnSrc.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "검색", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {                       //검색버튼 리스너
+                
+                SearchTask searchTask = new SearchTask();
+                searchTask.execute(edtvSrc.getText().toString());
             }
         });
 
+        /*try {
+            for (int i = 0; i < responseJSONarr.length(); i++) {
+                Log.i("FOR", responseJSONarr.getJSONObject(i).get("mname").toString());
+                sr = new SearchResult(responseJSONarr.getJSONObject(i).get("mname").toString());
+                arResult.add(sr);
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }*/
+        ////////////////////////////////////예제 데이터
         sr = new SearchResult("김동영");
         arResult.add(sr);
         sr = new SearchResult("이양우");
         arResult.add(sr);
         sr = new SearchResult("최장원");
         arResult.add(sr);
+        ///////////////////////////////////////
 
         SearchResultAdapter srAdapter = new SearchResultAdapter(this,
                 R.layout.search_result, arResult);
@@ -48,13 +74,42 @@ public class MainsrcActivity extends AppCompatActivity {
         ListView list = (ListView)findViewById(R.id.mainSrc_listView);
         list.setAdapter(srAdapter);
 
-        /*final String[] searchResult = {"김동영", "이양우", "최장원", "이동욱", "정재영", "강경미"};
-        ListView list = (ListView)findViewById(R.id.listView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, searchResult);
-        list.setAdapter(adapter);*/
+
+    }
+    private class SearchTask extends AsyncTask<String, String, Void>{
+        protected Void doInBackground(String... query){
+            HttpURLConnection conn = null;
+            try {
+                URL url = new URL("http://192.168.1.35/BitTalkServer/search.jsp?mid="+query[0]); //요청 URL을 입력
+                Log.i("URL", url.toString());
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET"); //요청 방식을 설정 (default : GET)
+                conn.connect();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8")); //캐릭터셋 설정
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = br.readLine()) != null) {
+                    if(sb.length() > 0) {
+                        sb.append("\n");
+                    }
+                    sb.append(line);
+                }
+                br.close();
+                responseJSONarr = new JSONArray(sb.toString());
+                Log.i("JSON",responseJSONarr.toString());
 
 
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if(conn != null) {
+                    conn.disconnect();
+                }
+            }
+            return null;
+        }
     }
 }
 

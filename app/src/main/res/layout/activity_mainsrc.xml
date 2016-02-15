@@ -18,17 +18,19 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:weightSum="1">
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/mainSrc_edt_search" />
+                android:id="@+id/mainSrc_edt_search"
+                android:layout_weight="1.01" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="@string/mainsrc_brn_src"
                 android:id="@+id/mainSrc_btn_search" />
         </LinearLayout>
 

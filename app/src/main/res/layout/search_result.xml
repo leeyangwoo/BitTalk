@@ -18,7 +18,7 @@
         android:text="대화시작하기"
         android:id="@+id/search_result_btn_add"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/search_result_name"
-        android:layout_toEndOf="@+id/search_result_name" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
