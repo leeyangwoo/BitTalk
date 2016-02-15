@@ -17,6 +17,8 @@ public class ChatroomLvitem {
         try {
             if(this.room.getCrno() != chatMsgInstance.getCrno())
                 throw new Exception();
+            this.txtMember = new String(chatMsgInstance.getSenderName());
+            this.txtMsg = new String(chatMsgInstance.getMessage());
             this.chatMsgInstance = new ChatMsg(
                     chatMsgInstance.getCmno(),
                     chatMsgInstance.getCrno(),
@@ -37,8 +39,14 @@ public class ChatroomLvitem {
     public ChatMsg getChatMsgInstance() { return chatMsgInstance; }
 
     //   2. Setter
-    public void setTxtMember(String txtMember) { this.txtMember = txtMember; }
-    public void setTxtMsg(String txtMsg) { this.txtMsg = txtMsg; }
+    public void setTxtMember(String txtMember) {
+        this.txtMember = null;
+        this.txtMember = new String(txtMember);
+    }
+    public void setTxtMsg(String txtMsg) {
+        this.txtMsg = null;
+        this.txtMsg = new String(txtMsg);
+    }
     public void setChatMsgInstance(ChatMsg chatMsgInstance) {
         this.chatMsgInstance = null;
         this.chatMsgInstance = new ChatMsg(chatMsgInstance);
