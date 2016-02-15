@@ -11,56 +11,49 @@ import java.util.ArrayList;
 
 public class MainchatActivity extends AppCompatActivity {
 
-    String[] strChatPersonList = new String[100];
-    String[] strChatList = new String[100];
-    int nChatNum = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainchat);
 
+
+        String[] strChatPersonList = new String[100];
+        String[] strChatList = new String[100];
         ListView lvMainChat = (ListView)findViewById(R.id.mainChat_listView1);
 
         ArrayList<MainchatLvitem> dataMainChat = new ArrayList<>();
-        MainchatLvitem[] mainchatLvitem = new MainchatLvitem[100];
-        mainchatLvitem[0] = new MainchatLvitem("Barack Obama", "Good afternoon");
-        mainchatLvitem[1] = new MainchatLvitem("Nitta Emi", "Fighto dayo!");
-        mainchatLvitem[2] = new MainchatLvitem("Hong Jin-ho", "Hi, everyone! Hi, everyone!");
-        mainchatLvitem[3] = new MainchatLvitem("Bladimir Putin", "Harasho");
 
-        for(int i = 0; i < 4; i++)
+        // 임의의 회원정보(앱을 실행중인 회원) 생성
+        ChatMember tmpMember = new ChatMember(1, "aaa@abc.com", "나");
+
+        // 임의의 채팅방 객체에 넣을 회원번호 배열 생성
+        int[][] tmpArrMno = {
+                {1, 2}, {1, 3}, {1, 4}, {1, 5}
+        };
+
+        // 임의의 채팅방 객체를 생성
+        ChatRoom[] tmpChatRoom = new ChatRoom[4];
+        tmpChatRoom[0] = new ChatRoom(1, tmpArrMno[0], 2, "Barack Obama", "Good afternoon");
+        tmpChatRoom[1] = new ChatRoom(2, tmpArrMno[1], 2, "Nitta Emi", "Fighto dayo!");
+        tmpChatRoom[2] = new ChatRoom(3, tmpArrMno[2], 2, "Hong Jin-ho", "Hi, everyone! Hi, everyone!");
+        tmpChatRoom[3] = new ChatRoom(4, tmpArrMno[3], 2, "Bladimir Putin", "Harasho");
+
+        MainchatLvitem[] mainchatLvitem = new MainchatLvitem[4];
+        for(int i = 0; i < 4; i++) {
+            mainchatLvitem[i] = new MainchatLvitem(tmpMember, tmpChatRoom[i]);
             dataMainChat.add(mainchatLvitem[i]);
-
-
+        }
         final MainchatAdapter adapterMainChat = new MainchatAdapter(this, R.layout.mainchat_listviewitem, dataMainChat);
         lvMainChat.setAdapter(adapterMainChat);
-
         lvMainChat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // 해당 채팅 상대와 마지막 메시지를 Toast로 표시해 본다.
-                String strTmp = adapterMainChat.getChatRoomInfo(position).getCrName() + "\n"
-                        + adapterMainChat.getChatRoomInfo(position).getLastMsg();
+                MainchatLvitem tmpChatLvItem = (MainchatLvitem)adapterMainChat.getItem(position);
+                String strTmp = tmpChatLvItem.getCrName() + "\n"
+                        + tmpChatLvItem.getLastMsg();
                 Toast.makeText(getApplicationContext(), strTmp, Toast.LENGTH_LONG).show();
 
             }
         });
-
-
-        /*
-        // 리스트의 항목을 누르면 해당 채팅방이 선택됨
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // 해당 채팅 상대와 마지막 메시지를 Toast로 표시해 본다.
-                //Toast.makeText(getApplicationContext(), "여기에 채팅 상대/마지막 메시지를 넣으시오",
-                //        Toast.LENGTH_LONG).show();
-                String strTmp = strChatPersonList[position] + "\n" + strChatList[position];
-                Toast.makeText(getApplicationContext(), strTmp,
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-        */
     }
 }

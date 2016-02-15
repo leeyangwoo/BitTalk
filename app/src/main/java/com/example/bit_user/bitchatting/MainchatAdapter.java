@@ -28,10 +28,10 @@ public class MainchatAdapter extends BaseAdapter {
     public int getCount() { return arMainChat.size(); }
 
     @Override
-    public String getItem(int position) {
+    public Object getItem(int position) {
         // 테스트 코드에서 채팅방 일련번호는 position,
         // 자기 자신의 일련번호는 1, 상대방 일련번호는 position+2로 간주
-        return arMainChat.get(position).getCrName();
+        return arMainChat.get(position);
     }
 
     @Override
@@ -54,12 +54,4 @@ public class MainchatAdapter extends BaseAdapter {
 
         return convertView;
     }
-
-    public ChatRoom getChatRoomInfo(int position) {
-        // 테스트 코드에서 채팅방 일련번호는 position,
-        // 자기 자신의 일련번호는 1, 상대방 일련번호는 position+2로 간주
-        return new ChatRoom(position, 1, position + 2,
-                arMainChat.get(position).getCrName(), arMainChat.get(position).getLastMsg());
-    }
-
 }
