@@ -15,6 +15,7 @@ public class MainchatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainchat);
+        setTitle("채팅방 목록");
 
 
         String[] strChatPersonList = new String[100];

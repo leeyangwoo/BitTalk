@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                                             //확인차 콘솔창에서 출력.
                                             System.out.println(db.getUserDetails().values());
 
-                                            Intent myIntent = new Intent(getApplicationContext(),MainsrcActivity.class);
+                                            Intent myIntent = new Intent(getApplicationContext(),MainchatActivity.class);
                                             startActivity(myIntent);
 
                                         }else{
