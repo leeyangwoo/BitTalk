@@ -1,6 +1,7 @@
 package com.example.bit_user.bitchatting;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -102,17 +103,54 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
             public void onClick(View v){
                 String str = arSrc.get(pos).name + arSrc.get(pos).mno + " 추가";
                 Toast.makeText(mainCon, str, Toast.LENGTH_SHORT).show();
+                StartTalkTask startTalkTask = new StartTalkTask();
+                startTalkTask.execute(1,arSrc.get(pos).mno);
             }
         });
         return convertView;
     }
 
-    class StartTalkTask extends AsyncTask<int, String, Void>{
-        protected Void doInBackground(int... mno){
+    class StartTalkTask extends AsyncTask<Integer, String, String>{
+        protected String doInBackground(Integer... mno){
             HttpURLConnection conn = null;
             JSONObject responseJSON;
-            try{
-                URL url = new URL("http://192.168.1.35/BitTalkServer/talk.jsp?mno")
+            String result="";
+            try{                                               //GET방식
+                URL url = new URL("http://192.168.1.35/BitTalkServer/talk.jsp?mno1="+mno[0]+"&mno2="+mno[1]);
+                Log.i("URL", url.toString());
+                conn = (HttpURLConnection)url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.connect();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while((line = br.readLine()) != null){
+                    if(sb.length()>0){
+                        sb.append("\n");
+                    }
+                    sb.append(line);
+                }
+                br.close();
+                responseJSON = new JSONObject(sb.toString());
+                result = responseJSON.get("result").toString();
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                if(conn!=null){
+                    conn.disconnect();
+                }
+            }
+            return result;
+        }
+        protected void onPostExecute(String result){
+            super.onPostExecute(result);
+            if(result.equals("success")){
+                Log.i("POST","success");
+                mainCon.startActivity(new Intent(mainCon, ChatroomActivity.class));
+            }else{
+                Log.i("POST","fail");
             }
         }
     }
@@ -123,7 +161,7 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
             JSONArray responseJSONarr;
             ArrayList<SearchResult> arResult = new ArrayList<>();
             SearchResult sr;
-            try {
+            try {                                                     //GET방식인데 POST로 바꿔야함
                 URL url = new URL("http://192.168.1.35/BitTalkServer/search.jsp?mid="+query[0]); //요청 URL을 입력
                 Log.i("URL", url.toString());
                 conn = (HttpURLConnection) url.openConnection();
