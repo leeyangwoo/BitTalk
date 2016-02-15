@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -47,11 +48,6 @@ public class MainsrcActivity extends AppCompatActivity {
             }
         });
 
-        ////////////////////////////////////예제 데이터
-        /*sr = new SearchResult("김동영");
-        arResult.add(sr);*/
-        ///////////////////////////////////////
-
         srAdapter = new SearchResultAdapter(this,R.layout.search_result, arResult);
 
         ListView list = (ListView) findViewById(R.id.mainSrc_listView);
@@ -61,10 +57,12 @@ public class MainsrcActivity extends AppCompatActivity {
 }
 
 class SearchResult{                                  // 리스트뷰에 들어갈 클래스
+    int mno;
     String name;                                     // 회원의 name만 표시
 
-    SearchResult(String name){
+    SearchResult(String name, int mno){
         this.name = name;
+        this.mno = mno;
     }
 }
 
@@ -102,11 +100,21 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
         Button btn = (Button)convertView.findViewById(R.id.search_result_btn_add);
         btn.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
-                String str = arSrc.get(pos).name + " 추가";
+                String str = arSrc.get(pos).name + arSrc.get(pos).mno + " 추가";
                 Toast.makeText(mainCon, str, Toast.LENGTH_SHORT).show();
             }
         });
         return convertView;
+    }
+
+    class StartTalkTask extends AsyncTask<int, String, Void>{
+        protected Void doInBackground(int... mno){
+            HttpURLConnection conn = null;
+            JSONObject responseJSON;
+            try{
+                URL url = new URL("http://192.168.1.35/BitTalkServer/talk.jsp?mno")
+            }
+        }
     }
 
     class SearchTask extends AsyncTask<String, String, Void>{            // 검색 AsyncTask
@@ -138,7 +146,8 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
 
                 for (int i = 0; i < responseJSONarr.length(); i++) {     //JSON array result에 추가
                     Log.i("FOR", responseJSONarr.getJSONObject(i).get("mname").toString());
-                    sr = new SearchResult(responseJSONarr.getJSONObject(i).get("mname").toString());
+                    sr = new SearchResult(responseJSONarr.getJSONObject(i).get("mname").toString(),
+                                Integer.parseInt(responseJSONarr.getJSONObject(i).get("mno").toString()));
                     arResult.add(sr);
                 }
                 arSrc.clear();
