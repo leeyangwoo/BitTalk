@@ -109,7 +109,7 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
         return convertView;
     }
 
-    class SearchTask extends AsyncTask<String, String, Void>{            // AsyncTask
+    class SearchTask extends AsyncTask<String, String, Void>{            // 검색 AsyncTask
         protected Void doInBackground(String... query){
             HttpURLConnection conn = null;
             JSONArray responseJSONarr;
