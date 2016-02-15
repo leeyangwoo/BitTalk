@@ -67,11 +67,11 @@ Parameter : <b>mid / mpasswd</b><br>
 Parameter : <b>mid / mpasswd / mname</b><br>
 <br>
 대화 시작하기 URL: <b>192.168.1.35/BitTalkServer/talk.jsp</b> (mainsrc에서 id검색 후 대화시작)<br>
-Parameter : <b>mid(대화방 개설자)</b><br>
+Parameter : <b>mid1</b>(대화방개설자)/ <b>mid2</b>(초대받은 사람)<br>
 return : {"result":"success"} / {"result":"fail"}<br>
 <br>
 문자열포함하는 아이디 검색 URL: <b>192.168.1.35/BitTalkServer/search.jsp</b> (mainsrc에서 id검색)<br>
-Parameter : <b>mid(mid 정확히 입력하지 않아도 검색가능)</b><br>
+Parameter : <b>mid</b>(mid 정확히 입력하지 않아도 검색가능)<br>
 return ex) <br>
 값이 2개일때 [{"mno":3,"mid":"dd","mpasswd":"1112","mname":"fff"},{"mno":6,"mid":"asdasd","mpasswd":"1234","mname":"asss"}]<br>
 값이 없을때 []<br>
