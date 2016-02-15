@@ -11,5 +11,6 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_confirm_password">This password is not  identical</string>
     <string name="error_field_required">This id is empty</string>
+    <string name="mainsrc_brn_src">Search</string>
 
 </resources>
