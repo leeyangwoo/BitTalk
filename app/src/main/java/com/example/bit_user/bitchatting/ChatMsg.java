@@ -15,8 +15,8 @@ public class ChatMsg {
         this.cmno = cmno;
         this.crno = crno;
         this.senderNo = senderNo;
-        this.senderName = senderName;
-        this.message = message;
+        this.senderName = new String(senderName);
+        this.message = new String(message);
         //this.sentDate = sentDate;
     }
 
@@ -24,8 +24,8 @@ public class ChatMsg {
         this.cmno = chatMsg.getCmno();
         this.crno = chatMsg.getCrno();
         this.senderNo = chatMsg.getSenderNo();
-        this.senderName = chatMsg.getSenderName();
-        this.message = chatMsg.getMessage();
+        this.senderName = new String(chatMsg.getSenderName());
+        this.message = new String(chatMsg.getMessage());
     }
 
     public int getCmno() { return cmno; }
@@ -37,7 +37,13 @@ public class ChatMsg {
     public void setCmno(int cmno) { this.cmno = cmno; }
     public void setCrno(int crno) { this.crno = crno; }
     public void setSenderNo(int senderNo) { this.senderNo = senderNo; }
-    public void setSenderName(String senderName) { this.senderName = senderName; }
-    public void setMessage(String message) { this.message = message; }
+    public void setSenderName(String senderName) {
+        this.senderName = null;
+        this.senderName = new String(senderName);
+    }
+    public void setMessage(String message) {
+        this.message = null;
+        this.message = new String(message);
+    }
     //public void setSentDate(Date sentDate) { this.sentDate = sentDate; }
 }
