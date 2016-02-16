@@ -98,6 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     sb.append(line);
                 }
+                br.close();
                 responseJSON = new JSONObject(sb.toString());
 
                 Handler h = new Handler(Looper.getMainLooper());

@@ -115,11 +115,10 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
         return convertView;
     }
 
-    class StartTalkTask extends AsyncTask<Integer, String, String>{
-        protected String doInBackground(Integer... mno){
+    class StartTalkTask extends AsyncTask<Integer, String, JSONObject>{
+        protected JSONObject doInBackground(Integer... mno){
             HttpURLConnection conn = null;
-            JSONObject responseJSON;
-            String result="";
+            JSONObject responseJSON=null;
             try{                                               //GET방식
                 URL url = new URL("http://192.168.1.35/BitTalkServer/talk.jsp?mno1="+mno[0]+"&mno2="+mno[1]);
                 Log.i("URL", url.toString());
@@ -139,7 +138,7 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
                 }
                 br.close();
                 responseJSON = new JSONObject(sb.toString());
-                result = responseJSON.get("result").toString();
+
             }catch (Exception e){
                 e.printStackTrace();
             }finally {
@@ -147,15 +146,22 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
                     conn.disconnect();
                 }
             }
-            return result;
+            return responseJSON;
         }
-        protected void onPostExecute(String result){
+        protected void onPostExecute(JSONObject result){
             super.onPostExecute(result);
-            if(result.equals("success")){
-                Log.i("POST","success");
-                mainCon.startActivity(new Intent(mainCon, ChatroomActivity.class));
-            }else{
-                Log.i("POST","fail");
+            try {
+                if (result.get("result").equals("success")) {
+                    Log.i("POST", "success");
+                    Intent i = new Intent(mainCon, ChatroomActivity.class);
+                    i.putExtra("mno", Integer.parseInt(result.get("mno").toString()));
+                    i.putExtra("crno", Integer.parseInt(result.get("crno").toString()));
+                    mainCon.startActivity(i);
+                } else {
+                    Log.i("POST", "fail");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
             }
         }
     }

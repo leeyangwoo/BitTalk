@@ -21,7 +21,7 @@ public class SplashActivity extends Activity {
                 DatabaseHandler db = new DatabaseHandler(getApplicationContext());
                 if(db.getUserDetails().size()>0) {
                     overridePendingTransition(0, android.R.anim.fade_in);
-                    startActivity(new Intent(SplashActivity.this, MainchatActivity.class));
+                    startActivity(new Intent(SplashActivity.this, MainsrcActivity.class));
                     finish();
                 }else if(db.getUserDetails().size()==0){
                     overridePendingTransition(0, android.R.anim.fade_in);

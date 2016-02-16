@@ -2,7 +2,9 @@ package com.example.bit_user.bitchatting;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -23,6 +25,10 @@ public class ChatroomActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);
         setTitle("채팅방");
+        Intent intent = getIntent();
+        int mno = intent.getIntExtra("mno", 0);
+        int crno = intent.getIntExtra("crno",0);
+        Log.i("intent",mno+" "+crno);
 
         // MainchatActivity에서 ChatRoom 객체가 넘어왔다고 가정하고 테스트
         int[] arMno = {1, 2};
