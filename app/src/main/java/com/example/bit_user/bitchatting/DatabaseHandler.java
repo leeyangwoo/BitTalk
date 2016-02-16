@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.HashMap;
-
+import java.sql.Timestamp;
 /**
  * Created by bit-user on 2016-02-11.
  */
@@ -33,6 +33,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_NUMP = "numparticipant";
     private static final String KEY_CRNAME = "crname";
 
+    // Message table name
+    private static final String TABLE_CHATMSG = "chatmsg";
+
+    // Message Table Columns names
+    private static final String CHATMSG_KEY_CMNO = "cmno";
+    private static final String CHATMSG_KEY_CRNO = "crno";
+    private static final String CHATMSG_COLUMN_SENDERNO = "senderno";
+    private static final String CHATMSG_COLUMN_MSG = "msg";
+    private static final String CHATMSG_COLUMN_SENDTIME = "sendtime";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -52,6 +61,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_NUMP + " INT,"
                 + KEY_CRNAME + " TEXT" + ")";
         db.execSQL(CREATE_CHATROOM_TABLE);
+
+        // Create Message Table
+        String CREATE_MSG_TABLE = "CREATE TABLE " + TABLE_CHATMSG + "("
+                + CHATMSG_KEY_CMNO + " INT PRIMARY KEY AUTOINCREMENT,"
+                + CHATMSG_KEY_CRNO + " INT,"
+                + CHATMSG_COLUMN_SENDERNO + " INT,"
+                + CHATMSG_COLUMN_MSG + " TEXT,"
+                + CHATMSG_COLUMN_SENDTIME + " DATETIME)";
+        db.execSQL(CREATE_MSG_TABLE);
     }
 
     // Upgrading database
@@ -133,5 +151,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    // Add a record into Message table
+    public void addMessage(int crno, int senderid, String message) {
 
+        // 매개변수가 올바르지 않을 경우에 대한 예외처리
+        try {
+            SQLiteDatabase dbInsert = this.getWritableDatabase();
+            String INSERT_INTO_CHATMSG_TABLE = "INSERT INTO " + TABLE_CHATMSG
+                    + "(crno,senderid,message,timestamp) VALUES (" + Integer.toString(crno)
+                    + "," + Integer.toString(senderid) + "," + message
+                    + new Timestamp(System.currentTimeMillis()).toString() + ")";
+            dbInsert.execSQL(INSERT_INTO_CHATMSG_TABLE);
+        } catch(Exception e) {}
+    }
 }
