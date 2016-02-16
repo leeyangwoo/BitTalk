@@ -22,12 +22,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Login table name
     private static final String TABLE_LOGIN = "member";
+    private static final String TABLE_CHATROOM = "mychatroom";
 
     // Login Table Columns names
-    private static final String KEY_NO = "mno";
-    private static final String KEY_ID = "mid";
-    private static final String KEY_PASSWORD = "mpasswd";
-    private static final String KEY_NAME = "mname";
+    private static final String KEY_MNO = "mno";
+    private static final String KEY_MID = "mid";
+    private static final String KEY_MPASSWORD = "mpasswd";
+    private static final String KEY_MNAME = "mname";
+    private static final String KEY_CRNO = "crno";
+    private static final String KEY_NUMP = "numparticipant";
+    private static final String KEY_CRNAME = "crname";
 
 
     public DatabaseHandler(Context context) {
@@ -38,18 +42,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
-                + KEY_NO + " TEXT,"
-                + KEY_ID + " TEXT,"
-                + KEY_PASSWORD + " TEXT,"
-                + KEY_NAME + " TEXT" + ")";
+                + KEY_MNO + " INT PRIMARY KEY,"
+                + KEY_MID + " TEXT,"
+                + KEY_MPASSWORD + " TEXT,"
+                + KEY_MNAME + " TEXT" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
+        String CREATE_CHATROOM_TABLE = "CREATE TABLE " + TABLE_CHATROOM + "("
+                + KEY_CRNO + " INT PRIMARY KEY,"
+                + KEY_NUMP + " INT,"
+                + KEY_CRNAME + " TEXT" + ")";
+        db.execSQL(CREATE_CHATROOM_TABLE);
     }
 
     // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOGIN);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOGIN );
 
         // Create tables again
         onCreate(db);
@@ -62,10 +71,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NO, mNo); // FirstName
-        values.put(KEY_ID, mId); // LastName
-        values.put(KEY_PASSWORD, mPassword); // Email
-        values.put(KEY_NAME, mName); // UserName
+        values.put(KEY_MNO, mNo); // FirstName
+        values.put(KEY_MID, mId); // LastName
+        values.put(KEY_MPASSWORD, mPassword); // Email
+        values.put(KEY_MNAME, mName); // UserName
 
         // Inserting Row
         db.insert(TABLE_LOGIN, null, values);
@@ -80,7 +89,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public HashMap getUserDetails(){
         HashMap user = new HashMap();
         String selectQuery = "SELECT  * FROM " + TABLE_LOGIN;
-
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         // Move to first row
