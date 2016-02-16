@@ -12,7 +12,7 @@ public class ChatroomLvitem {
     private ChatMsg chatMsgInstance;
 
     // Constructor
-    public ChatroomLvitem(ChatRoom room, ChatMsg chatMsgInstance) {
+    /*public ChatroomLvitem(ChatRoom room, ChatMsg chatMsgInstance) {
         this.room = new ChatRoom(room.getCrno(), room.getArMno(), room.getParticipantNum(), room.getCrName(), room.getLastMsg());
         try {
             if(this.room.getCrno() != chatMsgInstance.getCrno())
@@ -30,7 +30,7 @@ public class ChatroomLvitem {
 
         }
 
-    }
+    }*/
 
     // Getter/Setter
     //   1. Getter

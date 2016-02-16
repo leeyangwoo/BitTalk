@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by bit-user on 2016-02-11.
@@ -67,7 +69,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      * */
-    public void addUser(String mNo, String mId, String mPassword, String mName) {
+    public void addUser(int mNo, String mId, String mPassword, String mName) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -79,6 +81,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Inserting Row
         db.insert(TABLE_LOGIN, null, values);
         db.close(); // Closing database connection
+    }
+
+    public void addChatroom(int crno, int nump, String crName){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_CRNO, crno);
+        values.put(KEY_NUMP, nump);
+        values.put(KEY_CRNAME, crName);
+
+        db.insert(TABLE_CHATROOM, null, values);
+        db.close();
     }
 
 
@@ -103,6 +117,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         // return user
         return user;
+    }
+
+    public List<ChatRoom> getChatroomList(){
+        List<ChatRoom> roomList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_CHATROOM;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        //cursor.moveToFirst();
+        while(cursor.moveToNext()){
+            ChatRoom room = new ChatRoom();
+            room.setCrno(cursor.getInt(0));
+            room.setNump(cursor.getInt(1));
+            room.setCrName(cursor.getString(2));
+            roomList.add(room);
+        }
+        cursor.close();
+        db.close();
+        return roomList;
     }
     //    --------나중에 쓸일이 있을지도 모르니 나머지 기능들은 주석처리함---------------------------------
 //

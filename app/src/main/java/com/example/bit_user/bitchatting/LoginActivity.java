@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                                 //유저를 한명 추가해서 세션처럼 사용함.
-                                db.addUser((responseJSON.getJSONObject("member").get("mno")).toString(),
+                                db.addUser(Integer.parseInt(responseJSON.getJSONObject("member").get("mno").toString()),
                                         (responseJSON.getJSONObject("member").get("mid")).toString(),
                                         (responseJSON.getJSONObject("member").get("mpasswd")).toString(),
                                         (responseJSON.getJSONObject("member").get("mname")).toString());

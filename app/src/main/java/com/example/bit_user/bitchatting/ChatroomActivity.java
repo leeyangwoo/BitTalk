@@ -32,7 +32,8 @@ public class ChatroomActivity extends Activity {
 
         // MainchatActivity에서 ChatRoom 객체가 넘어왔다고 가정하고 테스트
         int[] arMno = {1, 2};
-        final ChatRoom room = new ChatRoom(1, arMno, 2, "Barack Obama", "");
+        //final ChatRoom room = new ChatRoom(1, arMno, 2, "Barack Obama", "");
+        final ChatRoom room = new ChatRoom(1, 2, "dd");
 
         //
         final ListView lvChatRoom = (ListView)findViewById(R.id.chatroom_lvChatRoom);
@@ -46,7 +47,8 @@ public class ChatroomActivity extends Activity {
         ArrayList<MainchatLvitem> dataRoomTitle = new ArrayList<>();
         ChatMember member = new ChatMember(2, "president@whitehouse.gov", "Barack Obama");
 
-        MainchatLvitem lvRoomTitle = new MainchatLvitem(member, room);
+        //MainchatLvitem lvRoomTitle = new MainchatLvitem(member, room);
+        MainchatLvitem lvRoomTitle = new MainchatLvitem(room, "dd","dd");
         dataRoomTitle.add(lvRoomTitle);
         final MainchatAdapter adapterRoomTitle = new MainchatAdapter(this, R.layout.mainchat_listviewitem, dataRoomTitle);
         lvChatRoom.setAdapter(adapterRoomTitle);
@@ -56,12 +58,12 @@ public class ChatroomActivity extends Activity {
         ChatMsg message2 = new ChatMsg(dataChatroom.size() + 2, 1, 2, "Barack Obama", "Good afternoon");
         ChatMsg message3 = new ChatMsg(dataChatroom.size() + 3, 1, 2, "Barack Obama", "Good evening");
 
-        ChatroomLvitem lvItem1 = new ChatroomLvitem(room, message1);
+        /*ChatroomLvitem lvItem1 = new ChatroomLvitem(room, message1);
         dataChatroom.add(lvItem1);
         ChatroomLvitem lvItem2 = new ChatroomLvitem(room, message2);
         dataChatroom.add(lvItem2);
         ChatroomLvitem lvItem3 = new ChatroomLvitem(room, message3);
-        dataChatroom.add(lvItem3);
+        dataChatroom.add(lvItem3);*/
         final ChatmsgAdapter adapterChatMsg = new ChatmsgAdapter(this, R.layout.chatroom_listviewitem, dataChatroom);
         lvChatMsg.setAdapter(adapterChatMsg);
 
@@ -71,8 +73,8 @@ public class ChatroomActivity extends Activity {
             public void onClick(View v) {
                 ChatMsg tmpMessage = new ChatMsg(dataChatroom.size() + 1, 1, 1, "나", edtItem.getText().toString());
 
-                ChatroomLvitem tmpLvItem = new ChatroomLvitem(room, tmpMessage);
-                dataChatroom.add(tmpLvItem);
+                //ChatroomLvitem tmpLvItem = new ChatroomLvitem(room, tmpMessage);
+                //dataChatroom.add(tmpLvItem);
 
                 adapterChatMsg.notifyDataSetChanged();
                 edtItem.setText("");

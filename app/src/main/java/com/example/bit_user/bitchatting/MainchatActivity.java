@@ -9,13 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainchatActivity extends AppCompatActivity {
     ArrayList<MainchatLvitem> arChatroom;
@@ -38,7 +33,7 @@ public class MainchatActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MainchatLvitem tmpChatLvItem = (MainchatLvitem) crAdapter.getItem(position);
-                String strTmp = tmpChatLvItem.getCrName() + "\n"
+                String strTmp = tmpChatLvItem.getChatroomInstance().getCrName() + "\n"
                         + tmpChatLvItem.getLastMsg();
                 Toast.makeText(getApplicationContext(), strTmp, Toast.LENGTH_LONG).show();
 
@@ -80,6 +75,30 @@ public class MainchatActivity extends AppCompatActivity {
 
     class GetMychatTask extends AsyncTask<Integer, String, Void>{
         protected Void doInBackground(Integer... mno){
+            DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+            List<ChatRoom> roomList = db.getChatroomList();
+            MainchatLvitem cr;
+
+            for(int i=0;i<roomList.size();i++){
+                Log.i("for",roomList.get(i).getCrName());
+                cr = new MainchatLvitem(roomList.get(i),"dd","dd");
+                arChatroom.add(cr);
+            }
+
+
+
+
+            return null;
+        }
+        protected void onPostExecute(Void result){
+            super.onPostExecute(result);
+            Log.i("post", "post");
+            crAdapter.notifyDataSetChanged();
+        }
+    }
+
+    /*class GetMychatTask extends AsyncTask<Integer, String, Void>{
+        protected Void doInBackground(Integer... mno){
             JSONArray responseJSONarr;
             HttpURLConnection conn = null;
             try{
@@ -119,5 +138,5 @@ public class MainchatActivity extends AppCompatActivity {
             super.onPostExecute(result);
             Log.i("post","post");
         }
-    }
+    }*/
 }

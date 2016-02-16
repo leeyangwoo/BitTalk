@@ -15,23 +15,23 @@ import java.util.ArrayList;
 public class MainchatAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
-    private ArrayList<MainchatLvitem> arMainChat;
+    private ArrayList<MainchatLvitem> arChatroom;
     private int layout;
 
     public MainchatAdapter(Context mainCon, int layout, ArrayList<MainchatLvitem> arMainChat) {
         this.inflater = (LayoutInflater)mainCon.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.arMainChat = arMainChat;
+        this.arChatroom = arMainChat;
         this.layout = layout;
     }
 
     @Override
-    public int getCount() { return arMainChat.size(); }
+    public int getCount() { return arChatroom.size(); }
 
     @Override
     public Object getItem(int position) {
         // 테스트 코드에서 채팅방 일련번호는 position,
         // 자기 자신의 일련번호는 1, 상대방 일련번호는 position+2로 간주
-        return arMainChat.get(position);
+        return arChatroom.get(position);
     }
 
     @Override
@@ -42,15 +42,22 @@ public class MainchatAdapter extends BaseAdapter {
         if(convertView == null) {
             convertView = inflater.inflate(layout, parent, false);
         }
+        TextView crName = (TextView)convertView.findViewById(R.id.mainChat_tv_crname);
+        TextView lastMsg = (TextView)convertView.findViewById(R.id.mainChat_tv_lastMsg);
+        TextView nump = (TextView)convertView.findViewById(R.id.mainChat_tv_nump);
+        TextView timestamp = (TextView)convertView.findViewById(R.id.mainChat_tv_time);
+        crName.setText(arChatroom.get(position).getChatroomInstance().getCrName());
+        lastMsg.setText(arChatroom.get(position).getLastMsg());
+        nump.setText(arChatroom.get(position).getChatroomInstance().getNump()+"명");
+        timestamp.setText(arChatroom.get(position).getTimestamp());
+        //MainchatLvitem lvItem = arMainChat.get(position);
 
-        MainchatLvitem lvItem = arMainChat.get(position);
-
-        TextView txtCrName = (TextView)convertView.findViewById(R.id.txtCrName);
+        /*TextView txtCrName = (TextView)convertView.findViewById(R.id.txtCrName);
         TextView txtLastMsg = (TextView)convertView.findViewById(R.id.txtLastMsg);
 
         // 각 텍스트뷰에 아이템의 텍스트를 넣는다.
         txtCrName.setText(arMainChat.get(position).getCrName());
-        txtLastMsg.setText(arMainChat.get(position).getLastMsg());
+        txtLastMsg.setText(arMainChat.get(position).getLastMsg());*/
 
         return convertView;
     }
