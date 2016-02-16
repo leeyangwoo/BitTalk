@@ -65,8 +65,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Create Message Table
         String CREATE_MSG_TABLE = "CREATE TABLE " + TABLE_CHATMSG + "("
                 + CHATMSG_KEY_CMNO + " INT PRIMARY KEY AUTOINCREMENT,"
-                + CHATMSG_KEY_CRNO + " INT,"
-                + CHATMSG_COLUMN_SENDERNO + " INT,"
+                + CHATMSG_KEY_CRNO + " INT FOREIGN KEY REFERENCES chatroom,"
+                + CHATMSG_COLUMN_SENDERNO + " INT FOREIGN KEY REFERENCES member(mno),"
                 + CHATMSG_COLUMN_MSG + " TEXT,"
                 + CHATMSG_COLUMN_SENDTIME + " DATETIME)";
         db.execSQL(CREATE_MSG_TABLE);
@@ -164,4 +164,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             dbInsert.execSQL(INSERT_INTO_CHATMSG_TABLE);
         } catch(Exception e) {}
     }
+
+    // Remove a record into Message table
+    public void removeMessage(int cmno) {
+        // 매개변수가 올바르지 않을 경웨 대한 예외처리
+        try {
+            SQLiteDatabase dbDelete = this.getWritableDatabase();
+            String DELETE_FROM_CHATMSG_TABLE = "DELETE FROM " + TABLE_CHATMSG
+                    + " WHERE id=cmno";
+            dbDelete.execSQL(DELETE_FROM_CHATMSG_TABLE);
+        } catch(Exception e) {}
+    }
+
+    // Get the Message table
+    public HashMap getMessageDetails() {
+        HashMap msgInfo = new HashMap();
+        String selectQuery = "SELECT * FROM " + TABLE_CHATMSG;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // Move to first row
+        cursor.moveToFirst();
+        if(cursor.getCount() > 0) {
+            msgInfo.put("cmno", cursor.getString(0));
+            msgInfo.put("crno", cursor.getString(1));
+            msgInfo.put("senderno", cursor.getString(2));
+            msgInfo.put("msg", cursor.getString(3));
+            msgInfo.put("sendtime", cursor.getString(4));
+        }
+        cursor.close();
+        db.close();
+        return msgInfo;
+    }
+    
 }
