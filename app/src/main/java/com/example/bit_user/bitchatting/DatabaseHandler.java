@@ -94,7 +94,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Move to first row
         cursor.moveToFirst();
         if(cursor.getCount() > 0){
-            user.put("mNo", cursor.getString(0));
+            user.put("mNo", cursor.getInt(0));
             user.put("mId", cursor.getString(1));
             user.put("mPassword", cursor.getString(2));
             user.put("mName", cursor.getString(3));

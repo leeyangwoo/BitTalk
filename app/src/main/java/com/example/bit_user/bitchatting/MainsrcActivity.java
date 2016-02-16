@@ -40,6 +40,8 @@ public class MainsrcActivity extends AppCompatActivity {
         arResult = new ArrayList<>();
         edtvSrc = (EditText) findViewById(R.id.mainSrc_edt_search);
         btnSrc = (Button) findViewById(R.id.mainSrc_btn_search);
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+        int myMno = Integer.parseInt(db.getUserDetails().get("mNo").toString());
 
         btnSrc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +51,7 @@ public class MainsrcActivity extends AppCompatActivity {
             }
         });
 
-        srAdapter = new SearchResultAdapter(this,R.layout.search_result, arResult);
+        srAdapter = new SearchResultAdapter(this,R.layout.search_result, arResult, myMno);
 
         ListView list = (ListView) findViewById(R.id.mainSrc_listView);
         list.setAdapter(srAdapter);
@@ -72,12 +74,14 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
     LayoutInflater inflater;
     ArrayList<SearchResult> arSrc;
     int layout;
+    int myMno;
 
-    public SearchResultAdapter(Context context, int aLayout, ArrayList<SearchResult> aarSrc){
+    public SearchResultAdapter(Context context, int aLayout, ArrayList<SearchResult> aarSrc, int amyMno){
         mainCon = context;
         arSrc = aarSrc;
         layout = aLayout;
         inflater = LayoutInflater.from(mainCon);
+        myMno = amyMno;
     }
 
     public int getCount(){
@@ -103,8 +107,9 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
             public void onClick(View v){
                 String str = arSrc.get(pos).name + arSrc.get(pos).mno + " 추가";
                 Toast.makeText(mainCon, str, Toast.LENGTH_SHORT).show();
+
                 StartTalkTask startTalkTask = new StartTalkTask();
-                startTalkTask.execute(1,arSrc.get(pos).mno);
+                startTalkTask.execute(myMno,arSrc.get(pos).mno);
             }
         });
         return convertView;
