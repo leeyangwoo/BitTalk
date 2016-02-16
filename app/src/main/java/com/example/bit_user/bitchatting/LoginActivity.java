@@ -127,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 Intent myIntent = new Intent(getApplicationContext(),MainchatActivity.class);
                                 startActivity(myIntent);
+                                finish();
 
                             }else{
                                 Toast.makeText(getApplicationContext(), "Incorrect Id or Password",

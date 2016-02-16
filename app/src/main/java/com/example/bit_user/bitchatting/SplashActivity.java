@@ -9,7 +9,7 @@ import android.os.Handler;
  * Created by bit-user on 2016-02-16.
  */
 public class SplashActivity extends Activity {
-    int SPLASH_TIME = 1500;
+    int SPLASH_TIME = 2000;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -18,9 +18,16 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                overridePendingTransition(0, android.R.anim.fade_in);
-                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                finish();
+                DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+                if(db.getUserDetails().size()>0) {
+                    overridePendingTransition(0, android.R.anim.fade_in);
+                    startActivity(new Intent(SplashActivity.this, MainchatActivity.class));
+                    finish();
+                }else if(db.getUserDetails().size()==0){
+                    overridePendingTransition(0, android.R.anim.fade_in);
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                    finish();
+                }
             }
         },SPLASH_TIME);
     }

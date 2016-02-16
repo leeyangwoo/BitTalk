@@ -54,10 +54,7 @@ public class JoinActivity extends AppCompatActivity {
                 if (actionId == R.id.join_edtText3 || actionId == EditorInfo.IME_NULL) {
                     attemptJoin();
                     return true;
-
                 }
-
-
                 return false;
             }
         });
@@ -126,6 +123,7 @@ public class JoinActivity extends AppCompatActivity {
 
                                                 Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
                                                 startActivity(myIntent);
+                                                finish();
 
                                             } else {
                                                 Toast.makeText(getApplicationContext(), "ID is already exist", Toast.LENGTH_SHORT).show();
