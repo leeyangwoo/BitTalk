@@ -6,8 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.HashMap;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * Created by bit-user on 2016-02-11.
  */
@@ -99,6 +102,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
+    public void addChatroom(int crno, int nump, String crName){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_CRNO, crno);
+        values.put(KEY_NUMP, nump);
+        values.put(KEY_CRNAME, crName);
+
+        db.insert(TABLE_CHATROOM, null, values);
+        db.close();
+    }
 
 
     /**
@@ -148,32 +162,65 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         // Delete All Rows
         db.delete(TABLE_LOGIN, null, null);
+
         db.close();
+    }
+
+    public List<ChatRoom> getChatroomList(){
+        List<ChatRoom> roomList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_CHATROOM;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        //cursor.moveToFirst();
+        while(cursor.moveToNext()){
+            ChatRoom room = new ChatRoom();
+            room.setCrno(cursor.getInt(0));
+            room.setNump(cursor.getInt(1));
+            room.setCrName(cursor.getString(2));
+            roomList.add(room);
+        }
+        cursor.close();
+        db.close();
+        return roomList;
     }
 
     // Add a record into Message table
     public void addMessage(int crno, int senderid, String message) {
 
         // 매개변수가 올바르지 않을 경우에 대한 예외처리
-        try {
+        /*try {
             SQLiteDatabase dbInsert = this.getWritableDatabase();
             String INSERT_INTO_CHATMSG_TABLE = "INSERT INTO " + TABLE_CHATMSG
                     + "(crno,senderid,message,timestamp) VALUES (" + Integer.toString(crno)
                     + "," + Integer.toString(senderid) + "," + message
                     + new Timestamp(System.currentTimeMillis()).toString() + ")";
             dbInsert.execSQL(INSERT_INTO_CHATMSG_TABLE);
-        } catch(Exception e) {}
+        } catch(Exception e) {}*/
+
+        // 예외처리 안 된 버전
+        SQLiteDatabase dbInsert = this.getWritableDatabase();
+        String INSERT_INTO_CHATMSG_TABLE = "INSERT INTO " + TABLE_CHATMSG
+                + "(crno,senderid,message,timestamp) VALUES (" + Integer.toString(crno)
+                + "," + Integer.toString(senderid) + "," + message
+                + new Timestamp(System.currentTimeMillis()).toString() + ")";
+        dbInsert.execSQL(INSERT_INTO_CHATMSG_TABLE);
     }
 
     // Remove a record into Message table
     public void removeMessage(int cmno) {
         // 매개변수가 올바르지 않을 경웨 대한 예외처리
-        try {
+        /*try {
             SQLiteDatabase dbDelete = this.getWritableDatabase();
             String DELETE_FROM_CHATMSG_TABLE = "DELETE FROM " + TABLE_CHATMSG
                     + " WHERE id=cmno";
             dbDelete.execSQL(DELETE_FROM_CHATMSG_TABLE);
-        } catch(Exception e) {}
+        } catch(Exception e) {}*/
+
+        // 예외처리 안 된 버전
+        SQLiteDatabase dbDelete = this.getWritableDatabase();
+        String DELETE_FROM_CHATMSG_TABLE = "DELETE FROM " + TABLE_CHATMSG
+                + " WHERE id=cmno";
+        dbDelete.execSQL(DELETE_FROM_CHATMSG_TABLE);
     }
 
     // Get the Message table
@@ -195,5 +242,5 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return msgInfo;
     }
-    
+
 }
