@@ -45,8 +45,8 @@ public class ChatmsgAdapter extends BaseAdapter {
         // 리스트뷰 안에 넣을 아이템 변수 파일을 선언하고 초기화
         TextView txtMember = (TextView)convertView.findViewById(R.id.chatroomLv_txtMember);
         TextView txtMsg = (TextView)convertView.findViewById(R.id.chatroomLv_txtMsg);
-        txtMember.setText(arChatMsg.get(position).getTxtMember());
-        txtMsg.setText(arChatMsg.get(position).getTxtMsg());
+        txtMember.setText(arChatMsg.get(position).getSenderName());
+        txtMsg.setText(arChatMsg.get(position).getChatMsgInstance().getMessage());
 
         return convertView;
     }

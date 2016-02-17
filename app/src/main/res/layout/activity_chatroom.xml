@@ -2,34 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/chatroom_txtChatRoom"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:text="채팅방"/>
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@id/chatroom_txtChatRoom"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:id="@+id/chatroom_lvChatRoom"
-        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/chatroom_lvChatRoom"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:id="@+id/chatroom_txtChatMsg"
-        android:text="채팅 메시지"/>
+        android:text="채팅 메시지"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/chatroom_lvChatMsg"
+        android:layout_alignStart="@+id/chatroom_lvChatMsg" />
 
     <ListView
         android:layout_width="match_parent"
@@ -39,7 +20,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:transcriptMode="alwaysScroll"
-        android:id="@+id/chatroom_lvChatMsg" />
+        android:id="@+id/chatroom_lvChatMsg"
+        android:layout_above="@+id/chatroom_edtvMsg" />
 
 
     <EditText
@@ -51,17 +33,18 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
         android:background="#cccccc"
         android:backgroundTintMode="add"
         android:width="250dp"
-        android:layout_alignTop="@+id/chatroom_btnSubmit" />
+        android:layout_alignTop="@+id/chatroom_btnSubmit"
+        android:layout_toLeftOf="@+id/chatroom_btnSubmit"
+        android:layout_toStartOf="@+id/chatroom_btnSubmit" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="@string/chatroom_btn"
         android:id="@+id/chatroom_btnSubmit"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

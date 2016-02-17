@@ -3,17 +3,17 @@ package com.example.bit_user.bitchatting;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.View;
-
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by bit-user on 2016-02-05.
@@ -22,25 +22,52 @@ public class ChatroomActivity extends Activity {
 
     //
     InputMethodManager imm;     // 키보드 화면 제어를 위한 변수
-    ArrayList<MainchatLvitem> dataRoomTitle;
-    ArrayList<ChatroomLvitem> dataChatroom;
-    MainchatAdapter adapterRoomTitle;
-    ChatmsgAdapter adapterChatMsg;
-
+    //ArrayList<MainchatLvitem> dataRoomTitle;
+    //ArrayList<ChatroomLvitem> dataChatroom;
+    ArrayList<ChatroomLvitem> arMsg;
+    //MainchatAdapter adapterRoomTitle;
+    //ChatmsgAdapter adapterChatMsg;
+    ChatmsgAdapter msgAdapter;
+    ListView lvChatMsg;
+    EditText edtvMsg;
+    Button btnSend;
+    DatabaseHandler db;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);
         setTitle("채팅방");
         Intent intent = getIntent();
-        int mno = intent.getIntExtra("mno", 0);
-        int crno = intent.getIntExtra("crno",0);
+        final int mno = intent.getIntExtra("mno", 0);
+        final int crno = intent.getIntExtra("crno",0);
         Log.i("intent",mno+" "+crno);
+        ////////////////
+        arMsg = new ArrayList<>();
+        db = new DatabaseHandler(getApplicationContext());
+        msgAdapter = new ChatmsgAdapter(this, R.layout.chatroom_listviewitem, arMsg);
+        lvChatMsg = (ListView)findViewById(R.id.chatroom_lvChatMsg);
+        edtvMsg = (EditText)findViewById(R.id.chatroom_edtvMsg);
+        btnSend = (Button)findViewById(R.id.chatroom_btnSubmit);
+        imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        lvChatMsg.setAdapter(msgAdapter);
+
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.addMessage(crno, Integer.parseInt(db.getUserDetails().get("mNo").toString()),
+                        edtvMsg.getText().toString());
+                edtvMsg.setText("");
+            }
+        });
+
+        GetMsgTask getMsgTask = new GetMsgTask();
+        getMsgTask.execute(crno);
 
         // New code ================================================================================
 
         // 1. 변수 선언 및 초기화
-        final ListView lvChatRoom = (ListView)findViewById(R.id.chatroom_lvChatRoom);
+        /*final ListView lvChatRoom = (ListView)findViewById(R.id.chatroom_lvChatRoom);
         final ListView lvChatMsg = (ListView)findViewById(R.id.chatroom_lvChatMsg);
         final Button btnSendMsg = (Button)findViewById(R.id.chatroom_btnSubmit);
         final EditText edtItem = (EditText)findViewById(R.id.chatroom_edtvMsg);
@@ -48,16 +75,16 @@ public class ChatroomActivity extends Activity {
         dataRoomTitle = new ArrayList<>();
         dataChatroom = new ArrayList<>();
         adapterRoomTitle = new MainchatAdapter(this, R.layout.mainchat_listviewitem, dataRoomTitle);
-        adapterChatMsg = new ChatmsgAdapter(this, R.layout.chatroom_listviewitem, dataChatroom);
+        adapterChatMsg = new ChatmsgAdapter(this, R.layout.chatroom_listviewitem, dataChatroom);*/
 
         // 2. 방 번호를 얻어온다.
         // 3. 얻어 온 방 번호에 해당하는 방 정보를 DB에서 가져온다.
-        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-        int myCrno = db.getChatroomList().get(0).getCrno();  // NumberFormatException
+        //DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+        //int myCrno = db.getChatroomList().get(0).getCrno();  // NumberFormatException
 
         // 4. 방 정보에 해당하는 메시지들을 모두 불러온다.
-        lvChatRoom.setAdapter(adapterRoomTitle);
-        lvChatMsg.setAdapter(adapterChatMsg);
+        /*lvChatRoom.setAdapter(adapterRoomTitle);
+        lvChatMsg.setAdapter(adapterChatMsg);*/
 
         // 5. 클릭리스너
 
@@ -101,11 +128,11 @@ public class ChatroomActivity extends Activity {
         dataChatroom.add(lvItem2);
         ChatroomLvitem lvItem3 = new ChatroomLvitem(room, message3);
         dataChatroom.add(lvItem3);*/
-        final ChatmsgAdapter adapterChatMsg = new ChatmsgAdapter(this, R.layout.chatroom_listviewitem, dataChatroom);
-        lvChatMsg.setAdapter(adapterChatMsg);
+        /*final ChatmsgAdapter adapterChatMsg = new ChatmsgAdapter(this, R.layout.chatroom_listviewitem, dataChatroom);
+        lvChatMsg.setAdapter(adapterChatMsg);*/
 
         // 버튼을 누르면 에딧텍스트에 입력된 문자열을 리스트뷰에 올린다.
-        btnSendMsg.setOnClickListener(new View.OnClickListener() {
+        /*btnSendMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ChatMsg tmpMessage = new ChatMsg(dataChatroom.size() + 1, 1, 1, "나", edtItem.getText().toString());
@@ -117,10 +144,33 @@ public class ChatroomActivity extends Activity {
                 edtItem.setText("");
                 imm.hideSoftInputFromWindow(edtItem.getWindowToken(), 0);
             }
-        });
+        });*/
 
 
 
+    }
+    class GetMsgTask extends AsyncTask<Integer, String, Void>{
+        @Override
+        protected Void doInBackground(Integer... crno) {
+            DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+            List<ChatMsg> msgList = db.getMessageList(crno[0]);
+            ChatroomLvitem msg;
+            Log.i("doIn", crno[0]+" "+msgList.toString());
+
+            for(int i=0; i<msgList.size(); i++){
+                msg = new ChatroomLvitem(msgList.get(i));
+                msg.setSenderName(db.getUserDetails().get("mName").toString());
+                //Log.i("for", msgList.get(i).getSenderName());
+                arMsg.add(msg);
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(Void result){
+            super.onPostExecute(result);
+            msgAdapter.notifyDataSetChanged();
+        }
     }
 }
 

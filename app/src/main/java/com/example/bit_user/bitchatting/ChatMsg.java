@@ -9,15 +9,17 @@ public class ChatMsg {
     private int senderNo;   // 작성자 일련번호
     private String senderName;  // 작성자명
     private String message;     // 작성 메시지
+    private String sendTime;
     //private Date sentDate;      // 작성일시
 
-    public ChatMsg(int cmno, int crno, int senderNo, String senderName, String message/*, Date sentDate*/) {
+    public ChatMsg(){}
+    public ChatMsg(int cmno, int crno, int senderNo, String message, String sendTime, String senderName) {
         this.cmno = cmno;
         this.crno = crno;
         this.senderNo = senderNo;
         this.senderName = new String(senderName);
         this.message = new String(message);
-        //this.sentDate = sentDate;
+        this.sendTime = sendTime;
     }
 
     public ChatMsg(ChatMsg chatMsg) {
@@ -33,7 +35,7 @@ public class ChatMsg {
     public int getSenderNo() { return senderNo; }
     public String getSenderName() { return senderName; }
     public String getMessage() { return message; }
-    //public Date getSentDate() { return sentDate; }
+    public String getSendTime() { return sendTime; }
     public void setCmno(int cmno) { this.cmno = cmno; }
     public void setCrno(int crno) { this.crno = crno; }
     public void setSenderNo(int senderNo) { this.senderNo = senderNo; }
@@ -41,9 +43,10 @@ public class ChatMsg {
         this.senderName = null;
         this.senderName = new String(senderName);
     }
+    public void setSendTime(String sendTime){this.sendTime = sendTime;}
     public void setMessage(String message) {
         this.message = null;
         this.message = new String(message);
     }
-    //public void setSentDate(Date sentDate) { this.sentDate = sentDate; }
+
 }
