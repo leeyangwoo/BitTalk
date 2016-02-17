@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +37,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_NUMP = "numparticipant";
     private static final String KEY_CRNAME = "crname";
 
+    // Message table name
+    private static final String TABLE_CHATMSG = "chatmsg";
+
+    // Message Table Columns names
+    private static final String CHATMSG_KEY_CMNO = "cmno";
+    private static final String CHATMSG_KEY_CRNO = "crno";
+    private static final String CHATMSG_COLUMN_SENDERNO = "senderno";
+    private static final String CHATMSG_COLUMN_MSG = "msg";
+    private static final String CHATMSG_COLUMN_SENDTIME = "sendtime";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -54,6 +65,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_NUMP + " INT,"
                 + KEY_CRNAME + " TEXT" + ")";
         db.execSQL(CREATE_CHATROOM_TABLE);
+
+        // Create Message Table
+        String CREATE_MSG_TABLE = "CREATE TABLE " + TABLE_CHATMSG + "("
+                + CHATMSG_KEY_CMNO + " INT PRIMARY KEY AUTOINCREMENT,"
+                + CHATMSG_KEY_CRNO + " INT FOREIGN KEY REFERENCES chatroom,"
+                + CHATMSG_COLUMN_SENDERNO + " INT FOREIGN KEY REFERENCES member(mno),"
+                + CHATMSG_COLUMN_MSG + " TEXT,"
+                + CHATMSG_COLUMN_SENDTIME + " DATETIME)";
+        db.execSQL(CREATE_MSG_TABLE);
     }
 
     // Upgrading database
@@ -94,8 +114,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_CHATROOM, null, values);
         db.close();
     }
-
-
 
     /**
      * Getting user data from database
@@ -162,8 +180,68 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         // Delete All Rows
         db.delete(TABLE_LOGIN, null, null);
+
         db.close();
     }
 
+
+    // Add a record into Message table
+    public void addMessage(int crno, int senderid, String message) {
+
+        // 매개변수가 올바르지 않을 경우에 대한 예외처리
+        /*try {
+            SQLiteDatabase dbInsert = this.getWritableDatabase();
+            String INSERT_INTO_CHATMSG_TABLE = "INSERT INTO " + TABLE_CHATMSG
+                    + "(crno,senderid,message,timestamp) VALUES (" + Integer.toString(crno)
+                    + "," + Integer.toString(senderid) + "," + message
+                    + new Timestamp(System.currentTimeMillis()).toString() + ")";
+            dbInsert.execSQL(INSERT_INTO_CHATMSG_TABLE);
+        } catch(Exception e) {}*/
+
+        // 예외처리 안 된 버전
+        SQLiteDatabase dbInsert = this.getWritableDatabase();
+        String INSERT_INTO_CHATMSG_TABLE = "INSERT INTO " + TABLE_CHATMSG
+                + "(crno,senderid,message,timestamp) VALUES (" + Integer.toString(crno)
+                + "," + Integer.toString(senderid) + "," + message
+                + new Timestamp(System.currentTimeMillis()).toString() + ")";
+        dbInsert.execSQL(INSERT_INTO_CHATMSG_TABLE);
+    }
+
+    // Remove a record into Message table
+    public void removeMessage(int cmno) {
+        // 매개변수가 올바르지 않을 경웨 대한 예외처리
+        /*try {
+            SQLiteDatabase dbDelete = this.getWritableDatabase();
+            String DELETE_FROM_CHATMSG_TABLE = "DELETE FROM " + TABLE_CHATMSG
+                    + " WHERE id=cmno";
+            dbDelete.execSQL(DELETE_FROM_CHATMSG_TABLE);
+        } catch(Exception e) {}*/
+
+        // 예외처리 안 된 버전
+        SQLiteDatabase dbDelete = this.getWritableDatabase();
+        String DELETE_FROM_CHATMSG_TABLE = "DELETE FROM " + TABLE_CHATMSG
+                + " WHERE id=cmno";
+        dbDelete.execSQL(DELETE_FROM_CHATMSG_TABLE);
+    }
+
+    // Get the Message table
+    public HashMap getMessageDetails() {
+        HashMap msgInfo = new HashMap();
+        String selectQuery = "SELECT * FROM " + TABLE_CHATMSG;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // Move to first row
+        cursor.moveToFirst();
+        if(cursor.getCount() > 0) {
+            msgInfo.put("cmno", cursor.getString(0));
+            msgInfo.put("crno", cursor.getString(1));
+            msgInfo.put("senderno", cursor.getString(2));
+            msgInfo.put("msg", cursor.getString(3));
+            msgInfo.put("sendtime", cursor.getString(4));
+        }
+        cursor.close();
+        db.close();
+        return msgInfo;
+    }
 
 }

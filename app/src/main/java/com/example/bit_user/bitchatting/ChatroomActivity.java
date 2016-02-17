@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
+
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,9 +20,14 @@ import java.util.ArrayList;
  */
 public class ChatroomActivity extends Activity {
 
+    //
     InputMethodManager imm;     // 키보드 화면 제어를 위한 변수
+    ArrayList<MainchatLvitem> dataRoomTitle;
+    ArrayList<ChatroomLvitem> dataChatroom;
+    MainchatAdapter adapterRoomTitle;
+    ChatmsgAdapter adapterChatMsg;
 
-
+    @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);
@@ -30,10 +37,40 @@ public class ChatroomActivity extends Activity {
         int crno = intent.getIntExtra("crno",0);
         Log.i("intent",mno+" "+crno);
 
+        // New code ================================================================================
+
+        // 1. 변수 선언 및 초기화
+        final ListView lvChatRoom = (ListView)findViewById(R.id.chatroom_lvChatRoom);
+        final ListView lvChatMsg = (ListView)findViewById(R.id.chatroom_lvChatMsg);
+        final Button btnSendMsg = (Button)findViewById(R.id.chatroom_btnSubmit);
+        final EditText edtItem = (EditText)findViewById(R.id.chatroom_edtvMsg);
+        imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        dataRoomTitle = new ArrayList<>();
+        dataChatroom = new ArrayList<>();
+        adapterRoomTitle = new MainchatAdapter(this, R.layout.mainchat_listviewitem, dataRoomTitle);
+        adapterChatMsg = new ChatmsgAdapter(this, R.layout.chatroom_listviewitem, dataChatroom);
+
+        // 2. 방 번호를 얻어온다.
+        // 3. 얻어 온 방 번호에 해당하는 방 정보를 DB에서 가져온다.
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+        int myCrno = db.getChatroomList().get(0).getCrno();  // NumberFormatException
+
+        // 4. 방 정보에 해당하는 메시지들을 모두 불러온다.
+        lvChatRoom.setAdapter(adapterRoomTitle);
+        lvChatMsg.setAdapter(adapterChatMsg);
+
+        // 5. 클릭리스너
+
+        // 6. Task
+
+
+        // =========================================================================================
+
+
         // MainchatActivity에서 ChatRoom 객체가 넘어왔다고 가정하고 테스트
-        int[] arMno = {1, 2};
-        //final ChatRoom room = new ChatRoom(1, arMno, 2, "Barack Obama", "");
-        final ChatRoom room = new ChatRoom(1, 2, "dd");
+
+        /*int[] arMno = {1, 2};
+        final ChatRoom room = new ChatRoom(1, arMno, 2, "Barack Obama", "");
 
         //
         final ListView lvChatRoom = (ListView)findViewById(R.id.chatroom_lvChatRoom);
@@ -81,6 +118,9 @@ public class ChatroomActivity extends Activity {
                 imm.hideSoftInputFromWindow(edtItem.getWindowToken(), 0);
             }
         });
+
+
+
     }
 }
 
