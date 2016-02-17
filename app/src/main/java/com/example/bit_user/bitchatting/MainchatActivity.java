@@ -85,9 +85,6 @@ public class MainchatActivity extends AppCompatActivity {
                 arChatroom.add(cr);
             }
 
-
-
-
             return null;
         }
         protected void onPostExecute(Void result){
@@ -97,46 +94,4 @@ public class MainchatActivity extends AppCompatActivity {
         }
     }
 
-    /*class GetMychatTask extends AsyncTask<Integer, String, Void>{
-        protected Void doInBackground(Integer... mno){
-            JSONArray responseJSONarr;
-            HttpURLConnection conn = null;
-            try{
-                URL url = new URL("http://192.168.1.35/BitTalkServer/mychat.jsp?mno="+mno[0]);
-                conn = (HttpURLConnection)url.openConnection();
-                conn.setRequestMethod("GET");
-
-                conn.connect();
-
-                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-                while((line=br.readLine()) != null){
-                    if(sb.length() > 0){
-                        sb.append("\n");
-                    }
-                    sb.append(line);
-                }
-                br.close();
-                responseJSONarr = new JSONArray(sb.toString());
-                Log.i("JSON",responseJSONarr.toString());
-
-                for(int i=0;i<responseJSONarr.length();i++){
-                    Log.i("for",responseJSONarr.getJSONObject(i).get("crno").toString());
-                }
-
-            }catch(Exception e){
-                e.printStackTrace();
-            }finally {
-                if(conn != null){
-                    conn.disconnect();
-                }
-            }
-            return null;
-        }
-        protected void onPostExecute(Void result){
-            super.onPostExecute(result);
-            Log.i("post","post");
-        }
-    }*/
 }
