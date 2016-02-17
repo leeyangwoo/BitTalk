@@ -9,8 +9,7 @@ public class ChatMsg {
     private int senderNo;   // 작성자 일련번호
     private String senderName;  // 작성자명
     private String message;     // 작성 메시지
-    private String sendTime;
-    //private Date sentDate;      // 작성일시
+    private String sendTime;   // 작성일시
 
     public ChatMsg(){}
     public ChatMsg(int cmno, int crno, int senderNo, String message, String sendTime, String senderName) {

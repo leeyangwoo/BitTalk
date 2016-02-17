@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password;
     JSONObject responseJSON;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +37,6 @@ public class LoginActivity extends AppCompatActivity {
 
         id = (AutoCompleteTextView) findViewById(R.id.login_edtText1);
         password = (EditText) findViewById(R.id.login_edtText2);
-
-
 
         Button mSignInButton = (Button) findViewById(R.id.login_btn1);
         Button mJoinInButton =(Button)findViewById(R.id.login_btn2);
@@ -68,13 +65,9 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 URL url = new URL("http://192.168.1.35/BitTalkServer/login.jsp"); //요청 URL을 입력
                 conn = (HttpURLConnection) url.openConnection();
-
-
                 conn.setRequestMethod("POST"); //요청 방식을 설정 (default : GET)
-
                 conn.setDoInput(true); //input을 사용하도록 설정 (default : true)
                 conn.setDoOutput(true); //output을 사용하도록 설정 (default : false)
-
                 conn.setConnectTimeout(1000); //타임아웃 시간 설정 (default : 무한대기)
 
                 OutputStream os = conn.getOutputStream();
@@ -89,7 +82,6 @@ public class LoginActivity extends AppCompatActivity {
                 conn.connect();
 
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8")); //캐릭터셋 설정
-
                 StringBuilder sb = new StringBuilder();
                 String line = null;
                 while ((line = br.readLine()) != null) {
@@ -105,7 +97,6 @@ public class LoginActivity extends AppCompatActivity {
                 h.post(new Runnable() {
                     public void run() {
                         try {
-
 
                             if(responseJSON.get("result").equals("success")){
 
@@ -156,7 +147,6 @@ public class LoginActivity extends AppCompatActivity {
         }
         protected void onPostExecute(Void result){
             super.onPostExecute(result);
-            Log.i("Post","Post");
 
         }
     }

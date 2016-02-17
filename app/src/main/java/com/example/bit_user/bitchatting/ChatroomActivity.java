@@ -12,6 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,25 +29,28 @@ public class ChatroomActivity extends Activity {
 
     //
     InputMethodManager imm;     // 키보드 화면 제어를 위한 변수
+    ArrayList<ChatroomLvitem> arMsg;  // 채팅메세지 담을 배열
+    ChatmsgAdapter msgAdapter;        // 채팅메세지 adapter
+    ListView lvChatMsg;               // 채팅메세지 리스트뷰
+    EditText edtvMsg;                 // 메세지 입력창
+    Button btnSend;                   // 메세지 입력버튼
+    DatabaseHandler db;
     //ArrayList<MainchatLvitem> dataRoomTitle;
     //ArrayList<ChatroomLvitem> dataChatroom;
-    ArrayList<ChatroomLvitem> arMsg;
     //MainchatAdapter adapterRoomTitle;
     //ChatmsgAdapter adapterChatMsg;
-    ChatmsgAdapter msgAdapter;
-    ListView lvChatMsg;
-    EditText edtvMsg;
-    Button btnSend;
-    DatabaseHandler db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);
         setTitle("채팅방");
-        Intent intent = getIntent();
+
+        Intent intent = getIntent();              //Intent로 상대회원번호, 방번호, 새로운 방인지 기존의 방인지를 받아옴
         final int mno = intent.getIntExtra("mno", 0);
         final int crno = intent.getIntExtra("crno",0);
-        Log.i("intent",mno+" "+crno);
+        final String detail = intent.getStringExtra("detail");
+        Log.i("intent",mno+" "+crno+" "+detail);
         ////////////////
         arMsg = new ArrayList<>();
         db = new DatabaseHandler(getApplicationContext());
@@ -54,14 +64,19 @@ public class ChatroomActivity extends Activity {
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {         //전송버튼 리스너
                 db.addMessage(crno, Integer.parseInt(db.getUserDetails().get("mNo").toString()),
-                        edtvMsg.getText().toString());
+                        edtvMsg.getText().toString());      //메세지를 내장DB에 저장
                 edtvMsg.setText("");
+
+                if(detail.equals("new")){                   //상대방이 없는 방인 경우 상대방을 초대(MySQL DB 갱신)
+                    InviteTask inviteTask = new InviteTask();
+                    inviteTask.execute(mno,crno);
+                }
             }
         });
 
-        GetMsgTask getMsgTask = new GetMsgTask();
+        GetMsgTask getMsgTask = new GetMsgTask();           //내장DB에 저장된 메세지리스트를 불러오는 Task
         getMsgTask.execute(crno);
 
         // New code ================================================================================
@@ -149,18 +164,16 @@ public class ChatroomActivity extends Activity {
 
 
     }
-    class GetMsgTask extends AsyncTask<Integer, String, Void>{
+    class GetMsgTask extends AsyncTask<Integer, String, Void>{     //내장DB의 메세지 불러오는 Task
         @Override
         protected Void doInBackground(Integer... crno) {
             DatabaseHandler db = new DatabaseHandler(getApplicationContext());
             List<ChatMsg> msgList = db.getMessageList(crno[0]);
             ChatroomLvitem msg;
-            Log.i("doIn", crno[0]+" "+msgList.toString());
 
             for(int i=0; i<msgList.size(); i++){
                 msg = new ChatroomLvitem(msgList.get(i));
-                msg.setSenderName(db.getUserDetails().get("mName").toString());
-                //Log.i("for", msgList.get(i).getSenderName());
+                msg.setSenderName(db.getUserDetails().get("mName").toString());  //sendername도 저장
                 arMsg.add(msg);
             }
 
@@ -172,9 +185,52 @@ public class ChatroomActivity extends Activity {
             msgAdapter.notifyDataSetChanged();
         }
     }
+
+    class InviteTask extends AsyncTask<Integer, String, JSONObject>{    // 상대방 초대하는 Task
+        @Override
+        protected JSONObject doInBackground(Integer... params) {
+            HttpURLConnection conn = null;
+            JSONObject responseJSON = null;
+            try{
+                URL url = new URL("http://192.168.1.35/BitTalkServer/invite.jsp?mno="+params[0]+"&crno="+params[1]);
+                Log.i("URL",url.toString());
+                conn = (HttpURLConnection)url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.connect();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while((line = br.readLine()) != null){
+                    if(sb.length() > 0){
+                        sb.append("\n");
+                    }
+                    sb.append(line);
+                }
+                br.close();
+                responseJSON = new JSONObject(sb.toString());
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                if(conn != null){
+                    conn.disconnect();
+                }
+            }
+
+            return responseJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject result) {
+            super.onPostExecute(result);
+            try {
+                if(result.get("result").equals("success")){
+                    Log.i("invite","success");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
 
-
-
-
-//http://developer.android.com/intl/ko/tools/debugging/debugging-studio.html

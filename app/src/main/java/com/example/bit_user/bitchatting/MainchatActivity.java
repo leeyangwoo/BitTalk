@@ -3,7 +3,6 @@ package com.example.bit_user.bitchatting;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -80,8 +79,7 @@ public class MainchatActivity extends AppCompatActivity {
             MainchatLvitem cr;
 
             for(int i=0;i<roomList.size();i++){
-                Log.i("for",roomList.get(i).getCrName());
-                cr = new MainchatLvitem(roomList.get(i),"dd","dd");
+                cr = new MainchatLvitem(roomList.get(i),"dd","dd");        // 수정해야함
                 arChatroom.add(cr);
             }
 
@@ -89,7 +87,6 @@ public class MainchatActivity extends AppCompatActivity {
         }
         protected void onPostExecute(Void result){
             super.onPostExecute(result);
-            Log.i("post", "post");
             crAdapter.notifyDataSetChanged();
         }
     }
