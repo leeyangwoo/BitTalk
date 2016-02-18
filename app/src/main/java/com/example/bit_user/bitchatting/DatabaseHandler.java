@@ -25,9 +25,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "bittalk";
 
-    // Login table name
+    //table name
     private static final String TABLE_LOGIN = "member";
     private static final String TABLE_CHATROOM = "mychatroom";
+    private static final String TABLE_CHATMSG = "chatmsg";
 
     // Login Table Columns names
     private static final String KEY_MNO = "mno";
@@ -39,9 +40,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_CRNO = "crno";
     private static final String KEY_NUMP = "numparticipant";
     private static final String KEY_CRNAME = "crname";
-
-    // Message table name
-    private static final String TABLE_CHATMSG = "chatmsg";
 
     // Message Table Columns names
     private static final String CHATMSG_KEY_CMNO = "cmno";
@@ -92,7 +90,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * Storing user details in database
+     * Insert
      * */
     public void addUser(int mNo, String mId, String mPassword, String mName) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -122,7 +120,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Add a record into Message table
     public void addMessage(int crno, int senderid, String message) {
-
         // 매개변수가 올바르지 않을 경우에 대한 예외처리
         /*try {
             SQLiteDatabase dbInsert = this.getWritableDatabase();
@@ -145,8 +142,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         dbInsert.close();
     }
 
+    public void updateChatroom(int crno, String crName){
+        SQLiteDatabase db = getWritableDatabase();
+    }
+
     /**
-     * Getting user data from database
+     * Getting data from database
      * */
     public HashMap getUserDetails(){
         HashMap user = new HashMap();
@@ -204,6 +205,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return msgList;
+    }
+
+    public String getLastMsg(int crno){
+        String lastMsg = "";
+        String selectQuery ="SELECT msg FROM chatmsg WHERE "+KEY_CRNO+"="+crno+" ORDER BY "+CHATMSG_KEY_CMNO
+                    +" DESC LIMIT 1";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        if(cursor.getCount() > 0){
+            lastMsg = cursor.getString(0);
+        }
+        cursor.close();
+        db.close();
+        return lastMsg;
+    }
+
+    public String getTimeStamp(int crno){
+        String timeStamp = "";
+        String selectQuery ="SELECT sendtime FROM chatmsg WHERE "+KEY_CRNO+"="+crno+" ORDER BY "+CHATMSG_KEY_CMNO
+                +" DESC LIMIT 1";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        if(cursor.getCount() > 0){
+            timeStamp = cursor.getString(0);
+        }
+        cursor.close();
+        db.close();
+        return timeStamp;
     }
     //    --------나중에 쓸일이 있을지도 모르니 나머지 기능들은 주석처리함---------------------------------
 //

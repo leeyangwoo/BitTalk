@@ -6,10 +6,10 @@ package com.example.bit_user.bitchatting;
 public class ChatroomLvitem {
 
     // Fields
-    //private static ChatRoom room;
     private String senderName;
-    //private String txtMsg;
     private ChatMsg chatMsgInstance;
+    //private String txtMsg;
+    //private static ChatRoom room;
 
     // Constructor
     public ChatroomLvitem(ChatMsg chatMsgInstance){
@@ -37,27 +37,27 @@ public class ChatroomLvitem {
 
     // Getter/Setter
     //   1. Getter
-    //public String getTxtMember() { return "[" + txtMember + "]"; }
     public String getSenderName() { return senderName; }
-    //public String getTxtMsg() { return txtMsg; }
     public ChatMsg getChatMsgInstance() { return chatMsgInstance; }
+    //public String getTxtMember() { return "[" + txtMember + "]"; }
+    //public String getTxtMsg() { return txtMsg; }
 
     //   2. Setter
-    /*public void setTxtMember(String txtMember) {
-        this.txtMember = null;
-        this.txtMember = new String(txtMember);
-    }*/
     public void setSenderName(String senderName){
         this.senderName = senderName;
         this.chatMsgInstance.setSenderName(this.senderName);
     }
-    /*public void setTxtMsg(String txtMsg) {
-        this.txtMsg = null;
-        this.txtMsg = new String(txtMsg);
-    }*/
     public void setChatMsgInstance(ChatMsg chatMsgInstance) {
         this.chatMsgInstance = null;
         this.chatMsgInstance = new ChatMsg(chatMsgInstance);
     }
+    /*public void setTxtMember(String txtMember) {
+        this.txtMember = null;
+        this.txtMember = new String(txtMember);
+    }*/
+    /*public void setTxtMsg(String txtMsg) {
+        this.txtMsg = null;
+        this.txtMsg = new String(txtMsg);
+    }*/
 
 }

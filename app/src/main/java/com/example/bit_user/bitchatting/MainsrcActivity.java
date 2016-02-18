@@ -159,6 +159,13 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
                     i.putExtra("mno", Integer.parseInt(result.get("mno").toString()));
                     i.putExtra("crno", Integer.parseInt(result.get("crno").toString()));
                     Log.i("crNo: ",result.get("crno").toString());
+                    ///////////////////////////////////////////////////////
+                    if(result.get("detail").equals("exist")){
+                        i.putExtra("detail", "exist");
+                    }else if(result.get("detail").equals("new")){
+                        i.putExtra("detail", "new");
+                    }
+                    ///////////////////////////////////////////////////////
                     mainCon.startActivity(i);
                 } else {
                     Log.i("POST", "fail");
@@ -197,7 +204,6 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
                 Log.i("JSON",responseJSONarr.toString());
 
                 for (int i = 0; i < responseJSONarr.length(); i++) {     //JSON array result에 추가
-                    Log.i("FOR", responseJSONarr.getJSONObject(i).get("mname").toString());
                     sr = new SearchResult(responseJSONarr.getJSONObject(i).get("mname").toString(),
                                 Integer.parseInt(responseJSONarr.getJSONObject(i).get("mno").toString()));
                     arResult.add(sr);
@@ -218,7 +224,6 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
 
         protected void onPostExecute(Void result){
             super.onPostExecute(result);
-            Log.i("PostExe", "POSTEXE");
             SearchResultAdapter.this.notifyDataSetChanged();           //ResultSet을 갱신
         }
     }

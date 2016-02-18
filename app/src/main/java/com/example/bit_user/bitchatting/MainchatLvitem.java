@@ -44,9 +44,9 @@ public class MainchatLvitem {
     public String getTimestamp() { return timestamp; }
 
     //   2. Setter
-    //public void setCrName() { this.crName = crName; }
     public void setLastMsg(String lastMsg) { this.lastMsg = lastMsg; }
     public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
+    //public void setCrName() { this.crName = crName; }
     /*public void setChatroomInstance(ChatRoom chatroomInstance) {
         try {
             if(!memberInChatroom(chatroomInstance)) throw new Exception();
