@@ -11,6 +11,7 @@ import android.view.View;
  * Created by bit-user on 2016-02-17.
  */
 public class FragmentMain extends Activity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +27,10 @@ public class FragmentMain extends Activity {
             fr = new FragmentMainchat();
         }
 
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_place1, fr);
-        fragmentTransaction.commit();
+        FragmentManager fm = getFragmentManager();  // Fragment를 관리하기 위한 객체 생성
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();    // FragmentTransaction 열기
+        fragmentTransaction.replace(R.id.fragment_place1, fr);  //  프래그먼트 옮겨오기
+        fragmentTransaction.commit();   // 명령 commit
     }
 }
 
