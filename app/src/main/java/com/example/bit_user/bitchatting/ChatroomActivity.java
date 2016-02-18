@@ -12,15 +12,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.github.nkzawa.emitter.Emitter;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.socket.client.IO;
+import io.socket.client.Socket;
 
 /**
  * Created by bit-user on 2016-02-05.
@@ -35,6 +41,14 @@ public class ChatroomActivity extends Activity {
     EditText edtvMsg;                 // 메세지 입력창
     Button btnSend;                   // 메세지 입력버튼
     DatabaseHandler db;
+    private Socket mSocket;
+    {
+        try {
+            mSocket = IO.socket(Constants.CHAT_SERVER_URL);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
     //ArrayList<MainchatLvitem> dataRoomTitle;
     //ArrayList<ChatroomLvitem> dataChatroom;
     //MainchatAdapter adapterRoomTitle;
@@ -50,8 +64,12 @@ public class ChatroomActivity extends Activity {
         final int mno = intent.getIntExtra("mno", 0);
         final int crno = intent.getIntExtra("crno",0);
         final String detail = intent.getStringExtra("detail");
-        Log.i("intent",mno+" "+crno+" "+detail);
-        ////////////////
+        Log.i("intent", mno + " " + crno + " " + detail);
+        ///////////////////////////////////////////
+
+        mSocket.on("new message", onNewMessage);
+        mSocket.connect();
+        //////////////////////////////////////////
         arMsg = new ArrayList<>();
         db = new DatabaseHandler(getApplicationContext());
         msgAdapter = new ChatmsgAdapter(this, R.layout.chatroom_listviewitem, arMsg);
@@ -65,9 +83,12 @@ public class ChatroomActivity extends Activity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {         //전송버튼 리스너
-                db.addMessage(crno, Integer.parseInt(db.getUserDetails().get("mNo").toString()),
-                        edtvMsg.getText().toString());      //메세지를 내장DB에 저장
-                edtvMsg.setText("");
+                if (!mSocket.connected()) return;
+                String msg = edtvMsg.getText().toString();
+                if(msg.isEmpty()) {
+                    edtvMsg.requestFocus();
+                    return;
+                }
 
                 if(detail.equals("new")){                   //상대방이 없는 방인 경우 상대방을 초대(MySQL DB 갱신)
                     JSONObject responseJSON = null;
@@ -80,7 +101,19 @@ public class ChatroomActivity extends Activity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    mSocket.emit("create room", crno);
                 }
+                db.addMessage(crno, Integer.parseInt(db.getUserDetails().get("mNo").toString()),
+                        msg);      //메세지를 내장DB에 저장
+                edtvMsg.setText("");
+                JSONObject sendInfo = new JSONObject();
+                try {
+                    sendInfo.put("crno",crno);
+                    sendInfo.put("msg",msg);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                mSocket.emit("new message", sendInfo);
             }
         });
 
@@ -275,5 +308,17 @@ public class ChatroomActivity extends Activity {
             super.onPostExecute(result);
         }
     }
+    private Emitter.Listener onNewMessage = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                }
+            });
+        }
+    }
+
 }
 
