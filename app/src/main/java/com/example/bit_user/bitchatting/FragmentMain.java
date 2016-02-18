@@ -16,6 +16,7 @@ public class FragmentMain extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_main);
+
     }
 
     public void selectFrag(View view) {
@@ -29,7 +30,7 @@ public class FragmentMain extends Activity {
 
         FragmentManager fm = getFragmentManager();  // Fragment를 관리하기 위한 객체 생성
         FragmentTransaction fragmentTransaction = fm.beginTransaction();    // FragmentTransaction 열기
-        fragmentTransaction.replace(R.id.fragment_place1, fr);  //  프래그먼트 옮겨오기
+        fragmentTransaction.replace(R.id.ll_fragment, fr);  //  프래그먼트 옮겨오기
         fragmentTransaction.commit();   // 명령 commit
     }
 }
