@@ -70,8 +70,16 @@ public class ChatroomActivity extends Activity {
                 edtvMsg.setText("");
 
                 if(detail.equals("new")){                   //상대방이 없는 방인 경우 상대방을 초대(MySQL DB 갱신)
-                    InviteTask inviteTask = new InviteTask();
-                    inviteTask.execute(mno,crno);
+                    JSONObject responseJSON = null;
+                    new InviteTask().execute(mno, crno);
+                    try {
+                        responseJSON = new GetMnameTask().execute(mno).get();
+                        if(responseJSON.get("result").equals("success")){
+                            db.addChatroom(crno,2,responseJSON.get("mname").toString());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -230,6 +238,45 @@ public class ChatroomActivity extends Activity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    class GetMnameTask extends AsyncTask<Integer, String, JSONObject>{
+        @Override
+        protected JSONObject doInBackground(Integer... params) {
+            HttpURLConnection conn = null;
+            JSONObject responseJSON = null;
+            try{
+                URL url = new URL("http://192.168.1.35/BitTalkServer/who.jsp?mno="+params[0]);
+                Log.i("URL",url.toString());
+                conn = (HttpURLConnection)url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.connect();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while((line = br.readLine()) != null) {
+                    if (sb.length() > 0) {
+                        sb.append("\n");
+                    }
+                    sb.append(line);
+                }
+                br.close();
+                responseJSON = new JSONObject(sb.toString());
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally {
+                if(conn != null){
+                    conn.disconnect();
+                }
+            }
+
+            return responseJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject result) {
+            super.onPostExecute(result);
         }
     }
 }

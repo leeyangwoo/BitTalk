@@ -142,6 +142,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         dbInsert.close();
     }
 
+    public void updateChatroom(int crno, String crName){
+        SQLiteDatabase db = getWritableDatabase();
+    }
+
     /**
      * Getting data from database
      * */
@@ -201,6 +205,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return msgList;
+    }
+
+    public String getLastMsg(int crno){
+        String lastMsg = "";
+        String selectQuery ="SELECT msg FROM chatmsg WHERE "+KEY_CRNO+"="+crno+" ORDER BY "+CHATMSG_KEY_CMNO
+                    +" DESC LIMIT 1";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        if(cursor.getCount() > 0){
+            lastMsg = cursor.getString(0);
+        }
+        cursor.close();
+        db.close();
+        return lastMsg;
+    }
+
+    public String getTimeStamp(int crno){
+        String timeStamp = "";
+        String selectQuery ="SELECT sendtime FROM chatmsg WHERE "+KEY_CRNO+"="+crno+" ORDER BY "+CHATMSG_KEY_CMNO
+                +" DESC LIMIT 1";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        if(cursor.getCount() > 0){
+            timeStamp = cursor.getString(0);
+        }
+        cursor.close();
+        db.close();
+        return timeStamp;
     }
     //    --------나중에 쓸일이 있을지도 모르니 나머지 기능들은 주석처리함---------------------------------
 //

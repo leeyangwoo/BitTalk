@@ -79,7 +79,8 @@ public class MainchatActivity extends AppCompatActivity {
             MainchatLvitem cr;
 
             for(int i=0;i<roomList.size();i++){
-                cr = new MainchatLvitem(roomList.get(i),"dd","dd");        // 수정해야함
+                cr = new MainchatLvitem(roomList.get(i),db.getLastMsg(roomList.get(i).getCrno()),
+                        db.getTimeStamp(roomList.get(i).getCrno()));        // 수정해야함
                 arChatroom.add(cr);
             }
 
