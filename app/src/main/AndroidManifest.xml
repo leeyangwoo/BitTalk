@@ -22,6 +22,8 @@
         <activity android:name=".JoinActivity"></activity>
         <activity android:name=".MainsrcActivity"></activity>
         <activity android:name=".MainchatActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".Confirm"></activity>
     </application>
 
 </manifest>

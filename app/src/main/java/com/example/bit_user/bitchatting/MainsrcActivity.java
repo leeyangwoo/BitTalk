@@ -57,6 +57,7 @@ public class MainsrcActivity extends AppCompatActivity {
         list.setAdapter(srAdapter);
 
     }
+
 }
 
 class SearchResult{                                  // 리스트뷰에 들어갈 클래스
@@ -75,6 +76,7 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
     ArrayList<SearchResult> arSrc;
     int layout;
     int myMno;
+
 
     public SearchResultAdapter(Context context, int aLayout, ArrayList<SearchResult> aarSrc, int amyMno){
         mainCon = context;
@@ -153,9 +155,10 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
             try {
                 if (result.get("result").equals("success")) {
                     Log.i("POST", "success");
-                    Intent i = new Intent(mainCon, ChatroomActivity.class);
+                    Intent i = new Intent(mainCon, MainActivity.class);
                     i.putExtra("mno", Integer.parseInt(result.get("mno").toString()));
                     i.putExtra("crno", Integer.parseInt(result.get("crno").toString()));
+                    Log.i("crNo: ",result.get("crno").toString());
                     mainCon.startActivity(i);
                 } else {
                     Log.i("POST", "fail");
@@ -219,4 +222,5 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
             SearchResultAdapter.this.notifyDataSetChanged();           //ResultSet을 갱신
         }
     }
+
 }
