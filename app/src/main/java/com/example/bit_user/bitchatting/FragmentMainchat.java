@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -48,9 +49,6 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
 
         View view = inflater.inflate(R.layout.activity_fragment_mainchat, container, false);
 
-        // Fragment가 제대로 열렸는지 Test - Success
-        //Toast.makeText(getActivity().getApplicationContext(), "onCreateView() 실행됨", Toast.LENGTH_LONG).show();
-
         ListView lvMainChat = (ListView)view.findViewById(R.id.mainChatFragment_listView1);
         lvMainChat.setAdapter(crAdapter);
 
@@ -64,6 +62,8 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
             }
         });
 
+        // Fragment가 제대로 열렸는지 Test
+        Toast.makeText(getActivity(), "onCreateView() 실행됨", Toast.LENGTH_LONG).show();
 
         return view;
     }
