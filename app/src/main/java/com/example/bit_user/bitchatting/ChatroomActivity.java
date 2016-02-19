@@ -12,8 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.github.nkzawa.emitter.Emitter;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,6 +25,7 @@ import java.util.List;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
 
 /**
  * Created by bit-user on 2016-02-05.
@@ -41,6 +40,7 @@ public class ChatroomActivity extends Activity {
     EditText edtvMsg;                 // 메세지 입력창
     Button btnSend;                   // 메세지 입력버튼
     DatabaseHandler db;
+    int new_checker = 1;
     private Socket mSocket;
     {
         try {
@@ -80,36 +80,45 @@ public class ChatroomActivity extends Activity {
 
         lvChatMsg.setAdapter(msgAdapter);
 
+        if(detail.equals("exist")) {
+            GetMsgTask getMsgTask = new GetMsgTask();           //내장DB에 저장된 메세지리스트를 불러오는 Task
+            getMsgTask.execute(crno);
+            mSocket.emit("join room", crno);
+        }else if(detail.equals("new")){
+            mSocket.emit("create room", crno);
+        }
+
+
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {         //전송버튼 리스너
                 if (!mSocket.connected()) return;
                 String msg = edtvMsg.getText().toString();
-                if(msg.isEmpty()) {
+                if (msg.isEmpty()) {
                     edtvMsg.requestFocus();
                     return;
                 }
 
-                if(detail.equals("new")){                   //상대방이 없는 방인 경우 상대방을 초대(MySQL DB 갱신)
+                if (detail.equals("new") && new_checker == 1) {                   //상대방이 없는 방인 경우 상대방을 초대(MySQL DB 갱신)
                     JSONObject responseJSON = null;
                     new InviteTask().execute(mno, crno);
                     try {
                         responseJSON = new GetMnameTask().execute(mno).get();
-                        if(responseJSON.get("result").equals("success")){
-                            db.addChatroom(crno,2,responseJSON.get("mname").toString());
+                        if (responseJSON.get("result").equals("success")) {
+                            db.addChatroom(crno, 2, responseJSON.get("mname").toString());
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    mSocket.emit("create room", crno);
+                    new_checker = 0;
                 }
                 db.addMessage(crno, Integer.parseInt(db.getUserDetails().get("mNo").toString()),
                         msg);      //메세지를 내장DB에 저장
                 edtvMsg.setText("");
                 JSONObject sendInfo = new JSONObject();
                 try {
-                    sendInfo.put("crno",crno);
-                    sendInfo.put("msg",msg);
+                    sendInfo.put("crno", crno);
+                    sendInfo.put("msg", msg);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -117,8 +126,6 @@ public class ChatroomActivity extends Activity {
             }
         });
 
-        GetMsgTask getMsgTask = new GetMsgTask();           //내장DB에 저장된 메세지리스트를 불러오는 Task
-        getMsgTask.execute(crno);
 
         // New code ================================================================================
 
@@ -310,15 +317,22 @@ public class ChatroomActivity extends Activity {
     }
     private Emitter.Listener onNewMessage = new Emitter.Listener() {
         @Override
-        public void call(Object... args) {
+        public void call(final Object... args) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
+                    String msg="";
+                    try {
+                        msg = data.getString("message");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Log.i("msg",msg);
                 }
             });
         }
-    }
+    };
 
 }
 

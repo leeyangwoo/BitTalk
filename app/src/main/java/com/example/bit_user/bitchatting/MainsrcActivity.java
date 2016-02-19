@@ -155,7 +155,7 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
             try {
                 if (result.get("result").equals("success")) {
                     Log.i("POST", "success");
-                    Intent i = new Intent(mainCon, MainActivity.class);
+                    Intent i = new Intent(mainCon, ChatroomActivity.class);
                     i.putExtra("mno", Integer.parseInt(result.get("mno").toString()));
                     i.putExtra("crno", Integer.parseInt(result.get("crno").toString()));
                     Log.i("crNo: ",result.get("crno").toString());
