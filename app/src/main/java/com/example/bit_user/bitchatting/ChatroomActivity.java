@@ -65,7 +65,8 @@ public class ChatroomActivity extends Activity {
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        mSocket.on("new message", new Emitter.Listener() {
+        mSocket.on("new message", onNewMessage);
+        /*new Emitter.Listener() {
             @Override
             public void call(Object... args) {
                 final JSONObject obj = (JSONObject) args[0];
@@ -82,7 +83,7 @@ public class ChatroomActivity extends Activity {
                     }
                 });
             }
-        });
+        }*/
         mSocket.connect();
         //////////////////////////////////////////
         arMsg = new ArrayList<>();
