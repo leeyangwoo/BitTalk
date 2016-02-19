@@ -10,8 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import android.widget.AdapterView.OnItemClickListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +17,7 @@ import java.util.List;
 /**
  * Created by bit-user on 2016-02-19.
  */
-public class FragmentMainchat extends Fragment implements OnItemClickListener {
+public class FragmentMainchat extends Fragment {
 
     // Fields
     private ArrayList<MainchatLvitem> arChatroom;
@@ -63,14 +61,6 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
     @Override
     public void onPause() {
         super.onPause();
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long ig) {
-        MainchatLvitem tmpChatLvItem = (MainchatLvitem) crAdapter.getItem(position);
-        String strTmp = tmpChatLvItem.getChatroomInstance().getCrName() + "\n"
-                + tmpChatLvItem.getLastMsg();
-        Toast.makeText(getActivity(), strTmp, Toast.LENGTH_LONG).show();
     }
 
     class GetMychatTaskInFragment extends AsyncTask<Integer, String, Void> {
