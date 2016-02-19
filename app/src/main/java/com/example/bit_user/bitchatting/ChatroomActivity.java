@@ -339,14 +339,23 @@ public class ChatroomActivity extends Activity {
                 @Override
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
+                    DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+                    ChatroomLvitem msg;
                     Log.i("onNewMessage Listener", args[0].toString());
-                    String msg="";
+
                     try {
-                        msg = data.getString("message");
+                        //msg = data.getString("message");
+                        ChatMsg msgInstance = new ChatMsg();
+                        msgInstance.setCrno(Integer.parseInt(data.getString("crno")));
+                        msgInstance.setMessage(data.getString("msg"));
+                        msg = new ChatroomLvitem(msgInstance);
+                        msg.setSenderName(data.getString("senderName"));
+                        arMsg.add(msg);
+                        msgAdapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Log.i("msg",msg);
+
                 }
             });
         }
