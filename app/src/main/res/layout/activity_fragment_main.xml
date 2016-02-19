@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnMainchatFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="채팅방목록"
+                android:onClick="selectFrag"/>
+
+            <Button
+                android:id="@+id/btnMainsrcFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="친구찾기"
+                android:onClick="selectFrag"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
