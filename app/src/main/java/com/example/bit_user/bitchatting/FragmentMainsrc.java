@@ -8,14 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.view.View.OnClickListener;
 
 import java.util.ArrayList;
 
 /**
  * Created by bit-user on 2016-02-19.
  */
-public class FragmentMainsrc extends Fragment implements OnClickListener {
+public class FragmentMainsrc extends Fragment {
 
     // Fields
     private ArrayList<SearchResult> arResult;
@@ -48,11 +47,5 @@ public class FragmentMainsrc extends Fragment implements OnClickListener {
         list.setAdapter(srAdapter);
 
         return view;
-    }
-
-    @Override
-    public void onClick(View v) {
-        SearchResultAdapter.SearchTask searchTask = srAdapter.new SearchTask();  //Adapter내의 AsyncTask
-        searchTask.execute(edtvSrc.getText().toString());
     }
 }
