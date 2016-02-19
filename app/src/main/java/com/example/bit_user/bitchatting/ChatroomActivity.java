@@ -347,9 +347,9 @@ public class ChatroomActivity extends Activity {
                         //msg = data.getString("message");
                         ChatMsg msgInstance = new ChatMsg();
                         msgInstance.setCrno(Integer.parseInt(data.getString("crno")));
-                        msgInstance.setMessage(data.getString("msg"));
+                        msgInstance.setMessage(data.getString("message"));
                         msg = new ChatroomLvitem(msgInstance);
-                        msg.setSenderName(data.getString("senderName"));
+                        msg.setSenderName(data.getString("username"));
                         arMsg.add(msg);
                         msgAdapter.notifyDataSetChanged();
                     } catch (JSONException e) {
