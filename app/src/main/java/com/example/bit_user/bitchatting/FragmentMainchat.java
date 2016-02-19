@@ -80,7 +80,8 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
             MainchatLvitem cr;
 
             for(int i=0;i<roomList.size();i++){
-                cr = new MainchatLvitem(roomList.get(i),"dd","dd");        // 수정해야함
+                cr = new MainchatLvitem(roomList.get(i),db.getLastMsg(roomList.get(i).getCrno()),
+                        db.getTimeStamp(roomList.get(i).getCrno()));
                 arChatroom.add(cr);
             }
 
