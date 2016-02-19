@@ -24,6 +24,7 @@
         <activity android:name=".MainchatActivity"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".Confirm"></activity>
+        <activity android:name=".FragmentMain"></activity>
     </application>
 
 </manifest>
