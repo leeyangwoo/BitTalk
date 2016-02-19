@@ -42,13 +42,7 @@ public class ChatroomActivity extends Activity {
     DatabaseHandler db;
     int new_checker = 1;
     private Socket mSocket;
-    {
-        try {
-            mSocket = IO.socket(Constants.CHAT_SERVER_URL);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
     //ArrayList<MainchatLvitem> dataRoomTitle;
     //ArrayList<ChatroomLvitem> dataChatroom;
     //MainchatAdapter adapterRoomTitle;
@@ -64,10 +58,31 @@ public class ChatroomActivity extends Activity {
         final int mno = intent.getIntExtra("mno", 0);
         final int crno = intent.getIntExtra("crno",0);
         final String detail = intent.getStringExtra("detail");
-        Log.i("intent", mno + " " + crno + " " + detail);
+        Log.i("intent", "mno: "+mno + " crno: " + crno + " " + detail);
         ///////////////////////////////////////////
-
-        mSocket.on("new message", onNewMessage);
+        try {
+            mSocket = IO.socket(Constants.CHAT_SERVER_URL);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        mSocket.on("new message", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                final JSONObject obj = (JSONObject) args[0];
+                Log.i("onNewMsg","onNewMsg");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            String message = obj.getString("message");
+                            Log.i("new message : ",message);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
         mSocket.connect();
         //////////////////////////////////////////
         arMsg = new ArrayList<>();
@@ -119,6 +134,7 @@ public class ChatroomActivity extends Activity {
                 try {
                     sendInfo.put("crno", crno);
                     sendInfo.put("msg", msg);
+                    sendInfo.put("senderName", db.getUserDetails().get("mName"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -237,7 +253,7 @@ public class ChatroomActivity extends Activity {
             JSONObject responseJSON = null;
             try{
                 URL url = new URL("http://192.168.1.35/BitTalkServer/invite.jsp?mno="+params[0]+"&crno="+params[1]);
-                Log.i("URL",url.toString());
+                Log.i("invite URL",url.toString());
                 conn = (HttpURLConnection)url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.connect();
@@ -283,7 +299,7 @@ public class ChatroomActivity extends Activity {
             JSONObject responseJSON = null;
             try{
                 URL url = new URL("http://192.168.1.35/BitTalkServer/who.jsp?mno="+params[0]);
-                Log.i("URL",url.toString());
+                Log.i("who URL",url.toString());
                 conn = (HttpURLConnection)url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.connect();
@@ -322,6 +338,7 @@ public class ChatroomActivity extends Activity {
                 @Override
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
+                    Log.i("onNewMessage Listener", args[0].toString());
                     String msg="";
                     try {
                         msg = data.getString("message");

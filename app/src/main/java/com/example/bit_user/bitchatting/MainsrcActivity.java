@@ -123,7 +123,7 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
             JSONObject responseJSON=null;
             try{                                               //GET방식
                 URL url = new URL("http://192.168.1.35/BitTalkServer/talk.jsp?mno1="+mno[0]+"&mno2="+mno[1]);
-                Log.i("URL", url.toString());
+                Log.i("talkURL", url.toString());
                 conn = (HttpURLConnection)url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.connect();
@@ -154,7 +154,7 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
             super.onPostExecute(result);
             try {
                 if (result.get("result").equals("success")) {
-                    Log.i("POST", "success");
+                    Log.i("talkPOST", "success");
                     Intent i = new Intent(mainCon, ChatroomActivity.class);
                     i.putExtra("mno", Integer.parseInt(result.get("mno").toString()));
                     i.putExtra("crno", Integer.parseInt(result.get("crno").toString()));
@@ -184,7 +184,7 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
             SearchResult sr;
             try {                                                     //GET방식인데 POST로 바꿔야함
                 URL url = new URL("http://192.168.1.35/BitTalkServer/search.jsp?mid="+query[0]); //요청 URL을 입력
-                Log.i("URL", url.toString());
+                Log.i("searchURL", url.toString());
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET"); //요청 방식을 설정 (default : GET)
                 conn.connect();
@@ -201,7 +201,7 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
                 }
                 br.close();
                 responseJSONarr = new JSONArray(sb.toString());     //JSON array로 읽어옴
-                Log.i("JSON",responseJSONarr.toString());
+                Log.i("searchJSON",responseJSONarr.toString());
 
                 for (int i = 0; i < responseJSONarr.length(); i++) {     //JSON array result에 추가
                     sr = new SearchResult(responseJSONarr.getJSONObject(i).get("mname").toString(),
