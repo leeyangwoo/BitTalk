@@ -48,9 +48,6 @@ public class FragmentMainsrc extends Fragment implements OnClickListener {
         list = (ListView)view.findViewById(R.id.mainSrcFragment_listView);
         list.setAdapter(srAdapter);
 
-        // Test
-        //Toast.makeText(getActivity(), "onCreateView() 실행됨", Toast.LENGTH_LONG).show();
-
         return view;
     }
 

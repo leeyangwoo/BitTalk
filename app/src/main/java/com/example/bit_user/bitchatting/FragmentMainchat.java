@@ -1,6 +1,7 @@
 package com.example.bit_user.bitchatting;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by bit-user on 2016-02-17.
@@ -18,28 +19,17 @@ import java.util.ArrayList;
 public class FragmentMainchat extends Fragment implements OnItemClickListener {
 
     // Fields
-    ArrayList<MainchatLvitem> arChatroom;
-    MainchatAdapter crAdapter;
+    private ArrayList<MainchatLvitem> arChatroom;
+    private DatabaseHandler db;
+    private int myMno;
+    private MainchatAdapter crAdapter;
+    private ListView lvMainChat;
+
+    private GetMychatTaskInFragment getMychatTask;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Test - Success
-        //Toast.makeText(getActivity().getApplicationContext(), "onCreate() 실행됨", Toast.LENGTH_LONG).show();
-
-
-
-//        final Activity activity = getActivity();
-//        if(activity != null) {
-//            getActivity().setContentView(R.layout.activity_fragment_mainchat);
-//            getActivity().setTitle("채팅방 목록");
-//        }
-
-        //arChatroom = new ArrayList<>();
-        //crAdapter = new MainchatAdapter(getActivity(), R.layout.mainchat_listviewitem, arChatroom);
-        //DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
-        //int myMno = Integer.parseInt(db.getUserDetails().get("mNo").toString());
 
     }
 
@@ -49,6 +39,10 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
 
         View view = inflater.inflate(R.layout.activity_fragment_mainchat, container, false);
 
+        arChatroom = new ArrayList<>();
+        DatabaseHandler db = new DatabaseHandler(getActivity());
+        myMno = Integer.parseInt(db.getUserDetails().get("mNo").toString());
+        crAdapter = new MainchatAdapter(getActivity(), R.layout.mainchat_listviewitem, arChatroom);
         ListView lvMainChat = (ListView)view.findViewById(R.id.mainChatFragment_listView1);
         lvMainChat.setAdapter(crAdapter);
 
@@ -61,9 +55,11 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
                         + tmpChatLvItem.getLastMsg();
             }
         });
+        getMychatTask = new GetMychatTaskInFragment();
+        getMychatTask.execute(myMno);
 
         // Fragment가 제대로 열렸는지 Test
-        Toast.makeText(getActivity(), "onCreateView() 실행됨", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(), "onCreateView() 실행됨", Toast.LENGTH_LONG).show();
 
         return view;
     }
@@ -81,5 +77,24 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
         MainchatLvitem tmpChatLvItem = (MainchatLvitem) crAdapter.getItem(position);
         String strTmp = tmpChatLvItem.getChatroomInstance().getCrName() + "\n"
                 + tmpChatLvItem.getLastMsg();
+    }
+
+    class GetMychatTaskInFragment extends AsyncTask<Integer, String, Void> {
+        protected Void doInBackground(Integer... mno){
+            DatabaseHandler db = new DatabaseHandler(getActivity());
+            List<ChatRoom> roomList = db.getChatroomList();
+            MainchatLvitem cr;
+
+            for(int i=0;i<roomList.size();i++){
+                cr = new MainchatLvitem(roomList.get(i),"dd","dd");        // 수정해야함
+                arChatroom.add(cr);
+            }
+
+            return null;
+        }
+        protected void onPostExecute(Void result){
+            super.onPostExecute(result);
+            crAdapter.notifyDataSetChanged();
+        }
     }
 }
