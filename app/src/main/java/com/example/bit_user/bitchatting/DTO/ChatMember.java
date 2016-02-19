@@ -1,4 +1,4 @@
-package com.example.bit_user.bitchatting;
+package com.example.bit_user.bitchatting.DTO;
 
 /**
  * Created by bit-user on 2016-02-13.

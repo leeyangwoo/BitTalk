@@ -1,9 +1,13 @@
-package com.example.bit_user.bitchatting;
+package com.example.bit_user.bitchatting.Unused;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+
+import com.example.bit_user.bitchatting.Constants;
+import com.example.bit_user.bitchatting.DB.DatabaseHandler;
+import com.example.bit_user.bitchatting.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,9 +1,12 @@
-package com.example.bit_user.bitchatting;
+package com.example.bit_user.bitchatting.Unused;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.example.bit_user.bitchatting.Constants;
+import com.example.bit_user.bitchatting.R;
 
 import java.net.URISyntaxException;
 
@@ -11,7 +14,7 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 
 
-public class MainActivity extends Activity {
+public class SocketchatActivity extends Activity {
 
 
     private int mno;

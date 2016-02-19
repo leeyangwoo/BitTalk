@@ -1,4 +1,4 @@
-package com.example.bit_user.bitchatting;
+package com.example.bit_user.bitchatting.Activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,6 +12,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.bit_user.bitchatting.DB.DatabaseHandler;
+import com.example.bit_user.bitchatting.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -117,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                                 //확인차 콘솔창에서 출력.
                                 System.out.println(db.getUserDetails().values());
 
-                                Intent myIntent = new Intent(getApplicationContext(),FragmentMain.class);
+                                Intent myIntent = new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(myIntent);
                                 finish();
 

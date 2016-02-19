@@ -1,7 +1,5 @@
 ﻿<resources>
-    <string name="app_name">BitChatting</string>
-
-
+    <string name="app_name">BitTalk</string>
 
 
     <string name="prompt_id">Id</string>

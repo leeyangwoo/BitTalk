@@ -3,11 +3,11 @@
              android:id="@+id/container"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".MainActivity"
+             tools:context=".Unused.MainActivity"
              tools:ignore="MergeRootFrame">
 
     <fragment
-            class="com.example.bit_user.bitchatting.MainFragment"
+            class="com.example.bit_user.bitchatting.Unused.MainFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 </FrameLayout>

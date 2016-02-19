@@ -1,4 +1,4 @@
-package com.example.bit_user.bitchatting;
+package com.example.bit_user.bitchatting.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.example.bit_user.bitchatting.DTO.ChatroomLvitem;
+import com.example.bit_user.bitchatting.R;
 
 import java.util.ArrayList;
 

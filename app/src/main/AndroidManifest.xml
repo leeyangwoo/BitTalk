@@ -6,25 +6,25 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/talk"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".Activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".ChatroomActivity"></activity>
-        <activity android:name=".JoinActivity"></activity>
-        <activity android:name=".MainsrcActivity"></activity>
-        <activity android:name=".MainchatActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".Confirm"></activity>
-        <activity android:name=".FragmentMain"></activity>
+        <activity android:name=".Activity.LoginActivity"></activity>
+        <activity android:name=".Activity.ChatroomActivity"></activity>
+        <activity android:name=".Activity.JoinActivity"></activity>
+        <activity android:name=".Unused.MainsrcActivity"></activity>
+        <activity android:name=".Unused.MainchatActivity"></activity>
+        <activity android:name=".Unused.SocketchatActivity"></activity>
+        <activity android:name=".Unused.Confirm"></activity>
+        <activity android:name=".Activity.MainActivity"></activity>
     </application>
 
 </manifest>

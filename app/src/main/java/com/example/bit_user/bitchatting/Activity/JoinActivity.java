@@ -1,4 +1,4 @@
-package com.example.bit_user.bitchatting;
+package com.example.bit_user.bitchatting.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.bit_user.bitchatting.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -110,7 +112,7 @@ public class JoinActivity extends AppCompatActivity {
 
                                             if (responseJSON.get("result").equals("success")) {
 
-                                                Toast.makeText(getApplicationContext(), "Successfully Logged In!",
+                                                Toast.makeText(getApplicationContext(), "Welcome! Login Please",
                                                         Toast.LENGTH_SHORT).show();
 
                                                 Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -143,8 +145,6 @@ public class JoinActivity extends AppCompatActivity {
                     }.start();
                 }
 
-   /*       Intent myIntent = new Intent(getApplicationContext(),LoginActivity.class);
-           startActivity(myIntent);*/
             }
         });
 

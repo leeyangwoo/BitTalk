@@ -1,4 +1,4 @@
-package com.example.bit_user.bitchatting;
+package com.example.bit_user.bitchatting.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.example.bit_user.bitchatting.DTO.MainchatLvitem;
+import com.example.bit_user.bitchatting.R;
 
 import java.util.ArrayList;
 
@@ -50,14 +53,6 @@ public class MainchatAdapter extends BaseAdapter {
         lastMsg.setText(arChatroom.get(position).getLastMsg());
         nump.setText(arChatroom.get(position).getChatroomInstance().getNump()+"명");
         timestamp.setText(arChatroom.get(position).getTimestamp());
-        //MainchatLvitem lvItem = arMainChat.get(position);
-
-        /*TextView txtCrName = (TextView)convertView.findViewById(R.id.txtCrName);
-        TextView txtLastMsg = (TextView)convertView.findViewById(R.id.txtLastMsg);
-
-        // 각 텍스트뷰에 아이템의 텍스트를 넣는다.
-        txtCrName.setText(arMainChat.get(position).getCrName());
-        txtLastMsg.setText(arMainChat.get(position).getLastMsg());*/
 
         return convertView;
     }

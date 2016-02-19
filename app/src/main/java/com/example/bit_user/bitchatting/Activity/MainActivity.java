@@ -1,4 +1,4 @@
-package com.example.bit_user.bitchatting;
+package com.example.bit_user.bitchatting.Activity;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -7,10 +7,12 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.bit_user.bitchatting.R;
+
 /**
  * Created by bit-user on 2016-02-19.
  */
-public class FragmentMain extends Activity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

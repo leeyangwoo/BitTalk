@@ -1,20 +1,19 @@
-package com.example.bit_user.bitchatting;
+package com.example.bit_user.bitchatting.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.bit_user.bitchatting.Activity.ChatroomActivity;
+import com.example.bit_user.bitchatting.DTO.SearchResult;
+import com.example.bit_user.bitchatting.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,52 +24,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MainsrcActivity extends AppCompatActivity {
-    ArrayList<SearchResult> arResult;
-    Button btnSrc;
-    EditText edtvSrc;
-    SearchResultAdapter srAdapter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mainsrc);
-        setTitle("대화상대 찾기");
-
-        arResult = new ArrayList<>();
-        edtvSrc = (EditText) findViewById(R.id.mainSrc_edt_search);
-        btnSrc = (Button) findViewById(R.id.mainSrc_btn_search);
-        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-        int myMno = Integer.parseInt(db.getUserDetails().get("mNo").toString());
-
-        btnSrc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {                       //검색버튼 리스너
-                SearchResultAdapter.SearchTask searchTask = srAdapter.new SearchTask();  //Adapter내의 AsyncTask
-                searchTask.execute(edtvSrc.getText().toString());
-            }
-        });
-
-        srAdapter = new SearchResultAdapter(this,R.layout.search_result, arResult, myMno);
-
-        ListView list = (ListView) findViewById(R.id.mainSrc_listView);
-        list.setAdapter(srAdapter);
-
-    }
-
-}
-
-class SearchResult{                                  // 리스트뷰에 들어갈 클래스
-    int mno;
-    String name;                                     // 회원의 name만 표시
-
-    SearchResult(String name, int mno){
-        this.name = name;
-        this.mno = mno;
-    }
-}
-
-class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받는 adapter
+/**
+ * Created by bit-user on 2016-02-19.
+ */
+public class SearchResultAdapter extends BaseAdapter {
     Context mainCon;
     LayoutInflater inflater;
     ArrayList<SearchResult> arSrc;
@@ -90,7 +47,7 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
         return arSrc.size();
     }
     public Object getItem(int position){
-        return arSrc.get(position).name;
+        return arSrc.get(position).getName();
     }
     public long getItemId(int position){
         return position;
@@ -102,22 +59,19 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
             convertView = inflater.inflate(layout, parent, false);
         }
         TextView txt = (TextView)convertView.findViewById(R.id.search_result_name);
-        txt.setText(arSrc.get(position).name);
+        txt.setText(arSrc.get(position).getName());
 
         Button btn = (Button)convertView.findViewById(R.id.search_result_btn_add);
         btn.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
-                String str = arSrc.get(pos).name + arSrc.get(pos).mno + " 추가";
-                Toast.makeText(mainCon, str, Toast.LENGTH_SHORT).show();
-
                 StartTalkTask startTalkTask = new StartTalkTask();
-                startTalkTask.execute(myMno,arSrc.get(pos).mno);
+                startTalkTask.execute(myMno,arSrc.get(pos).getMno());
             }
         });
         return convertView;
     }
 
-    class StartTalkTask extends AsyncTask<Integer, String, JSONObject>{
+    class StartTalkTask extends AsyncTask<Integer, String, JSONObject> {
         protected JSONObject doInBackground(Integer... mno){
             HttpURLConnection conn = null;
             JSONObject responseJSON=null;
@@ -175,8 +129,7 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
             }
         }
     }
-
-    class SearchTask extends AsyncTask<String, String, Void>{            // 검색 AsyncTask
+    public class SearchTask extends AsyncTask<String, String, Void>{            // 검색 AsyncTask
         protected Void doInBackground(String... query){
             HttpURLConnection conn = null;
             JSONArray responseJSONarr;
@@ -205,7 +158,7 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
 
                 for (int i = 0; i < responseJSONarr.length(); i++) {     //JSON array result에 추가
                     sr = new SearchResult(responseJSONarr.getJSONObject(i).get("mname").toString(),
-                                Integer.parseInt(responseJSONarr.getJSONObject(i).get("mno").toString()));
+                            Integer.parseInt(responseJSONarr.getJSONObject(i).get("mno").toString()));
                     arResult.add(sr);
                 }
                 arSrc.clear();
@@ -227,5 +180,4 @@ class SearchResultAdapter extends BaseAdapter{      //BaseAdapter를 상속받�
             SearchResultAdapter.this.notifyDataSetChanged();           //ResultSet을 갱신
         }
     }
-
 }

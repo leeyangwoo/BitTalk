@@ -1,4 +1,4 @@
-package com.example.bit_user.bitchatting;
+package com.example.bit_user.bitchatting.Activity;
 
 import android.app.Fragment;
 import android.os.AsyncTask;
@@ -11,6 +11,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import android.widget.AdapterView.OnItemClickListener;
+
+import com.example.bit_user.bitchatting.Adapter.MainchatAdapter;
+import com.example.bit_user.bitchatting.DB.DatabaseHandler;
+import com.example.bit_user.bitchatting.DTO.ChatRoom;
+import com.example.bit_user.bitchatting.DTO.MainchatLvitem;
+import com.example.bit_user.bitchatting.R;
 
 import java.util.ArrayList;
 import java.util.List;

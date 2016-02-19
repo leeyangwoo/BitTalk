@@ -1,4 +1,4 @@
-package com.example.bit_user.bitchatting;
+package com.example.bit_user.bitchatting.Unused;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -23,6 +23,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.bit_user.bitchatting.Constants;
+import com.example.bit_user.bitchatting.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -96,8 +99,8 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        MainActivity mainActivity = (MainActivity) getActivity();
-        roomNum = mainActivity.getCrno();
+        SocketchatActivity socketchatActivity = (SocketchatActivity) getActivity();
+        roomNum = socketchatActivity.getCrno();
         Log.i("Final roomNum: ", String.valueOf(roomNum));
         return inflater.inflate(R.layout.fragment_main, container, false);
     }

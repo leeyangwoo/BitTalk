@@ -1,10 +1,13 @@
-package com.example.bit_user.bitchatting;
+package com.example.bit_user.bitchatting.DB;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.bit_user.bitchatting.DTO.ChatMsg;
+import com.example.bit_user.bitchatting.DTO.ChatRoom;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -170,7 +173,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public List<ChatRoom> getChatroomList(){
         List<ChatRoom> roomList = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_CHATROOM;
+        String selectQuery = "SELECT DISTINCT r."+KEY_CRNO+", "+KEY_NUMP+", "+KEY_CRNAME+" FROM "
+                + TABLE_CHATROOM + " AS r INNER JOIN "+TABLE_CHATMSG+" AS m ON r."+KEY_CRNO+"=m."+KEY_CRNO
+                +" ORDER BY "+CHATMSG_COLUMN_SENDTIME+" DESC";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         //cursor.moveToFirst();
@@ -184,6 +189,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return roomList;
+    }
+    public int existChatroom(int crno){
+        int ExistChatroom = 0;
+        ChatRoom room = new ChatRoom();
+        String selectQuery = "SELECT * FROM " + TABLE_CHATROOM + " WHERE "+KEY_CRNO+"="+crno;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        if(cursor.getCount() > 0){
+            room.setCrno(cursor.getInt(0));
+            room.setNump(cursor.getInt(1));
+            room.setCrName(cursor.getString(2));
+        }else{
+            ExistChatroom = 1;
+        }
+        cursor.close();
+        db.close();
+
+        return ExistChatroom;
     }
 
     // Get the Message table

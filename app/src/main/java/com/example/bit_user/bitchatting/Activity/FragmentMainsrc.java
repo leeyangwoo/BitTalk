@@ -1,14 +1,19 @@
-package com.example.bit_user.bitchatting;
+package com.example.bit_user.bitchatting.Activity;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.view.View.OnClickListener;
+
+import com.example.bit_user.bitchatting.Adapter.SearchResultAdapter;
+import com.example.bit_user.bitchatting.DB.DatabaseHandler;
+import com.example.bit_user.bitchatting.DTO.SearchResult;
+import com.example.bit_user.bitchatting.R;
 
 import java.util.ArrayList;
 
@@ -37,8 +42,12 @@ public class FragmentMainsrc extends Fragment implements OnClickListener {
         btnSrc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchResultAdapter.SearchTask searchTask = srAdapter.new SearchTask();  //Adapter내의 AsyncTask
-                searchTask.execute(edtvSrc.getText().toString());
+                String query = edtvSrc.getText().toString();
+                if(query.isEmpty()){
+                    edtvSrc.requestFocus();
+                    return;
+                }
+                srAdapter.new SearchTask().execute(edtvSrc.getText().toString());
             }
         });
 
@@ -52,7 +61,7 @@ public class FragmentMainsrc extends Fragment implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        SearchResultAdapter.SearchTask searchTask = srAdapter.new SearchTask();  //Adapter내의 AsyncTask
-        searchTask.execute(edtvSrc.getText().toString());
+        srAdapter.new SearchTask().execute(edtvSrc.getText().toString());
     }
+
 }

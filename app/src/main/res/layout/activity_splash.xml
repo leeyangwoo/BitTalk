@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e4d14f">
+    android:background="#C4FDFF"
+    android:id="@+id/splash_linear"
+    android:weightSum="1">
 
     <TextView
         android:layout_width="wrap_content"
@@ -10,6 +12,16 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/splash_main"
         android:id="@+id/textView"
+        android:layout_marginTop="75dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="200dp"/>
+        android:textIsSelectable="false"
+        android:textSize="40dp"
+        android:textColor="#BDBDBD" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/talk"
+        android:layout_weight="0.54" />
 </LinearLayout>
