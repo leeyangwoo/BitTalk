@@ -49,6 +49,8 @@ public class ChatroomActivity extends Activity {
     DatabaseHandler db;
     int new_checker = 0;
     private Socket mSocket;
+    int mno, crno;
+    String detail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -57,9 +59,9 @@ public class ChatroomActivity extends Activity {
         setTitle("채팅방");
 
         Intent intent = getIntent();              //Intent로 상대회원번호, 방번호, 새로운 방인지 기존의 방인지를 받아옴
-        final int mno = intent.getIntExtra("mno", 0);
-        final int crno = intent.getIntExtra("crno",0);
-        final String detail = intent.getStringExtra("detail");
+        mno = intent.getIntExtra("mno", 0);
+        crno = intent.getIntExtra("crno",0);
+        detail = intent.getStringExtra("detail");
         Log.i("intent", "mno: "+mno + " crno: " + crno + " " + detail);
         ///////////////////////////////////////////
         try {
@@ -100,7 +102,10 @@ public class ChatroomActivity extends Activity {
                 }
                 new_checker = db.existChatroom(crno);
 
-                if (detail.equals("new") || new_checker == 0) {                   //상대방이 없는 방인 경우 상대방을 초대(MySQL DB 갱신)
+                if (detail.equals("new")) {                   //상대방이 없는 방인 경우 상대방을 초대(MySQL DB 갱신)
+                    Log.i("CHECK IF",detail+" "+new_checker);
+                    detail = "exist";
+                    Log.i("detail", detail);
                     JSONObject responseJSON = null;
                     new InviteTask().execute(mno, crno);
                     try {
@@ -234,10 +239,6 @@ public class ChatroomActivity extends Activity {
             return responseJSON;
         }
 
-        @Override
-        protected void onPostExecute(JSONObject result) {
-            super.onPostExecute(result);
-        }
     }
     private Emitter.Listener onNewMessage = new Emitter.Listener() {
         @Override
