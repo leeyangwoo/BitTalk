@@ -40,10 +40,10 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
         View view = inflater.inflate(R.layout.activity_fragment_mainchat, container, false);
 
         arChatroom = new ArrayList<>();
-        DatabaseHandler db = new DatabaseHandler(getActivity());
+        db = new DatabaseHandler(getActivity());
         myMno = Integer.parseInt(db.getUserDetails().get("mNo").toString());
         crAdapter = new MainchatAdapter(getActivity(), R.layout.mainchat_listviewitem, arChatroom);
-        ListView lvMainChat = (ListView)view.findViewById(R.id.mainChatFragment_listView1);
+        lvMainChat = (ListView)view.findViewById(R.id.mainChatFragment_listView1);
         lvMainChat.setAdapter(crAdapter);
 
         // ItemClickListener 구현
