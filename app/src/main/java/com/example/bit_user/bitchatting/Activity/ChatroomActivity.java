@@ -47,7 +47,6 @@ public class ChatroomActivity extends Activity {
     EditText edtvMsg;                 // 메세지 입력창
     Button btnSend;                   // 메세지 입력버튼
     DatabaseHandler db;
-    int new_checker = 0;
     private Socket mSocket;
     int mno, crno;
     String detail;
@@ -60,8 +59,9 @@ public class ChatroomActivity extends Activity {
 
         Intent intent = getIntent();              //Intent로 상대회원번호, 방번호, 새로운 방인지 기존의 방인지를 받아옴
         mno = intent.getIntExtra("mno", 0);
-        crno = intent.getIntExtra("crno",0);
+        crno = intent.getIntExtra("crno", 0);
         detail = intent.getStringExtra("detail");
+        if(mno == 0) detail = "exist";
         Log.i("intent", "mno: "+mno + " crno: " + crno + " " + detail);
         ///////////////////////////////////////////
         try {
@@ -100,15 +100,15 @@ public class ChatroomActivity extends Activity {
                     edtvMsg.requestFocus();
                     return;
                 }
-                new_checker = db.existChatroom(crno);
+
 
                 if (detail.equals("new")) {                   //상대방이 없는 방인 경우 상대방을 초대(MySQL DB 갱신)
-                    Log.i("CHECK IF",detail+" "+new_checker);
+                    Log.i("CHECK IF",detail);
                     detail = "exist";
                     Log.i("detail", detail);
                     JSONObject responseJSON = null;
                     new InviteTask().execute(mno, crno);
-                    try {
+                    try {                  //모듈화 할수 있을듯
                         responseJSON = new GetMnameTask().execute(mno).get();
                         if (responseJSON.get("result").equals("success")) {
                             db.addChatroom(crno, 2, responseJSON.get("mname").toString());
@@ -116,7 +116,16 @@ public class ChatroomActivity extends Activity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    new_checker = 1;
+                }
+                if(db.existChatroom(crno) == 0){
+                    try {                      //////////
+                        JSONObject responseJSON = new GetMnameTask().execute(mno).get();
+                        if (responseJSON.get("result").equals("success")) {
+                            db.addChatroom(crno, 2, responseJSON.get("mname").toString());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 db.addMessage(crno, Integer.parseInt(db.getUserDetails().get("mNo").toString()),
                         msg);      //메세지를 내장DB에 저장
@@ -125,6 +134,7 @@ public class ChatroomActivity extends Activity {
                 try {
                     sendInfo.put("crno", crno);
                     sendInfo.put("msg", msg);
+                    sendInfo.put("senderNo", db.getUserDetails().get("mNo"));
                     sendInfo.put("senderName", db.getUserDetails().get("mName"));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -146,7 +156,16 @@ public class ChatroomActivity extends Activity {
 
             for(int i=0; i<msgList.size(); i++){
                 msg = new ChatroomLvitem(msgList.get(i));
-                msg.setSenderName(db.getUserDetails().get("mName").toString());  //sendername도 저장
+                int mno = msg.getChatMsgInstance().getSenderNo();
+                try{
+                    JSONObject responseJSON = getName(mno);
+                    //GetMnameTask().execute(mno).get();
+                    if(responseJSON.get("result").equals("success")){
+                        msg.setSenderName(responseJSON.get("mname").toString());
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 arMsg.add(msg);
             }
 
@@ -240,6 +259,37 @@ public class ChatroomActivity extends Activity {
         }
 
     }
+
+    private JSONObject getName(int mno){
+        HttpURLConnection conn = null;
+        JSONObject responseJSON = null;
+        try{
+            URL url = new URL("http://192.168.1.35/BitTalkServer/who.jsp?mno="+mno);
+            conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while((line = br.readLine()) != null) {
+                if (sb.length() > 0) {
+                    sb.append("\n");
+                }
+                sb.append(line);
+            }
+            br.close();
+            responseJSON = new JSONObject(sb.toString());
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            if(conn != null){
+                conn.disconnect();
+            }
+        }
+
+        return responseJSON;
+    }
     private Emitter.Listener onNewMessage = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
@@ -259,6 +309,11 @@ public class ChatroomActivity extends Activity {
                         msg = new ChatroomLvitem(msgInstance);
                         msg.setSenderName(data.getString("username"));
                         arMsg.add(msg);
+                        if(Integer.parseInt(data.getString("mno")) !=
+                                Integer.parseInt(db.getUserDetails().get("mNo").toString())){
+                            db.addMessage(crno, Integer.parseInt(data.getString("mno")),
+                                    msg.getChatMsgInstance().getMessage());
+                        }
                         msgAdapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();

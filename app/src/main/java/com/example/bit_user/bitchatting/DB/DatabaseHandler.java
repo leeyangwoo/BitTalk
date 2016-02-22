@@ -201,7 +201,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             room.setCrno(cursor.getInt(0));
             room.setNump(cursor.getInt(1));
             room.setCrName(cursor.getString(2));
-        }else{
             ExistChatroom = 1;
         }
         cursor.close();

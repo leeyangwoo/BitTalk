@@ -1,16 +1,16 @@
 package com.example.bit_user.bitchatting.Activity;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.example.bit_user.bitchatting.Adapter.MainchatAdapter;
 import com.example.bit_user.bitchatting.DB.DatabaseHandler;
@@ -54,9 +54,11 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MainchatLvitem tmpChatLvItem = (MainchatLvitem) crAdapter.getItem(position);
-                String strTmp = tmpChatLvItem.getChatroomInstance().getCrName() + "\n"
-                        + tmpChatLvItem.getLastMsg();
-                Toast.makeText(getActivity(), strTmp, Toast.LENGTH_LONG).show();
+
+                Intent i = new Intent(getActivity(), ChatroomActivity.class);
+                i.putExtra("crno", tmpChatLvItem.getChatroomInstance().getCrno());
+                i.putExtra("detail", "exist");
+                startActivity(i);
 
             }
         });
