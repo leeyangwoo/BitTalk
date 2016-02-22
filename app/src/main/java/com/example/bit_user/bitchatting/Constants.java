@@ -36,4 +36,8 @@ public class Constants {
     public static final String CHATMSG_COLUMN_SENDTIME = "sendtime";
 
     public final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+    public static final int TYPE_MESSAGE = 0;
+    public static final int TYPE_LOG = 1;
+    public static final int TYPE_ACTION = 2;
 }
