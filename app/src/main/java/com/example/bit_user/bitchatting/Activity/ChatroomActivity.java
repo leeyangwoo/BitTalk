@@ -19,6 +19,7 @@ import com.example.bit_user.bitchatting.DTO.ChatMsg;
 import com.example.bit_user.bitchatting.DB.DatabaseHandler;
 import com.example.bit_user.bitchatting.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -132,6 +133,7 @@ public class ChatroomActivity extends Activity {
                 edtvMsg.setText("");
                 JSONObject sendInfo = new JSONObject();
                 try {
+
                     sendInfo.put("crno", crno);
                     sendInfo.put("msg", msg);
                     sendInfo.put("senderNo", db.getUserDetails().get("mNo"));
@@ -289,6 +291,10 @@ public class ChatroomActivity extends Activity {
         }
 
         return responseJSON;
+    }
+
+    private JSONArray getPushArray(int crno){
+        return null;///////////////////////////////////
     }
     private Emitter.Listener onNewMessage = new Emitter.Listener() {
         @Override

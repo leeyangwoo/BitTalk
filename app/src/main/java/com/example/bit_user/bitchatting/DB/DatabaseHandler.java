@@ -38,6 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_MID = "mid";
     private static final String KEY_MPASSWORD = "mpasswd";
     private static final String KEY_MNAME = "mname";
+    private static final String KEY_MTOKEN = "mtoken";
 
     // Chatroom table column
     private static final String KEY_CRNO = "crno";
@@ -62,7 +63,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_MNO + " INTEGER PRIMARY KEY,"
                 + KEY_MID + " TEXT,"
                 + KEY_MPASSWORD + " TEXT,"
-                + KEY_MNAME + " TEXT" + ")";
+                + KEY_MNAME + " TEXT,"
+                + KEY_MTOKEN + " TEXT" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
         String CREATE_CHATROOM_TABLE = "CREATE TABLE " + TABLE_CHATROOM + "("
                 + KEY_CRNO + " INTEGER PRIMARY KEY,"
@@ -164,6 +166,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             user.put("mId", cursor.getString(1));
             user.put("mPassword", cursor.getString(2));
             user.put("mName", cursor.getString(3));
+            user.put("mToken", cursor.getString(4));
         }
         cursor.close();
         db.close();
