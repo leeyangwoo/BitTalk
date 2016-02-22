@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_id": "bittalk-9bc03",
+    "project_number": "457604154359",
+    "name": "BitTalk"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457604154359:android:65408bf71285d994",
+        "client_id": "android:com.example.bit_user.bitchatting",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.example.bit_user.bitchatting"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 2,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}
