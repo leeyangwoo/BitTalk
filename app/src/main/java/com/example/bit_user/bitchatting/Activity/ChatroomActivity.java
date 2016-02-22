@@ -134,8 +134,8 @@ public class ChatroomActivity extends Activity {
                 try {
                     sendInfo.put(Constants.CHATMSG_KEY_CMNO, crno);
                     sendInfo.put(Constants.CHATMSG_COLUMN_MSG, msg);
-                    sendInfo.put(Constants.CHATMSG_COLUMN_SENDERNO, db.getUserDetails().get(Constants.KEY_MNO));       // "senderNo", "mNo"
-                    sendInfo.put(Constants.CHATMSG_COLUMN_SENDERNAME, db.getUserDetails().get(Constants.KEY_MNAME));   // "senderName", "mName"
+                    sendInfo.put("senderNo", db.getUserDetails().get("mNo"));
+                    sendInfo.put("senderName", db.getUserDetails().get("mName"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
