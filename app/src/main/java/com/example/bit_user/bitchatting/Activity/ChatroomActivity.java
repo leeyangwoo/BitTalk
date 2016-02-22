@@ -13,10 +13,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.bit_user.bitchatting.Adapter.ChatmsgAdapter;
-import com.example.bit_user.bitchatting.DTO.ChatroomLvitem;
 import com.example.bit_user.bitchatting.Constants;
-import com.example.bit_user.bitchatting.DTO.ChatMsg;
 import com.example.bit_user.bitchatting.DB.DatabaseHandler;
+import com.example.bit_user.bitchatting.DTO.ChatMsg;
+import com.example.bit_user.bitchatting.DTO.ChatroomLvitem;
 import com.example.bit_user.bitchatting.R;
 
 import org.json.JSONException;
@@ -65,7 +65,7 @@ public class ChatroomActivity extends Activity {
         Log.i("intent", "mno: "+mno + " crno: " + crno + " " + detail);
         ///////////////////////////////////////////
         try {
-            mSocket = IO.socket(Constants.CHAT_SERVER_URL);
+            mSocket = IO.socket(Constants.NODE_SERVER_URL);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -184,7 +184,7 @@ public class ChatroomActivity extends Activity {
             HttpURLConnection conn = null;
             JSONObject responseJSON = null;
             try{
-                URL url = new URL("http://192.168.1.35/BitTalkServer/invite.jsp?mno="+params[0]+"&crno="+params[1]);
+                URL url = new URL(Constants.CHAT_SERVER_URL + "invite.jsp?mno="+params[0]+"&crno="+params[1]);
                 Log.i("invite URL",url.toString());
                 conn = (HttpURLConnection)url.openConnection();
                 conn.setRequestMethod("GET");
@@ -230,7 +230,7 @@ public class ChatroomActivity extends Activity {
             HttpURLConnection conn = null;
             JSONObject responseJSON = null;
             try{
-                URL url = new URL("http://192.168.1.35/BitTalkServer/who.jsp?mno="+params[0]);
+                URL url = new URL(Constants.CHAT_SERVER_URL + "who.jsp?mno="+params[0]);
                 Log.i("who URL",url.toString());
                 conn = (HttpURLConnection)url.openConnection();
                 conn.setRequestMethod("GET");
@@ -264,7 +264,7 @@ public class ChatroomActivity extends Activity {
         HttpURLConnection conn = null;
         JSONObject responseJSON = null;
         try{
-            URL url = new URL("http://192.168.1.35/BitTalkServer/who.jsp?mno="+mno);
+            URL url = new URL(Constants.CHAT_SERVER_URL + "who.jsp?mno="+mno);
             conn = (HttpURLConnection)url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();

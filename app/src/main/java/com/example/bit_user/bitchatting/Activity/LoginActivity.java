@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.bit_user.bitchatting.Constants;
 import com.example.bit_user.bitchatting.DB.DatabaseHandler;
 import com.example.bit_user.bitchatting.R;
 
@@ -66,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         protected Void doInBackground(String... param){
             HttpURLConnection conn = null;
             try {
-                URL url = new URL("http://192.168.1.35/BitTalkServer/login.jsp"); //요청 URL을 입력
+                URL url = new URL(Constants.CHAT_SERVER_URL + "login.jsp"); //요청 URL을 입력
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST"); //요청 방식을 설정 (default : GET)
                 conn.setDoInput(true); //input을 사용하도록 설정 (default : true)

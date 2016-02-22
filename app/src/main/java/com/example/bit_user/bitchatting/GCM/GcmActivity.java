@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.bit_user.bitchatting.Constants;
 import com.example.bit_user.bitchatting.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -12,7 +13,6 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
  * Created by bit-user on 2016-02-19.
  */
 public class GcmActivity extends Activity{
-    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class GcmActivity extends Activity{
         if(resultCode != ConnectionResult.SUCCESS){
             if(GooglePlayServicesUtil.isUserRecoverableError(resultCode)){
                 GooglePlayServicesUtil.getErrorDialog(resultCode, this,
-                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+                        Constants.PLAY_SERVICES_RESOLUTION_REQUEST).show();
             }else{
                 Log.i("PLAYSERVICES","NOT SUPPORTED");
                 finish();

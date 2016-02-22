@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.bit_user.bitchatting.DTO.ChatMsg;
 import com.example.bit_user.bitchatting.DTO.ChatRoom;
+import com.example.bit_user.bitchatting.Constants;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,63 +22,64 @@ import java.util.Locale;
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    // All Static variables
-    // Database Version
-    private static final int DATABASE_VERSION = 1;
-
-    // Database Name
-    private static final String DATABASE_NAME = "bittalk";
-
-    //table name
-    private static final String TABLE_LOGIN = "member";
-    private static final String TABLE_CHATROOM = "mychatroom";
-    private static final String TABLE_CHATMSG = "chatmsg";
-
-    // Login Table Columns names
-    private static final String KEY_MNO = "mno";
-    private static final String KEY_MID = "mid";
-    private static final String KEY_MPASSWORD = "mpasswd";
-    private static final String KEY_MNAME = "mname";
-
-    // Chatroom table column
-    private static final String KEY_CRNO = "crno";
-    private static final String KEY_NUMP = "numparticipant";
-    private static final String KEY_CRNAME = "crname";
-
-    // Message Table Columns names
-    private static final String CHATMSG_KEY_CMNO = "cmno";
-    private static final String CHATMSG_KEY_CRNO = "crno";
-    private static final String CHATMSG_COLUMN_SENDERNO = "senderno";
-    private static final String CHATMSG_COLUMN_MSG = "msg";
-    private static final String CHATMSG_COLUMN_SENDTIME = "sendtime";
+//    // All Static variables
+//    // Database Version
+//    private static final int DATABASE_VERSION = 1;
+//
+//    // Database Name
+//    private static final String DATABASE_NAME = "bittalk";
+//
+//    //table name
+//    private static final String TABLE_LOGIN = "member";
+//    private static final String TABLE_CHATROOM = "mychatroom";
+//    private static final String TABLE_CHATMSG = "chatmsg";
+//
+//    // Login Table Columns names
+//    private static final String KEY_MNO = "mno";
+//    private static final String KEY_MID = "mid";
+//    private static final String KEY_MPASSWORD = "mpasswd";
+//    private static final String KEY_MNAME = "mname";
+//
+//    // Chatroom table column
+//    private static final String KEY_CRNO = "crno";
+//    private static final String KEY_NUMP = "numparticipant";
+//    private static final String KEY_CRNAME = "crname";
+//
+//    // Message Table Columns names
+//    private static final String CHATMSG_KEY_CMNO = "cmno";
+//    private static final String CHATMSG_KEY_CRNO = "crno";
+//    private static final String CHATMSG_COLUMN_SENDERNO = "senderno";
+//    private static final String CHATMSG_COLUMN_MSG = "msg";
+//    private static final String CHATMSG_COLUMN_SENDTIME = "sendtime";
 
     public DatabaseHandler(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
     }
 
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
-                + KEY_MNO + " INTEGER PRIMARY KEY,"
-                + KEY_MID + " TEXT,"
-                + KEY_MPASSWORD + " TEXT,"
-                + KEY_MNAME + " TEXT" + ")";
+        String CREATE_LOGIN_TABLE = "CREATE TABLE " + Constants.TABLE_LOGIN + "("
+                + Constants.KEY_MNO + " INTEGER PRIMARY KEY,"
+                + Constants.KEY_MID + " TEXT,"
+                + Constants.KEY_MPASSWORD + " TEXT,"
+                + Constants.KEY_MNAME + " TEXT" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
-        String CREATE_CHATROOM_TABLE = "CREATE TABLE " + TABLE_CHATROOM + "("
-                + KEY_CRNO + " INTEGER PRIMARY KEY,"
-                + KEY_NUMP + " INTEGER,"
-                + KEY_CRNAME + " TEXT" + ")";
+        String CREATE_CHATROOM_TABLE = "CREATE TABLE " + Constants.TABLE_CHATROOM + "("
+                + Constants.KEY_CRNO + " INTEGER PRIMARY KEY,"
+                + Constants.KEY_NUMP + " INTEGER,"
+                + Constants.KEY_CRNAME + " TEXT" + ")";
         db.execSQL(CREATE_CHATROOM_TABLE);
 
         // Create Message Table
-        String CREATE_MSG_TABLE = "CREATE TABLE " + TABLE_CHATMSG + "("
-                + CHATMSG_KEY_CMNO + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + CHATMSG_KEY_CRNO + " INTEGER NOT NULL,"
-                + CHATMSG_COLUMN_SENDERNO + " INT NOT NULL,"
-                + CHATMSG_COLUMN_MSG + " TEXT NOT NULL,"
-                + CHATMSG_COLUMN_SENDTIME + " TIMESTAMP NOT NULL,"
-                + "FOREIGN KEY ("+CHATMSG_KEY_CRNO+") REFERENCES "+TABLE_CHATROOM+"("+KEY_CRNO+"));";
+        String CREATE_MSG_TABLE = "CREATE TABLE " + Constants.TABLE_CHATMSG + "("
+                + Constants.CHATMSG_KEY_CMNO + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + Constants.CHATMSG_KEY_CRNO + " INTEGER NOT NULL,"
+                + Constants.CHATMSG_COLUMN_SENDERNO + " INT NOT NULL,"
+                + Constants.CHATMSG_COLUMN_MSG + " TEXT NOT NULL,"
+                + Constants.CHATMSG_COLUMN_SENDTIME + " TIMESTAMP NOT NULL,"
+                + "FOREIGN KEY ("+Constants.CHATMSG_KEY_CRNO+") REFERENCES "
+                +Constants.TABLE_CHATROOM+"("+Constants.KEY_CRNO+"));";
         db.execSQL(CREATE_MSG_TABLE);
     }
 
@@ -85,9 +87,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOGIN );
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CHATROOM );
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CHATMSG );
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_LOGIN );
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_CHATROOM );
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_CHATMSG );
         // Create tables again
         onCreate(db);
     }
@@ -99,13 +101,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_MNO, mNo); // FirstName
-        values.put(KEY_MID, mId); // LastName
-        values.put(KEY_MPASSWORD, mPassword); // Email
-        values.put(KEY_MNAME, mName); // UserName
+        values.put(Constants.KEY_MNO, mNo); // FirstName
+        values.put(Constants.KEY_MID, mId); // LastName
+        values.put(Constants.KEY_MPASSWORD, mPassword); // Email
+        values.put(Constants.KEY_MNAME, mName); // UserName
 
         // Inserting Row
-        db.insert(TABLE_LOGIN, null, values);
+        db.insert(Constants.TABLE_LOGIN, null, values);
         db.close(); // Closing database connection
     }
 
@@ -113,11 +115,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_CRNO, crno);
-        values.put(KEY_NUMP, nump);
-        values.put(KEY_CRNAME, crName);
+        values.put(Constants.KEY_CRNO, crno);
+        values.put(Constants.KEY_NUMP, nump);
+        values.put(Constants.KEY_CRNAME, crName);
 
-        db.insert(TABLE_CHATROOM, null, values);
+        db.insert(Constants.TABLE_CHATROOM, null, values);
         db.close();
     }
 
@@ -136,12 +138,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // 예외처리 안 된 버전
         SQLiteDatabase dbInsert = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(CHATMSG_KEY_CRNO, crno);
-        values.put(CHATMSG_COLUMN_SENDERNO, senderid);
-        values.put(CHATMSG_COLUMN_MSG, message);
-        values.put(CHATMSG_COLUMN_SENDTIME, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREA).format(new Date()));
+        values.put(Constants.CHATMSG_KEY_CRNO, crno);
+        values.put(Constants.CHATMSG_COLUMN_SENDERNO, senderid);
+        values.put(Constants.CHATMSG_COLUMN_MSG, message);
+        values.put(Constants.CHATMSG_COLUMN_SENDTIME, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREA).format(new Date()));
 
-        dbInsert.insert(TABLE_CHATMSG, null, values);
+        dbInsert.insert(Constants.TABLE_CHATMSG, null, values);
         dbInsert.close();
     }
 
@@ -154,7 +156,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * */
     public HashMap getUserDetails(){
         HashMap user = new HashMap();
-        String selectQuery = "SELECT  * FROM " + TABLE_LOGIN;
+        String selectQuery = "SELECT  * FROM " + Constants.TABLE_LOGIN;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         // Move to first row
@@ -173,9 +175,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public List<ChatRoom> getChatroomList(){
         List<ChatRoom> roomList = new ArrayList<>();
-        String selectQuery = "SELECT DISTINCT r."+KEY_CRNO+", "+KEY_NUMP+", "+KEY_CRNAME+" FROM "
-                + TABLE_CHATROOM + " AS r INNER JOIN "+TABLE_CHATMSG+" AS m ON r."+KEY_CRNO+"=m."+KEY_CRNO
-                +" ORDER BY "+CHATMSG_COLUMN_SENDTIME+" DESC";
+        String selectQuery = "SELECT DISTINCT r."+Constants.KEY_CRNO+", "+Constants.KEY_NUMP+", "+Constants.KEY_CRNAME+" FROM "
+                + Constants.TABLE_CHATROOM + " AS r INNER JOIN "+Constants.TABLE_CHATMSG+" AS m ON r."+Constants.KEY_CRNO+"=m."+Constants.KEY_CRNO
+                +" ORDER BY "+Constants.CHATMSG_COLUMN_SENDTIME+" DESC";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         //cursor.moveToFirst();
@@ -193,7 +195,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public int existChatroom(int crno){
         int ExistChatroom = 0;
         ChatRoom room = new ChatRoom();
-        String selectQuery = "SELECT * FROM " + TABLE_CHATROOM + " WHERE "+KEY_CRNO+"="+crno;
+        String selectQuery = "SELECT * FROM " + Constants.TABLE_CHATROOM + " WHERE "+Constants.KEY_CRNO+"="+crno;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
@@ -212,7 +214,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Get the Message table
     public List<ChatMsg> getMessageList(int crno) {
         List<ChatMsg> msgList = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_CHATMSG + " WHERE "+CHATMSG_KEY_CRNO+"="+crno;
+        String selectQuery = "SELECT * FROM " + Constants.TABLE_CHATMSG + " WHERE "+Constants.CHATMSG_KEY_CRNO+"="+crno;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -232,7 +234,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public String getLastMsg(int crno){
         String lastMsg = "";
-        String selectQuery ="SELECT msg FROM chatmsg WHERE "+KEY_CRNO+"="+crno+" ORDER BY "+CHATMSG_KEY_CMNO
+        String selectQuery ="SELECT msg FROM chatmsg WHERE "+Constants.KEY_CRNO+"="+crno+" ORDER BY "+Constants.CHATMSG_KEY_CMNO
                     +" DESC LIMIT 1";
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -247,7 +249,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public String getTimeStamp(int crno){
         String timeStamp = "";
-        String selectQuery ="SELECT sendtime FROM chatmsg WHERE "+KEY_CRNO+"="+crno+" ORDER BY "+CHATMSG_KEY_CMNO
+        String selectQuery ="SELECT sendtime FROM chatmsg WHERE "+Constants.KEY_CRNO+"="+crno+" ORDER BY "+Constants.CHATMSG_KEY_CMNO
                 +" DESC LIMIT 1";
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -284,7 +286,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void resetTables(){
         SQLiteDatabase db = this.getWritableDatabase();
         // Delete All Rows
-        db.delete(TABLE_LOGIN, null, null);
+        db.delete(Constants.TABLE_LOGIN, null, null);
 
         db.close();
     }
@@ -301,8 +303,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // 예외처리 안 된 버전
         SQLiteDatabase dbDelete = this.getWritableDatabase();
-        String DELETE_FROM_CHATMSG_TABLE = "DELETE FROM " + TABLE_CHATMSG
-                + " WHERE "+CHATMSG_KEY_CMNO+"="+cmno;
+        String DELETE_FROM_CHATMSG_TABLE = "DELETE FROM " + Constants.TABLE_CHATMSG
+                + " WHERE "+Constants.CHATMSG_KEY_CMNO+"="+cmno;
         dbDelete.execSQL(DELETE_FROM_CHATMSG_TABLE);
     }
 
