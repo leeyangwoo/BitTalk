@@ -32,8 +32,8 @@ public class SocketchatActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        mno  = intent.getIntExtra("mno",  0);
-        crno = intent.getIntExtra("crno", 0);
+        mno  = intent.getIntExtra(Constants.KEY_MNO,  0);
+        crno = intent.getIntExtra(Constants.KEY_CRNO, 0);
 
         Log.i("getCrNo: ", String.valueOf(crno));
         Log.i("getMNo: ", String.valueOf(mno));

@@ -234,8 +234,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public String getLastMsg(int crno){
         String lastMsg = "";
-        String selectQuery ="SELECT msg FROM chatmsg WHERE "+Constants.KEY_CRNO+"="+crno+" ORDER BY "+Constants.CHATMSG_KEY_CMNO
-                    +" DESC LIMIT 1";
+        String selectQuery ="SELECT " + Constants.CHATMSG_COLUMN_MSG
+                + " FROM " + Constants.TABLE_CHATMSG
+                + " WHERE " + Constants.KEY_CRNO + "=" + crno
+                + " ORDER BY " + Constants.CHATMSG_KEY_CMNO
+                + " DESC LIMIT 1";
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
@@ -249,7 +252,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public String getTimeStamp(int crno){
         String timeStamp = "";
-        String selectQuery ="SELECT sendtime FROM chatmsg WHERE "+Constants.KEY_CRNO+"="+crno+" ORDER BY "+Constants.CHATMSG_KEY_CMNO
+        String selectQuery ="SELECT " + Constants.CHATMSG_COLUMN_SENDTIME
+                + " FROM " + Constants.TABLE_CHATMSG
+                + " WHERE " + Constants.KEY_CRNO + "=" + crno
+                + " ORDER BY " + Constants.CHATMSG_KEY_CMNO
                 +" DESC LIMIT 1";
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.bit_user.bitchatting.Adapter.MainchatAdapter;
+import com.example.bit_user.bitchatting.Constants;
 import com.example.bit_user.bitchatting.DB.DatabaseHandler;
 import com.example.bit_user.bitchatting.DTO.ChatRoom;
 import com.example.bit_user.bitchatting.DTO.MainchatLvitem;
@@ -44,7 +45,7 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
 
         arChatroom = new ArrayList<>();
         DatabaseHandler db = new DatabaseHandler(getActivity());
-        int myMno = Integer.parseInt(db.getUserDetails().get("mNo").toString());
+        int myMno = Integer.parseInt(db.getUserDetails().get(Constants.KEY_MNO).toString());
 
         crAdapter = new MainchatAdapter(getActivity(), R.layout.mainchat_listviewitem, arChatroom);
         ListView lvMainChat = (ListView)view.findViewById(R.id.mainChatFragment_listView1);
@@ -56,7 +57,7 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
                 MainchatLvitem tmpChatLvItem = (MainchatLvitem) crAdapter.getItem(position);
 
                 Intent i = new Intent(getActivity(), ChatroomActivity.class);
-                i.putExtra("crno", tmpChatLvItem.getChatroomInstance().getCrno());
+                i.putExtra(Constants.KEY_CRNO, tmpChatLvItem.getChatroomInstance().getCrno());
                 i.putExtra("detail", "exist");
                 startActivity(i);
 

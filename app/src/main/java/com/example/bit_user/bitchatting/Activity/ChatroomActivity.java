@@ -55,14 +55,14 @@ public class ChatroomActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);
-        setTitle("채팅방");
+        setTitle(Constants.CHATROOM_TITLE);
 
         Intent intent = getIntent();              //Intent로 상대회원번호, 방번호, 새로운 방인지 기존의 방인지를 받아옴
-        mno = intent.getIntExtra("mno", 0);
-        crno = intent.getIntExtra("crno", 0);
+        mno = intent.getIntExtra(Constants.KEY_MNO, 0);
+        crno = intent.getIntExtra(Constants.KEY_CRNO, 0);
         detail = intent.getStringExtra("detail");
         if(mno == 0) detail = "exist";
-        Log.i("intent", "mno: "+mno + " crno: " + crno + " " + detail);
+        Log.i("intent", Constants.KEY_MNO + ": " + mno + Constants.KEY_CRNO + ": " + crno + " " + detail);
         ///////////////////////////////////////////
         try {
             mSocket = IO.socket(Constants.NODE_SERVER_URL);
@@ -111,7 +111,7 @@ public class ChatroomActivity extends Activity {
                     try {                  //모듈화 할수 있을듯
                         responseJSON = new GetMnameTask().execute(mno).get();
                         if (responseJSON.get("result").equals("success")) {
-                            db.addChatroom(crno, 2, responseJSON.get("mname").toString());
+                            db.addChatroom(crno, 2, responseJSON.get(Constants.KEY_MNAME).toString());
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -121,21 +121,21 @@ public class ChatroomActivity extends Activity {
                     try {                      //////////
                         JSONObject responseJSON = new GetMnameTask().execute(mno).get();
                         if (responseJSON.get("result").equals("success")) {
-                            db.addChatroom(crno, 2, responseJSON.get("mname").toString());
+                            db.addChatroom(crno, 2, responseJSON.get(Constants.KEY_MNAME).toString());
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                db.addMessage(crno, Integer.parseInt(db.getUserDetails().get("mNo").toString()),
+                db.addMessage(crno, Integer.parseInt(db.getUserDetails().get(Constants.KEY_MNO).toString()),
                         msg);      //메세지를 내장DB에 저장
                 edtvMsg.setText("");
                 JSONObject sendInfo = new JSONObject();
                 try {
-                    sendInfo.put("crno", crno);
-                    sendInfo.put("msg", msg);
-                    sendInfo.put("senderNo", db.getUserDetails().get("mNo"));
-                    sendInfo.put("senderName", db.getUserDetails().get("mName"));
+                    sendInfo.put(Constants.CHATMSG_KEY_CMNO, crno);
+                    sendInfo.put(Constants.CHATMSG_COLUMN_MSG, msg);
+                    sendInfo.put(Constants.CHATMSG_COLUMN_SENDERNO, db.getUserDetails().get(Constants.KEY_MNO));       // "senderNo", "mNo"
+                    sendInfo.put(Constants.CHATMSG_COLUMN_SENDERNAME, db.getUserDetails().get(Constants.KEY_MNAME));   // "senderName", "mName"
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -161,7 +161,7 @@ public class ChatroomActivity extends Activity {
                     JSONObject responseJSON = getName(mno);
                     //GetMnameTask().execute(mno).get();
                     if(responseJSON.get("result").equals("success")){
-                        msg.setSenderName(responseJSON.get("mname").toString());
+                        msg.setSenderName(responseJSON.get(Constants.KEY_MNAME).toString());
                     }
                 }catch (Exception e){
                     e.printStackTrace();
@@ -184,7 +184,7 @@ public class ChatroomActivity extends Activity {
             HttpURLConnection conn = null;
             JSONObject responseJSON = null;
             try{
-                URL url = new URL(Constants.CHAT_SERVER_URL + "invite.jsp?mno="+params[0]+"&crno="+params[1]);
+                URL url = new URL(Constants.CHAT_SERVER_URL + Constants.JSP_INVITE + "?" + Constants.KEY_MNO + "="+params[0]+"&" + Constants.KEY_CRNO + "="+params[1]);
                 Log.i("invite URL",url.toString());
                 conn = (HttpURLConnection)url.openConnection();
                 conn.setRequestMethod("GET");
@@ -230,7 +230,7 @@ public class ChatroomActivity extends Activity {
             HttpURLConnection conn = null;
             JSONObject responseJSON = null;
             try{
-                URL url = new URL(Constants.CHAT_SERVER_URL + "who.jsp?mno="+params[0]);
+                URL url = new URL(Constants.CHAT_SERVER_URL + Constants.JSP_WHO + "?" + Constants.KEY_MNO + "="+params[0]);
                 Log.i("who URL",url.toString());
                 conn = (HttpURLConnection)url.openConnection();
                 conn.setRequestMethod("GET");
@@ -264,7 +264,7 @@ public class ChatroomActivity extends Activity {
         HttpURLConnection conn = null;
         JSONObject responseJSON = null;
         try{
-            URL url = new URL(Constants.CHAT_SERVER_URL + "who.jsp?mno="+mno);
+            URL url = new URL(Constants.CHAT_SERVER_URL + Constants.JSP_WHO + "?" + Constants.KEY_MNO + "="+mno);
             conn = (HttpURLConnection)url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
@@ -304,14 +304,14 @@ public class ChatroomActivity extends Activity {
                     try {
                         //msg = data.getString("message");
                         ChatMsg msgInstance = new ChatMsg();
-                        msgInstance.setCrno(Integer.parseInt(data.getString("crno")));
+                        msgInstance.setCrno(Integer.parseInt(data.getString(Constants.KEY_CRNO)));
                         msgInstance.setMessage(data.getString("message"));
                         msg = new ChatroomLvitem(msgInstance);
                         msg.setSenderName(data.getString("username"));
                         arMsg.add(msg);
-                        if(Integer.parseInt(data.getString("mno")) !=
+                        if(Integer.parseInt(data.getString(Constants.KEY_MNO)) !=
                                 Integer.parseInt(db.getUserDetails().get("mNo").toString())){
-                            db.addMessage(crno, Integer.parseInt(data.getString("mno")),
+                            db.addMessage(crno, Integer.parseInt(data.getString(Constants.KEY_MNO)),
                                     msg.getChatMsgInstance().getMessage());
                         }
                         msgAdapter.notifyDataSetChanged();

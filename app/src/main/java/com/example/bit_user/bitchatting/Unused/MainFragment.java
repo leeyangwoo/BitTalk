@@ -44,10 +44,6 @@ import io.socket.emitter.Emitter;
  */
 public class MainFragment extends Fragment {
 
-    private static final int REQUEST_LOGIN = 0;
-
-    private static final int TYPING_TIMER_LENGTH = 600;
-
     private RecyclerView mMessagesView;
     private EditText mInputMessageView;
     private List<Message> mMessages = new ArrayList<Message>();
@@ -156,7 +152,7 @@ public class MainFragment extends Fragment {
                 }
 
                 mTypingHandler.removeCallbacks(onTypingTimeout);
-                mTypingHandler.postDelayed(onTypingTimeout, TYPING_TIMER_LENGTH);
+                mTypingHandler.postDelayed(onTypingTimeout, Constants.TYPING_TIMER_LENGTH);
             }
 
             @Override
@@ -268,7 +264,7 @@ public class MainFragment extends Fragment {
     private void startSignIn() {
         mUsername = null;
         Intent intent = new Intent(getActivity(), Confirm.class);
-        startActivityForResult(intent, REQUEST_LOGIN);
+        startActivityForResult(intent, Constants.REQUEST_LOGIN);
     }
 
     private void leave() {

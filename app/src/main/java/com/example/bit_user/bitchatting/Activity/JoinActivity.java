@@ -74,7 +74,7 @@ public class JoinActivity extends AppCompatActivity {
 
                             HttpURLConnection conn = null;
                             try {
-                                URL url = new URL(Constants.CHAT_SERVER_URL + "join.jsp"); //요청 URL을 입력
+                                URL url = new URL(Constants.CHAT_SERVER_URL + Constants.JSP_JOIN); //요청 URL을 입력
                                 conn = (HttpURLConnection) url.openConnection();
                                 conn.setRequestMethod("POST"); //요청 방식을 설정 (default : GET)
                                 conn.setDoInput(true); //input을 사용하도록 설정 (default : true)
@@ -84,8 +84,9 @@ public class JoinActivity extends AppCompatActivity {
                                 OutputStream os = conn.getOutputStream();
                                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8")); //캐릭터셋 설정
 
-                                writer.write("mid=" + edtText1.getText().toString() + "&mpasswd=" + edtText3.getText().toString()
-                                        + "&mname=" + edtText2.getText().toString()); //요청 파라미터를 입력
+                                writer.write(Constants.KEY_MID + edtText1.getText().toString()
+                                        + "&" + Constants.KEY_MPASSWORD + "=" + edtText3.getText().toString()
+                                        + "&" + Constants.KEY_MNAME + "=" + edtText2.getText().toString()); //요청 파라미터를 입력
                                 writer.flush();
                                 writer.close();
                                 os.close();
@@ -113,7 +114,7 @@ public class JoinActivity extends AppCompatActivity {
 
                                             if (responseJSON.get("result").equals("success")) {
 
-                                                Toast.makeText(getApplicationContext(), "Welcome! Login Please",
+                                                Toast.makeText(getApplicationContext(), Constants.TOASTMSG_JOIN_SUCCESS,
                                                         Toast.LENGTH_SHORT).show();
 
                                                 Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -121,7 +122,7 @@ public class JoinActivity extends AppCompatActivity {
                                                 finish();
 
                                             } else {
-                                                Toast.makeText(getApplicationContext(), "ID is already exist", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getApplicationContext(), Constants.TOASTMSG_JOIN_FAIL, Toast.LENGTH_SHORT).show();
                                                 edtText1.setText("");
                                                 edtText3.setText("");
                                                 edtText4.setText("");
