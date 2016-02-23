@@ -134,7 +134,7 @@ public class ChatroomActivity extends Activity {
                 JSONObject sendInfo = new JSONObject();
                 try {
                     sendInfo.put("tokens",new GetTokenTask().execute(crno,
-                            Integer.parseInt(db.getUserDetails().get("mNo").toString())).get());
+                            Integer.parseInt(db.getUserDetails().get("mNo").toString())).get().toString());
                     sendInfo.put("crno", crno);
                     sendInfo.put("msg", msg);
                     sendInfo.put("senderNo", db.getUserDetails().get("mNo"));
@@ -263,12 +263,12 @@ public class ChatroomActivity extends Activity {
 
     }
 
-    class GetTokenTask extends AsyncTask<Integer, String, ArrayList<String>>{
+    class GetTokenTask extends AsyncTask<Integer, String, JSONArray>{
         @Override
-        protected ArrayList<String> doInBackground(Integer... params) {
+        protected JSONArray doInBackground(Integer... params) {
             HttpURLConnection conn = null;
-            JSONArray responseJSONarr;
-            ArrayList<String> arToken = new ArrayList<>();
+            JSONArray responseJSONarr, tokenJSONarr=new JSONArray();
+
             try{
                 //상수변경
                 URL url = new URL("http://192.168.1.35/BitTalkServer/push.jsp?crno="+params[0]+"&mno="+params[1]);
@@ -290,7 +290,9 @@ public class ChatroomActivity extends Activity {
                 responseJSONarr = new JSONArray(sb.toString());
                 for(int i=0; i<responseJSONarr.length(); i++){
                     String token = responseJSONarr.getJSONObject(i).get("mtoken").toString();
-                    arToken.add(token);
+                    JSONObject obj = new JSONObject();
+                    obj.put("mtoken",token);
+                    tokenJSONarr.put(obj);
                 }
             }catch(Exception e){
                 e.printStackTrace();
@@ -299,7 +301,7 @@ public class ChatroomActivity extends Activity {
                     conn.disconnect();
                 }
             }
-            return arToken;
+            return tokenJSONarr;
         }
     }
 
