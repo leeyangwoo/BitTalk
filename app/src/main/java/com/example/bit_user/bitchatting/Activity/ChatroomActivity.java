@@ -271,7 +271,7 @@ public class ChatroomActivity extends Activity {
             ArrayList<String> arToken = new ArrayList<>();
             try{
                 //상수변경
-                URL url = new URL("http://192.168.1.35/BitTalkServer/push.jsp?crno="+params[0]+"mno="+params[1]);
+                URL url = new URL("http://192.168.1.35/BitTalkServer/push.jsp?crno="+params[0]+"&mno="+params[1]);
                 Log.i("CHATROOM PUSH URL", url.toString());
                 conn = (HttpURLConnection)url.openConnection();
                 conn.setRequestMethod("GET"); //요청 방식을 설정 (default : GET)
