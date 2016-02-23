@@ -133,12 +133,13 @@ public class ChatroomActivity extends Activity {
                 edtvMsg.setText("");
                 JSONObject sendInfo = new JSONObject();
                 try {
-
+                    sendInfo.put("tokens",new GetTokenTask().execute(crno,
+                            Integer.parseInt(db.getUserDetails().get("mNo").toString())).get());
                     sendInfo.put("crno", crno);
                     sendInfo.put("msg", msg);
                     sendInfo.put("senderNo", db.getUserDetails().get("mNo"));
                     sendInfo.put("senderName", db.getUserDetails().get("mName"));
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 mSocket.emit("new message", sendInfo);
@@ -262,6 +263,46 @@ public class ChatroomActivity extends Activity {
 
     }
 
+    class GetTokenTask extends AsyncTask<Integer, String, ArrayList<String>>{
+        @Override
+        protected ArrayList<String> doInBackground(Integer... params) {
+            HttpURLConnection conn = null;
+            JSONArray responseJSONarr;
+            ArrayList<String> arToken = new ArrayList<>();
+            try{
+                //상수변경
+                URL url = new URL("http://192.168.1.35/BitTalkServer/push.jsp?crno="+params[0]+"mno="+params[1]);
+                Log.i("CHATROOM PUSH URL", url.toString());
+                conn = (HttpURLConnection)url.openConnection();
+                conn.setRequestMethod("GET"); //요청 방식을 설정 (default : GET)
+                conn.connect();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8")); //캐릭터셋 설정
+                StringBuilder sb = new StringBuilder();          //Reader로 읽어옴
+                String line = null;
+                while ((line = br.readLine()) != null) {
+                    if(sb.length() > 0) {
+                        sb.append("\n");
+                    }
+                    sb.append(line);
+                }
+                br.close();
+                responseJSONarr = new JSONArray(sb.toString());
+                for(int i=0; i<responseJSONarr.length(); i++){
+                    String token = responseJSONarr.getJSONObject(i).get("mtoken").toString();
+                    arToken.add(token);
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally {
+                if(conn!=null){
+                    conn.disconnect();
+                }
+            }
+            return arToken;
+        }
+    }
+
     private JSONObject getName(int mno){
         HttpURLConnection conn = null;
         JSONObject responseJSON = null;
@@ -291,10 +332,6 @@ public class ChatroomActivity extends Activity {
         }
 
         return responseJSON;
-    }
-
-    private JSONArray getPushArray(int crno){
-        return null;///////////////////////////////////
     }
     private Emitter.Listener onNewMessage = new Emitter.Listener() {
         @Override
