@@ -18,11 +18,14 @@ import com.example.bit_user.bitchatting.R;
  */
 public class SplashActivity extends Activity {
     int SPLASH_TIME = 5000;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         StartAnimations();
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -61,4 +64,6 @@ public class SplashActivity extends Activity {
         l2.clearAnimation();
         l2.startAnimation(anim);
     }
+
+
 }

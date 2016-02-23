@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         mJoinInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent joinIntent = new Intent(getApplicationContext(),JoinActivity.class);
+                Intent joinIntent = new Intent(getApplicationContext(), JoinActivity.class);
                 startActivity(joinIntent);
 
             }
@@ -153,6 +153,7 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     }
+
 
 
 }

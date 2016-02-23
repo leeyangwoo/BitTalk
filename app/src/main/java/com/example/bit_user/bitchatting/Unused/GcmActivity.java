@@ -1,4 +1,4 @@
-package com.example.bit_user.bitchatting.GCM;
+package com.example.bit_user.bitchatting.Unused;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -22,7 +22,6 @@ public class GcmActivity extends Activity{
         if(checkPlayServices()){
 
         }
-
     }
 
     @Override

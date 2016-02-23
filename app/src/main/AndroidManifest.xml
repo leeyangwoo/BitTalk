@@ -3,13 +3,15 @@
     package="com.example.bit_user.bitchatting">
 
     <uses-permission android:name="android.permission.INTERNET"> </uses-permission>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--<uses-permission android:name="android.permission.GET_ACCOUNTS" />-->
+    <!-- [START gcm_permission] -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- [END gcm_permission] -->
 
-    <permission android:name="com.example.bit_user.bitchatting.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-    <uses-permission android:name="com.example.bit_user.bitchatting.permission.C2D_MESSAGE" />
+    <!--<permission android:name="com.example.bit_user.bitchatting.permission.C2D_MESSAGE"-->
+        <!--android:protectionLevel="signature" />-->
+    <!--<uses-permission android:name="com.example.bit_user.bitchatting.permission.C2D_MESSAGE" />-->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/talk"
@@ -31,6 +33,46 @@
         <activity android:name=".Unused.SocketchatActivity"></activity>
         <activity android:name=".Unused.Confirm"></activity>
         <activity android:name=".Activity.MainActivity"></activity>
+        <service android:name=".GCM.RegistrationIntentService"></service>
     </application>
+
+    <!-- [START gcm_receiver] -->
+    <receiver
+        android:name="com.google.android.gms.gcm.GcmReceiver"
+        android:exported="true"
+        android:permission="com.google.android.c2dm.permission.SEND">
+        <intent-filter>
+            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            <category android:name="com.example.bit_user.bitchatting" />
+        </intent-filter>
+    </receiver>
+    <!-- [END gcm_receiver] -->
+
+    <!-- [START gcm_listener_service] -->
+    <service
+        android:name="com.example.bit_user.bitchatting.MyGcmListenerService"
+        android:exported="false">
+        <intent-filter>
+            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+        </intent-filter>
+    </service>
+    <!-- [END gcm_listener_service] -->
+
+    <!-- [START instanceId_listener_service] -->
+    <service
+        android:name="com.example.bit_user.bitchatting.MyInstanceIDListenerService"
+        android:exported="false">
+        <intent-filter>
+            <action android:name="com.google.android.gms.iid.InstanceID" />
+        </intent-filter>
+    </service>
+    <!-- [END instanceId_listener_service] -->
+
+    <!-- [START gcm_registration_service] -->
+    <service
+        android:name="com.example.bit_user.bitchatting.RegistrationIntentService"
+        android:exported="false">
+    </service>
+    <!-- [END gcm_registration_service] -->
 
 </manifest>
