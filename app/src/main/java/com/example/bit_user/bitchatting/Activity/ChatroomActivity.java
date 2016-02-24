@@ -227,7 +227,7 @@ public class ChatroomActivity extends Activity {
             }
         }
     }
-    class GetMnameTask extends AsyncTask<Integer, String, JSONObject>{
+    public class GetMnameTask extends AsyncTask<Integer, String, JSONObject>{
         @Override
         protected JSONObject doInBackground(Integer... params) {
             HttpURLConnection conn = null;
