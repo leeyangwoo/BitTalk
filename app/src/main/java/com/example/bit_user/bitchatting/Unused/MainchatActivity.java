@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.bit_user.bitchatting.Constants;
 import com.example.bit_user.bitchatting.DB.DatabaseHandler;
 import com.example.bit_user.bitchatting.DTO.ChatRoom;
 import com.example.bit_user.bitchatting.DTO.MainchatLvitem;
@@ -24,7 +25,7 @@ public class MainchatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainchat);
-        setTitle("채팅방 목록");
+        setTitle(Constants.MAINCHAT_TITLE);
 
         arChatroom = new ArrayList<>();
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());

@@ -22,7 +22,7 @@ public class SocketchatActivity extends Activity {
     private Socket mSocket;
     {
         try {
-            mSocket = IO.socket(Constants.CHAT_SERVER_URL);
+            mSocket = IO.socket(Constants.NODE_SERVER_URL);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -32,8 +32,8 @@ public class SocketchatActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        mno  = intent.getIntExtra("mno",  0);
-        crno = intent.getIntExtra("crno", 0);
+        mno  = intent.getIntExtra(Constants.KEY_MNO,  0);
+        crno = intent.getIntExtra(Constants.KEY_CRNO, 0);
 
         Log.i("getCrNo: ", String.valueOf(crno));
         Log.i("getMNo: ", String.valueOf(mno));

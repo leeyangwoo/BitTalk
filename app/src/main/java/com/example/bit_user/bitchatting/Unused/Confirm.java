@@ -32,7 +32,7 @@ public class Confirm extends AppCompatActivity {
     private Socket mSocket;
     {
         try {
-            mSocket = IO.socket(Constants.CHAT_SERVER_URL);
+            mSocket = IO.socket(Constants.NODE_SERVER_URL);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

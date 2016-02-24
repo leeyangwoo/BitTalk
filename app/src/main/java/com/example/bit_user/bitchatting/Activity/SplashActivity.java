@@ -12,13 +12,12 @@ import android.widget.LinearLayout;
 
 import com.example.bit_user.bitchatting.DB.DatabaseHandler;
 import com.example.bit_user.bitchatting.R;
+import com.example.bit_user.bitchatting.Constants;
 
 /**
  * Created by bit-user on 2016-02-16.
  */
 public class SplashActivity extends Activity {
-    int SPLASH_TIME = 5000;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -42,7 +41,7 @@ public class SplashActivity extends Activity {
                     finish();
                 }
             }
-        },SPLASH_TIME);
+        },Constants.SPLASH_TIME);
     }
     private void StartAnimations(){
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);

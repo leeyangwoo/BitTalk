@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.bit_user.bitchatting.Activity.ChatroomActivity;
+import com.example.bit_user.bitchatting.Constants;
 import com.example.bit_user.bitchatting.DTO.SearchResult;
 import com.example.bit_user.bitchatting.R;
 
@@ -76,7 +77,7 @@ public class SearchResultAdapter extends BaseAdapter {
             HttpURLConnection conn = null;
             JSONObject responseJSON=null;
             try{                                               //GET방식
-                URL url = new URL("http://192.168.1.35/BitTalkServer/talk.jsp?mno1="+mno[0]+"&mno2="+mno[1]);
+                URL url = new URL(Constants.CHAT_SERVER_URL + "talk.jsp?mno1="+mno[0]+"&mno2="+mno[1]);
                 Log.i("talkURL", url.toString());
                 conn = (HttpURLConnection)url.openConnection();
                 conn.setRequestMethod("GET");
@@ -136,7 +137,7 @@ public class SearchResultAdapter extends BaseAdapter {
             ArrayList<SearchResult> arResult = new ArrayList<>();
             SearchResult sr;
             try {                                                     //GET방식인데 POST로 바꿔야함
-                URL url = new URL("http://192.168.1.35/BitTalkServer/search.jsp?mid="+query[0]); //요청 URL을 입력
+                URL url = new URL(Constants.CHAT_SERVER_URL + "search.jsp?mid="+query[0]); //요청 URL을 입력
                 Log.i("searchURL", url.toString());
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET"); //요청 방식을 설정 (default : GET)

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.bit_user.bitchatting.Constants;
 import com.example.bit_user.bitchatting.DB.DatabaseHandler;
 import com.example.bit_user.bitchatting.R;
 
@@ -66,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         protected Void doInBackground(String... param){
             HttpURLConnection conn = null;
             try {
-                URL url = new URL("http://192.168.1.35/BitTalkServer/login.jsp"); //요청 URL을 입력
+                URL url = new URL(Constants.CHAT_SERVER_URL + Constants.JSP_LOGIN); //요청 URL을 입력
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST"); //요청 방식을 설정 (default : GET)
                 conn.setDoInput(true); //input을 사용하도록 설정 (default : true)
@@ -76,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                 OutputStream os = conn.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8")); //캐릭터셋 설정
 
-                writer.write("mid=" + param[0] + "&mpasswd=" + param[1]); //요청 파라미터를 입력
+                writer.write(Constants.KEY_MID + "=" + param[0] + "&" + Constants.KEY_MPASSWORD + "=" + param[1]); //요청 파라미터를 입력
                 writer.flush();
                 writer.close();
                 os.close();
@@ -103,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             if(responseJSON.get("result").equals("success")){
 
-                                Toast.makeText(getApplicationContext(), "Successfully Logged In!",
+                                Toast.makeText(getApplicationContext(), Constants.TOASTMSG_LOGIN_SUCCESS,
                                         Toast.LENGTH_SHORT).show();
 
                                 DatabaseHandler db = new DatabaseHandler(getApplicationContext());
@@ -112,10 +113,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
                                 //유저를 한명 추가해서 세션처럼 사용함.
-                                db.addUser(Integer.parseInt(responseJSON.getJSONObject("member").get("mno").toString()),
-                                        (responseJSON.getJSONObject("member").get("mid")).toString(),
-                                        (responseJSON.getJSONObject("member").get("mpasswd")).toString(),
-                                        (responseJSON.getJSONObject("member").get("mname")).toString());
+                                db.addUser(Integer.parseInt(responseJSON.getJSONObject(Constants.TABLE_LOGIN).get(Constants.KEY_MNO).toString()),
+                                        (responseJSON.getJSONObject(Constants.TABLE_LOGIN).get(Constants.KEY_MID)).toString(),
+                                        (responseJSON.getJSONObject(Constants.TABLE_LOGIN).get(Constants.KEY_MPASSWORD)).toString(),
+                                        (responseJSON.getJSONObject(Constants.TABLE_LOGIN).get(Constants.KEY_MNAME)).toString());
 
                                 //확인차 콘솔창에서 출력.
                                 System.out.println(db.getUserDetails().values());
@@ -125,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                                 finish();
 
                             }else{
-                                Toast.makeText(getApplicationContext(), "Incorrect Id or Password",
+                                Toast.makeText(getApplicationContext(), Constants.TOASTMSG_WRONG_PWD,
                                         Toast.LENGTH_SHORT).show();
                                 id.setText("");
                                 password.setText("");

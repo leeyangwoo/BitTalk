@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.bit_user.bitchatting.Adapter.SearchResultAdapter;
+import com.example.bit_user.bitchatting.Constants;
 import com.example.bit_user.bitchatting.DB.DatabaseHandler;
 import com.example.bit_user.bitchatting.DTO.SearchResult;
 import com.example.bit_user.bitchatting.R;
@@ -24,7 +25,7 @@ public class MainsrcActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainsrc);
-        setTitle("대화상대 찾기");
+        setTitle(Constants.MAINSRC_TITLE);
 
         arResult = new ArrayList<>();
         edtvSrc = (EditText) findViewById(R.id.mainSrc_edt_search);
