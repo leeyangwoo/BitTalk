@@ -22,6 +22,7 @@ public class Constants {
     public static final String KEY_MID = "mid";
     public static final String KEY_MPASSWORD = "mpasswd";
     public static final String KEY_MNAME = "mname";
+    public static final String KEY_MTOKEN = "mtoken";
 
     // Chatroom table column
     public static final String KEY_CRNO = "crno";

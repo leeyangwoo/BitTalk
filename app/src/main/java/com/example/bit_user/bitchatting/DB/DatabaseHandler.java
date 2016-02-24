@@ -36,7 +36,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + Constants.KEY_MNO + " INTEGER PRIMARY KEY,"
                 + Constants.KEY_MID + " TEXT,"
                 + Constants.KEY_MPASSWORD + " TEXT,"
-                + Constants.KEY_MNAME + " TEXT" + ")";
+                + Constants.KEY_MNAME + " TEXT,"
+                + Constants.KEY_MTOKEN + " TEXT" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
         String CREATE_CHATROOM_TABLE = "CREATE TABLE " + Constants.TABLE_CHATROOM + "("
                 + Constants.KEY_CRNO + " INTEGER PRIMARY KEY,"

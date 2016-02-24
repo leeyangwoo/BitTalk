@@ -84,7 +84,7 @@ public class JoinActivity extends AppCompatActivity {
                                 OutputStream os = conn.getOutputStream();
                                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8")); //캐릭터셋 설정
 
-                                writer.write(Constants.KEY_MID + edtText1.getText().toString()
+                                writer.write(Constants.KEY_MID + "=" + edtText1.getText().toString()
                                         + "&" + Constants.KEY_MPASSWORD + "=" + edtText3.getText().toString()
                                         + "&" + Constants.KEY_MNAME + "=" + edtText2.getText().toString()); //요청 파라미터를 입력
                                 writer.flush();

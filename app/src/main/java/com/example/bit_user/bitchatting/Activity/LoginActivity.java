@@ -17,7 +17,6 @@ import com.example.bit_user.bitchatting.Constants;
 import com.example.bit_user.bitchatting.DB.DatabaseHandler;
 import com.example.bit_user.bitchatting.R;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -111,13 +110,11 @@ public class LoginActivity extends AppCompatActivity {
 
                                 db.resetTables();
 
-
                                 //유저를 한명 추가해서 세션처럼 사용함.
                                 db.addUser(Integer.parseInt(responseJSON.getJSONObject(Constants.TABLE_LOGIN).get(Constants.KEY_MNO).toString()),
                                         (responseJSON.getJSONObject(Constants.TABLE_LOGIN).get(Constants.KEY_MID)).toString(),
                                         (responseJSON.getJSONObject(Constants.TABLE_LOGIN).get(Constants.KEY_MPASSWORD)).toString(),
                                         (responseJSON.getJSONObject(Constants.TABLE_LOGIN).get(Constants.KEY_MNAME)).toString());
-
                                 //확인차 콘솔창에서 출력.
                                 System.out.println(db.getUserDetails().values());
 
@@ -132,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                                 password.setText("");
                                 id.requestFocus();
                             }
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
