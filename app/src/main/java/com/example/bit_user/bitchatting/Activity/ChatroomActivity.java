@@ -136,7 +136,7 @@ public class ChatroomActivity extends Activity {
                 try {
                     sendInfo.put("tokens",new GetTokenTask().execute(crno,
                             Integer.parseInt(db.getUserDetails().get("mno").toString())).get().toString());
-                    sendInfo.put(Constants.CHATMSG_KEY_CMNO, crno);
+                    sendInfo.put(Constants.CHATMSG_KEY_CRNO, crno);
                     sendInfo.put(Constants.CHATMSG_COLUMN_MSG, msg);
                     sendInfo.put("senderNo", db.getUserDetails().get("mno"));
                     sendInfo.put("senderName", db.getUserDetails().get("mname"));
