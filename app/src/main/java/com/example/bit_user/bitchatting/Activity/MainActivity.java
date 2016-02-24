@@ -47,10 +47,15 @@ public class MainActivity extends Activity {
 
         registBroadcastReceiver();
         getInstanceIdToken();
+        Fragment fr = new FragmentMainchat();
+        FragmentManager fm = getFragmentManager();  // Fragment를 관리하기 위한 객체 생성
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();    // FragmentTransaction 열기
+        fragmentTransaction.replace(R.id.ll_fragment, fr);  //  프래그먼트 옮겨오기
+        fragmentTransaction.commit();   // 명령 commit
     }
 
     public void selectFrag(View view) {
-        Fragment fr;
+        Fragment fr = new FragmentMainchat();
 
         if(view == findViewById(R.id.btnMainsrcFragment)) {
             fr = new FragmentMainsrc();
@@ -103,9 +108,7 @@ public class MainActivity extends Activity {
                     db = new DatabaseHandler(getApplicationContext());
 
                     final String token = intent.getStringExtra("token");
-                    myMno =  db.getUserDetails().get("mNo").toString();
-                    Log.i("Token in class: ", token);
-                    Log.i("db User detail 1: ", myMno);
+                    myMno =  db.getUserDetails().get("mno").toString();
 
                     new Thread() {
                         @Override
@@ -124,15 +127,10 @@ public class MainActivity extends Activity {
                                 OutputStream os = conn.getOutputStream();
                                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8")); //캐릭터셋 설정
 
-                                Log.i("db User detail 2: ", myMno);
-
                                 writer.write("mno=" + myMno + "&mtoken=" + token); //요청 파라미터를 입력
                                 writer.flush();
                                 writer.close();
                                 os.close();
-
-                                Log.i("Token final: ",token);
-
                                 conn.connect();
 
                                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8")); //캐릭터셋 설정
@@ -145,8 +143,6 @@ public class MainActivity extends Activity {
                                     sb.append(line);
                                 }
                                 final JSONObject responseJSON = new JSONObject(sb.toString());
-                                Log.i("response Json: ", responseJSON.toString());
-                                //왜 Fail 이 나오는지 모르겠음 ㅠㅠ
 
                             } catch (Exception e) {
                                 e.printStackTrace();

@@ -113,7 +113,6 @@ public class SearchResultAdapter extends BaseAdapter {
                     Intent i = new Intent(mainCon, ChatroomActivity.class);
                     i.putExtra("mno", Integer.parseInt(result.get("mno").toString()));
                     i.putExtra("crno", Integer.parseInt(result.get("crno").toString()));
-                    Log.i("crNo: ",result.get("crno").toString());
                     ///////////////////////////////////////////////////////
                     if(result.get("detail").equals("exist")){
                         i.putExtra("detail", "exist");
@@ -155,7 +154,6 @@ public class SearchResultAdapter extends BaseAdapter {
                 }
                 br.close();
                 responseJSONarr = new JSONArray(sb.toString());     //JSON array로 읽어옴
-                Log.i("searchJSON",responseJSONarr.toString());
 
                 for (int i = 0; i < responseJSONarr.length(); i++) {     //JSON array result에 추가
                     sr = new SearchResult(responseJSONarr.getJSONObject(i).get("mname").toString(),

@@ -52,7 +52,8 @@ public class MainchatAdapter extends BaseAdapter {
         crName.setText(arChatroom.get(position).getChatroomInstance().getCrName());
         lastMsg.setText(arChatroom.get(position).getLastMsg());
         nump.setText(arChatroom.get(position).getChatroomInstance().getNump()+"명");
-        timestamp.setText(arChatroom.get(position).getTimestamp());
+        timestamp.setText(arChatroom.get(position).getTimestamp().substring(0,16));
+
 
         return convertView;
     }

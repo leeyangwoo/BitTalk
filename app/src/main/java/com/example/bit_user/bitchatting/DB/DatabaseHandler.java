@@ -98,17 +98,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Add a record into Message table
     public void addMessage(int crno, int senderid, String message) {
-        // 매개변수가 올바르지 않을 경우에 대한 예외처리
-        /*try {
-            SQLiteDatabase dbInsert = this.getWritableDatabase();
-            String INSERT_INTO_CHATMSG_TABLE = "INSERT INTO " + TABLE_CHATMSG
-                    + "(crno,senderid,message,timestamp) VALUES (" + Integer.toString(crno)
-                    + "," + Integer.toString(senderid) + "," + message
-                    + new Timestamp(System.currentTimeMillis()).toString() + ")";
-            dbInsert.execSQL(INSERT_INTO_CHATMSG_TABLE);
-        } catch(Exception e) {}*/
 
-        // 예외처리 안 된 버전
         SQLiteDatabase dbInsert = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(Constants.CHATMSG_KEY_CRNO, crno);
@@ -135,11 +125,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Move to first row
         cursor.moveToFirst();
         if(cursor.getCount() > 0){
-            user.put("mNo", cursor.getInt(0));
-            user.put("mId", cursor.getString(1));
-            user.put("mPassword", cursor.getString(2));
-            user.put("mName", cursor.getString(3));
-            user.put("mToken", cursor.getString(4));
+            user.put("mno", cursor.getInt(0));
+            user.put("mid", cursor.getString(1));
+            user.put("mpassword", cursor.getString(2));
+            user.put("mname", cursor.getString(3));
+            user.put("mtoken", cursor.getString(4));
         }
         cursor.close();
         db.close();

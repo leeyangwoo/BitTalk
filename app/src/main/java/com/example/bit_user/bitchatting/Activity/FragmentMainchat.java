@@ -44,8 +44,6 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
         View view = inflater.inflate(R.layout.activity_fragment_mainchat, container, false);
 
         arChatroom = new ArrayList<>();
-        DatabaseHandler db = new DatabaseHandler(getActivity());
-        int myMno = Integer.parseInt(db.getUserDetails().get(Constants.KEY_MNO).toString());
 
         crAdapter = new MainchatAdapter(getActivity(), R.layout.mainchat_listviewitem, arChatroom);
         ListView lvMainChat = (ListView)view.findViewById(R.id.mainChatFragment_listView1);
@@ -60,11 +58,8 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
                 i.putExtra(Constants.KEY_CRNO, tmpChatLvItem.getChatroomInstance().getCrno());
                 i.putExtra("detail", "exist");
                 startActivity(i);
-
             }
         });
-        GetMychatTaskInFragment getMychatTask = new GetMychatTaskInFragment();
-        getMychatTask.execute(myMno);
 
         return view;
     }
@@ -72,6 +67,15 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        DatabaseHandler db = new DatabaseHandler(getActivity());
+        int myMno = Integer.parseInt(db.getUserDetails().get(Constants.KEY_MNO).toString());
+        GetMychatTaskInFragment getMychatTask = new GetMychatTaskInFragment();
+        getMychatTask.execute(myMno);
     }
 
     @Override
@@ -87,7 +91,7 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
             DatabaseHandler db = new DatabaseHandler(getActivity());
             List<ChatRoom> roomList = db.getChatroomList();
             MainchatLvitem cr;
-
+            arChatroom.clear();
             for(int i=0;i<roomList.size();i++){
                 cr = new MainchatLvitem(roomList.get(i),db.getLastMsg(roomList.get(i).getCrno()),
                         db.getTimeStamp(roomList.get(i).getCrno()));

@@ -37,7 +37,7 @@ public class FragmentMainsrc extends Fragment implements OnClickListener {
         edtvSrc = (EditText) view.findViewById(R.id.mainSrcFragment_edt_search);
         btnSrc = (Button) view.findViewById(R.id.mainSrcFragment_btn_search);
         DatabaseHandler db = new DatabaseHandler(getActivity());
-        int myMno = Integer.parseInt(db.getUserDetails().get("mNo").toString());
+        int myMno = Integer.parseInt(db.getUserDetails().get("mno").toString());
 
         btnSrc.setOnClickListener(new View.OnClickListener() {
             @Override

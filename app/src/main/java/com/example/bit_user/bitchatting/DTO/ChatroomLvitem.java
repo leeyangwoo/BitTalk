@@ -18,8 +18,6 @@ public class ChatroomLvitem {
     //   1. Getter
     public String getSenderName() { return senderName; }
     public ChatMsg getChatMsgInstance() { return chatMsgInstance; }
-    //public String getTxtMember() { return "[" + txtMember + "]"; }
-    //public String getTxtMsg() { return txtMsg; }
 
     //   2. Setter
     public void setSenderName(String senderName){
