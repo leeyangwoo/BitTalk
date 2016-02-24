@@ -180,11 +180,11 @@ public class MainActivity extends Activity {
     /**
      * 앱이 화면에서 사라지면 등록된 LocalBoardcast를 모두 삭제한다.
      */
-    @Override
-    protected void onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
-        super.onPause();
-    }
+//    @Override
+//    protected void onPause() {
+//        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+//        super.onPause();
+//    }
 
 
 

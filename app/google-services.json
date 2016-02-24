@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:457604154359:android:65408bf71285d994",
+//        "mobilesdk_app_id": "1:457604154359:android:65408bf71285d994",
         "client_id": "android:com.example.bit_user.bitchatting",
         "client_type": 1,
         "android_client_info": {
