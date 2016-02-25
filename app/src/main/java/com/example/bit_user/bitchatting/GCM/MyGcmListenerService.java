@@ -11,7 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.example.bit_user.bitchatting.Activity.MainActivity;
+import com.example.bit_user.bitchatting.Activity.ChatroomActivity;
 import com.example.bit_user.bitchatting.Constants;
 import com.example.bit_user.bitchatting.DB.DatabaseHandler;
 import com.example.bit_user.bitchatting.R;
@@ -58,9 +58,10 @@ public class MyGcmListenerService extends GcmListenerService {
      * @param message
      */
     private void sendNotification(String title, String message, int crno, int senderNo) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ChatroomActivity.class);
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra(Constants.KEY_CRNO, crno);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
