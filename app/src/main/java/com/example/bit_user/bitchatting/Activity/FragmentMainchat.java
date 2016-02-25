@@ -1,9 +1,13 @@
 package com.example.bit_user.bitchatting.Activity;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,7 @@ import com.example.bit_user.bitchatting.Constants;
 import com.example.bit_user.bitchatting.DB.DatabaseHandler;
 import com.example.bit_user.bitchatting.DTO.ChatRoom;
 import com.example.bit_user.bitchatting.DTO.MainchatLvitem;
+import com.example.bit_user.bitchatting.GCM.QuickstartPreferences;
 import com.example.bit_user.bitchatting.R;
 
 import java.util.ArrayList;
@@ -31,6 +36,7 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
     // Fields
     private ArrayList<MainchatLvitem> arChatroom;
     private MainchatAdapter crAdapter;
+    private BroadcastReceiver pushReceiver;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,22 +66,32 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
                 startActivity(i);
             }
         });
-
         return view;
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(pushReceiver);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         DatabaseHandler db = new DatabaseHandler(getActivity());
-        int myMno = Integer.parseInt(db.getUserDetails().get(Constants.KEY_MNO).toString());
+        final int myMno = Integer.parseInt(db.getUserDetails().get(Constants.KEY_MNO).toString());
         GetMychatTaskInFragment getMychatTask = new GetMychatTaskInFragment();
         getMychatTask.execute(myMno);
+        pushReceiver = new BroadcastReceiver(){
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                new GetMychatTaskInFragment().execute(myMno);
+            }
+        };
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(pushReceiver,
+                new IntentFilter(QuickstartPreferences.MAINCHAT_PUSH_RECEIVE));
+
+
     }
 
     @Override

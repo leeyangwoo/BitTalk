@@ -8,6 +8,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.example.bit_user.bitchatting.Activity.MainActivity;
@@ -86,7 +87,8 @@ public class MyGcmListenerService extends GcmListenerService {
                 e.printStackTrace();
             }
         }
-
+        Intent pushIntent = new Intent(QuickstartPreferences.MAINCHAT_PUSH_RECEIVE);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(pushIntent);
         db.addMessage(crno, senderNo, message);
     }
     private JSONObject getName(int mno){

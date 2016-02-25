@@ -354,11 +354,11 @@ public class ChatroomActivity extends Activity {
                         msg = new ChatroomLvitem(msgInstance);
                         msg.setSenderName(data.getString("username"));
                         arMsg.add(msg);
-                        if(Integer.parseInt(data.getString(Constants.KEY_MNO)) !=
+                        /*if(Integer.parseInt(data.getString(Constants.KEY_MNO)) !=
                                 Integer.parseInt(db.getUserDetails().get("mno").toString())){
                             db.addMessage(crno, Integer.parseInt(data.getString(Constants.KEY_MNO)),
-                                    msg.getChatMsgInstance().getMessage());
-                        }
+                                    msg.getChatMsgInstance().getMessage()+"listener");
+                        }*/
                         msgAdapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
