@@ -71,7 +71,7 @@ public class ChatroomActivity extends Activity {
             throw new RuntimeException(e);
         }
         mSocket.on("new message", onNewMessage);
-        mSocket.connect();
+        //mSocket.connect();
 
 
         arMsg = new ArrayList<>();
@@ -84,15 +84,7 @@ public class ChatroomActivity extends Activity {
 
         lvChatMsg.setAdapter(msgAdapter);
 
-        if(detail.equals("exist")) {
-            GetMsgTask getMsgTask = new GetMsgTask();           //내장DB에 저장된 메세지리스트를 불러오는 Task
-            getMsgTask.execute(crno);
-            mSocket.emit("join room", crno);
-        }else if(detail.equals("new")){
-            mSocket.emit("create room", crno);
-        }
-
-
+       
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {         //전송버튼 리스너
@@ -147,6 +139,26 @@ public class ChatroomActivity extends Activity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSocket.connect();
+        if(detail.equals("exist")) {
+            GetMsgTask getMsgTask = new GetMsgTask();           //내장DB에 저장된 메세지리스트를 불러오는 Task
+            getMsgTask.execute(crno);
+            mSocket.emit("join room", crno);
+        }else if(detail.equals("new")){
+            mSocket.emit("create room", crno);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSocket.emit("leave", crno);
+        mSocket.disconnect();
     }
 
     class GetMsgTask extends AsyncTask<Integer, String, Void>{     //내장DB의 메세지 불러오는 Task
