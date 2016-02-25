@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C4FDFF"
+    android:background="@color/colorSplashBg"
     android:id="@+id/splash_linear"
     android:weightSum="1">
 
@@ -15,8 +15,8 @@
         android:layout_marginTop="75dp"
         android:layout_gravity="center_horizontal"
         android:textIsSelectable="false"
-        android:textSize="40dp"
-        android:textColor="#BDBDBD" />
+        android:textSize="60dp"
+        android:textColor="@color/colorSplashTitle" />
 
     <ImageView
         android:layout_width="match_parent"

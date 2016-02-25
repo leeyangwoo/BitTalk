@@ -13,7 +13,11 @@
         android:textSize="13dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/colorChatroomSender"/>
+        <!--android:background="@color/colorChatroomSenderBg"-->
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +26,9 @@
         android:layout_below="@+id/chatroomLv_txtMember"
         android:layout_alignLeft="@+id/chatroomLv_txtMember"
         android:layout_alignStart="@+id/chatroomLv_txtMember"
-        android:textColor="#0c0b0b"
         android:layout_marginLeft="5dp"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/colorChatroomMsg"/>
+        <!--android:background="@color/colorChatroomMsgBg"-->
+
 </RelativeLayout>

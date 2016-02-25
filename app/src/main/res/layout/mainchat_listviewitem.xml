@@ -13,8 +13,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
-        android:textSize="20dp"
-        android:textColor="#050505" />
+        android:textSize="18dp"
+        android:textColor="@color/colorMainchatTitle" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,7 +25,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/colorMainchatLastmsg"/>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,7 +39,8 @@
         android:layout_toEndOf="@+id/mainChat_tv_crname"
         android:textSize="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp" />
+        android:layout_marginLeft="5dp"
+        android:textColor="@color/colorMainchatParticipants"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,5 +51,6 @@
         android:layout_below="@+id/mainChat_tv_nump"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:textColor="@color/colorMainchatDatetime"/>
 </RelativeLayout>

@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.bit_user.loginactivity.LoginActivity">
+    tools:context="com.example.bit_user.loginactivity.LoginActivity"
+    android:background="@color/colorLoginBg">
 
 
 
@@ -16,13 +17,15 @@
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorLoginBg">
 
         <LinearLayout
             android:id="@+id/id_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorLoginBg">
 
 
             <AutoCompleteTextView
@@ -32,7 +35,8 @@
                 android:hint="@string/prompt_id"
                 android:inputType="text"
                 android:maxLines="1"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                android:background="@color/colorLoginBg"/>
 
             <EditText
                 android:id="@+id/login_edtText2"
@@ -40,7 +44,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="@color/colorLoginEdtText"/>
 
 
             <Button
@@ -50,7 +55,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:background="@color/colorLoginBtnBg"
+                android:textColor="@color/colorLoginBtnText"/>
 
             <Button
                 android:id="@+id/login_btn2"
@@ -59,7 +66,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_join"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:background="@color/colorLoginBtnBg"
+                android:textColor="@color/colorLoginBtnText"/>
 
         </LinearLayout>
     </ScrollView>

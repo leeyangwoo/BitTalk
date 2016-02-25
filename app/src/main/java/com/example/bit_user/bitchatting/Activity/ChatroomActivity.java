@@ -84,7 +84,7 @@ public class ChatroomActivity extends Activity {
 
         lvChatMsg.setAdapter(msgAdapter);
 
-       
+
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {         //전송버튼 리스너

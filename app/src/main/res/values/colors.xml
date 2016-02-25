@@ -15,4 +15,59 @@
     <color name="username9">#3824aa</color>
     <color name="username10">#a700ff</color>
     <color name="username11">#d300e7</color>
+
+    <!-- 스플래시 화면 -->
+    <color name="colorSplashBg">#C4FDFF</color>
+    <color name="colorSplashTitle">#3366CC</color>
+
+    <!-- 메인 화면 -->
+    <color name="colorMainBg">#FFFFFF</color>
+    <color name="colorMainFragmentBg">#FFFFFF</color>
+    <color name="colorMainChatbtnBg">#FFFFFF</color>
+    <color name="colorMainChatbtnText">#666666</color>
+    <color name="colorMainSrcbtnBg">#FFFFFF</color>
+    <color name="colorMainSrcbtnText">#666666</color>
+
+    <!-- 채팅방 목록 화면 -->
+    <color name="colorMainchatBg">#FFFFFF</color>
+    <color name="colorMainchatTitle">#050505</color>
+    <color name="colorMainchatParticipants">#999999</color>
+    <color name="colorMainchatDatetime">#999999</color>
+    <color name="colorMainchatLastmsg">#999999</color>
+
+    <!-- 친구찾기 화면 -->
+    <color name="colorMainsrcBg">#FFFFFF</color>
+    <color name="colorMainsrcFormBg">#3366CC</color>
+    <color name="colorMainsrcEdtBg">#3366CC</color>
+    <color name="colorMainsrcEdtText">#FFFFFF</color>
+    <color name="colorMainsrcHintText">#F6F6F6</color>
+    <color name="colorMainsrcBtnBg">#3366CC</color>
+    <color name="colorMainsrcBtnText">#FFFFFF</color>
+
+    <!-- 채팅방 -->
+    <color name="colorChatroomBg">#F8FFFF</color>
+    <color name="colorChatroomSender">#999999</color>
+    <color name="colorChatroomMsg">#0c0b0b</color>
+    <!--<color name="colorChatroomMsgBg"></color>
+    <color name="colorChatroomSenderBg"></color>-->
+    <color name="colorChatroomTitle">#336699</color>
+    <color name="colorChatroomEdtBg">#FFFFFF</color>
+    <color name="colorChatroomEdtText">#050505</color>
+    <color name="colorChatroomBtnBg">#3366CC</color>
+    <color name="colorChatroomBtnText">#FFFFFF</color>
+
+    <!-- 회원가입 화면 -->
+    <color name="colorJoinBg">#FFFFFF</color>
+    <color name="colorJoinTxt">#050505</color>
+    <color name="colorJoinEdtBg">#FFFFFF</color>
+    <color name="colorJoinEdtText">#3366CC</color>
+    <color name="colorJoinBtnBg">#3366CC</color>
+    <color name="colorJoinBtnText">#FFFFFF</color>
+
+    <!-- 로그인 화면 -->
+    <color name="colorLoginBg">#FFFFFF</color>
+    <color name="colorLoginFormBg">#99CCFF</color>
+    <color name="colorLoginEdtText">#336699</color>
+    <color name="colorLoginBtnBg">#3366CC</color>
+    <color name="colorLoginBtnText">#FFFFFF</color>
 </resources>

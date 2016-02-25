@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/colorChatroomBg">
 
 
     <TextView
@@ -10,7 +11,8 @@
         android:text="채팅 메시지"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/chatroom_lvChatMsg"
-        android:layout_alignStart="@+id/chatroom_lvChatMsg" />
+        android:layout_alignStart="@+id/chatroom_lvChatMsg"
+        android:textColor="@color/colorChatroomTitle"/>
 
     <ListView
         android:layout_width="match_parent"
@@ -21,7 +23,8 @@
         android:layout_marginRight="10dp"
         android:transcriptMode="alwaysScroll"
         android:id="@+id/chatroom_lvChatMsg"
-        android:layout_above="@+id/chatroom_edtvMsg" />
+        android:layout_above="@+id/chatroom_edtvMsg"
+        android:background="@color/colorChatroomBg"/>
 
 
     <EditText
@@ -33,12 +36,13 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp"
-        android:background="#cccccc"
+        android:background="@color/colorChatroomEdtBg"
         android:backgroundTintMode="add"
         android:width="250dp"
         android:layout_alignTop="@+id/chatroom_btnSubmit"
         android:layout_toLeftOf="@+id/chatroom_btnSubmit"
-        android:layout_toStartOf="@+id/chatroom_btnSubmit" />
+        android:layout_toStartOf="@+id/chatroom_btnSubmit"
+        android:textColor="@color/colorChatroomEdtText"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -50,7 +54,9 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorChatroomBtnBg"
+        android:textColor="@color/colorChatroomBtnText"/>
 
 
 </RelativeLayout>

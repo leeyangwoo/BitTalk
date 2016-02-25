@@ -10,6 +10,7 @@
     <string name="error_confirm_password">This password is not  identical</string>
     <string name="error_field_required">This id is empty</string>
     <string name="mainsrc_brn_src">Search</string>
+    <string name="mainsrc_edtv_hint">ID</string>
     <string name="splash_main">BitTalk</string>
     <string name="chatroom_btn">SEND</string>
 
