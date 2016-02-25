@@ -9,13 +9,20 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_margin="10dp" />
+        android:text="name"
+        android:textSize="13dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/chatroomLv_txtMsg"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/chatroomLv_txtMember"
-        android:layout_toEndOf="@+id/chatroomLv_txtMember"
-        android:layout_margin="10dp" />
+        android:text="msgmsgmsg"
+        android:layout_below="@+id/chatroomLv_txtMember"
+        android:layout_alignLeft="@+id/chatroomLv_txtMember"
+        android:layout_alignStart="@+id/chatroomLv_txtMember"
+        android:textColor="#0c0b0b"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp" />
 </RelativeLayout>
