@@ -56,5 +56,17 @@
     <color name="colorChatroomBtnText">#FFFFFF</color>
 
     <!-- 회원가입 화면 -->
+    <color name="colorJoinBg">#FFFFFF</color>
+    <color name="colorJoinTxt">#050505</color>
+    <color name="colorJoinEdtBg">#FFFFFF</color>
+    <color name="colorJoinEdtText">#3366CC</color>
+    <color name="colorJoinBtnBg">#3366CC</color>
+    <color name="colorJoinBtnText">#FFFFFF</color>
+
     <!-- 로그인 화면 -->
+    <color name="colorLoginBg">#FFFFFF</color>
+    <color name="colorLoginFormBg">#99CCFF</color>
+    <color name="colorLoginEdtText">#336699</color>
+    <color name="colorLoginBtnBg">#3366CC</color>
+    <color name="colorLoginBtnText">#FFFFFF</color>
 </resources>
