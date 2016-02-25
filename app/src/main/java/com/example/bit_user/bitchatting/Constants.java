@@ -52,6 +52,7 @@ public class Constants {
     public static final String TOASTMSG_JOIN_SUCCESS = "Welcome! Login Please";
     public static final String TOASTMSG_JOIN_FAIL = "ID is already exist";
     public static final String JSP_LOGIN = "login.jsp";
+    public static final String JSP_PUSH = "push.jsp";
     public static final String TOASTMSG_LOGIN_SUCCESS = "Successfully Logged In!";
     public static final String TOASTMSG_WRONG_PWD = "Incorrect Id or Password";
 
