@@ -140,9 +140,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public List<ChatRoom> getChatroomList(){
         List<ChatRoom> roomList = new ArrayList<>();
-        String selectQuery = "SELECT DISTINCT r."+Constants.KEY_CRNO+", "+Constants.KEY_NUMP+", "+Constants.KEY_CRNAME+" FROM "
+        String selectQuery = "SELECT r."+Constants.KEY_CRNO+", "+Constants.KEY_NUMP+", "+Constants.KEY_CRNAME+" FROM "
                 + Constants.TABLE_CHATROOM + " AS r INNER JOIN "+Constants.TABLE_CHATMSG+" AS m ON r."+Constants.KEY_CRNO+"=m."+Constants.KEY_CRNO
-                +" ORDER BY "+Constants.CHATMSG_COLUMN_SENDTIME+" DESC";
+                +" GROUP BY r."+Constants.KEY_CRNO+" ORDER BY "+Constants.CHATMSG_COLUMN_SENDTIME+" DESC";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         //cursor.moveToFirst();
