@@ -6,28 +6,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorMainBg">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/colorMainFragmentBg">
 
             <Button
                 android:id="@+id/btnMainchatFragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="채팅방목록"
-                android:onClick="selectFrag"/>
+                android:onClick="selectFrag"
+                android:background="@color/colorMainChatbtnBg"
+                android:textColor="@color/colorMainChatbtnText"/>
 
             <Button
                 android:id="@+id/btnMainsrcFragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="친구찾기"
-                android:onClick="selectFrag"/>
+                android:onClick="selectFrag"
+                android:background="@color/colorMainSrcbtnBg"
+                android:textColor="@color/colorMainSrcbtnText"/>
 
         </LinearLayout>
 

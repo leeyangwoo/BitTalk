@@ -9,7 +9,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_margin="10dp" />
+        android:layout_margin="10dp"
+        android:background="@color/colorChatroomSenderBg"
+        android:textColor="@color/colorChatroomSender"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,5 +19,7 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/chatroomLv_txtMember"
         android:layout_toEndOf="@+id/chatroomLv_txtMember"
-        android:layout_margin="10dp" />
+        android:layout_margin="10dp"
+        android:background="@color/colorChatroomMsgBg"
+        android:textColor="@color/colorChatroomMsg"/>
 </RelativeLayout>
