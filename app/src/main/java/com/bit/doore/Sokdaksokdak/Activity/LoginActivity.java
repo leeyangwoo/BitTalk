@@ -8,7 +8,6 @@ import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -29,7 +28,7 @@ import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private AutoCompleteTextView id;
+    private EditText id;
     private EditText password;
     JSONObject responseJSON;
 
@@ -38,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        id = (AutoCompleteTextView) findViewById(R.id.login_edtText1);
+        id = (EditText) findViewById(R.id.login_edtText1);
         password = (EditText) findViewById(R.id.login_edtText2);
 
         Button mSignInButton = (Button) findViewById(R.id.login_btn1);
