@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSplashBg"
     android:id="@+id/splash_linear"
@@ -12,16 +12,22 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/splash_main"
         android:id="@+id/textView"
-        android:layout_marginTop="75dp"
         android:layout_gravity="center_horizontal"
         android:textIsSelectable="false"
         android:textSize="60dp"
-        android:textColor="@color/colorSplashTitle" />
+        android:textColor="@color/colorSplashTitle"
+        android:layout_marginTop="153dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:src="@drawable/talk"
-        android:layout_weight="0.54" />
-</LinearLayout>
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_below="@+id/textView"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
+</RelativeLayout>

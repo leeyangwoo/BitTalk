@@ -4,7 +4,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:fromXDelta="0%"
         android:toXDelta="0%"
-        android:fromYDelta="900%"
+        android:fromYDelta="200%"
         android:toYDelta="0%"
         android:duration="2000"
         android:zAdjustment="top"/>

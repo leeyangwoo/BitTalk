@@ -25,8 +25,8 @@
     <color name="username11">#d300e7</color>
 
     <!-- 스플래시 화면 -->
-    <color name="colorSplashBg">#C4FDFF</color>
-    <color name="colorSplashTitle">#3366CC</color>
+    <color name="colorSplashBg">#125688</color>
+    <color name="colorSplashTitle">#c8e8ff</color>
 
     <!-- 메인 화면 -->
     <color name="colorMainBg">#FFFFFF</color>
