@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bit_user.bitchatting">
+    package="com.bit.doore.Sokdaksokdak">
 
     <uses-permission android:name="android.permission.INTERNET"> </uses-permission>
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -20,21 +20,21 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
-        <activity android:name=".Activity.SplashActivity">
+        <activity android:name="com.bit.doore.Sokdaksokdak.Activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.LoginActivity"></activity>
-        <activity android:name=".Activity.ChatroomActivity"></activity>
-        <activity android:name=".Activity.JoinActivity"></activity>
-        <activity android:name=".Unused.MainsrcActivity"></activity>
-        <activity android:name=".Unused.MainchatActivity"></activity>
-        <activity android:name=".Unused.SocketchatActivity"></activity>
-        <activity android:name=".Unused.Confirm"></activity>
-        <activity android:name=".Activity.MainActivity"></activity>
+        <activity android:name="com.bit.doore.Sokdaksokdak.Activity.LoginActivity"></activity>
+        <activity android:name="com.bit.doore.Sokdaksokdak.Activity.ChatroomActivity"></activity>
+        <activity android:name="com.bit.doore.Sokdaksokdak.Activity.JoinActivity"></activity>
+        <activity android:name="com.bit.doore.Sokdaksokdak.Unused.MainsrcActivity"></activity>
+        <activity android:name="com.bit.doore.Sokdaksokdak.Unused.MainchatActivity"></activity>
+        <activity android:name="com.bit.doore.Sokdaksokdak.Unused.SocketchatActivity"></activity>
+        <activity android:name="com.bit.doore.Sokdaksokdak.Unused.Confirm"></activity>
+        <activity android:name="com.bit.doore.Sokdaksokdak.Activity.MainActivity"></activity>
 
         <!-- [START gcm_receiver] -->
         <receiver
@@ -50,7 +50,7 @@
 
         <!-- [START gcm_listener_service] -->
         <service
-            android:name="com.example.bit_user.bitchatting.GCM.MyGcmListenerService"
+            android:name="com.bit.doore.Sokdaksokdak.GCM.MyGcmListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -60,7 +60,7 @@
 
         <!-- [START instanceId_listener_service] -->
         <service
-            android:name="com.example.bit_user.bitchatting.GCM.MyInstanceIDListenerService"
+            android:name="com.bit.doore.Sokdaksokdak.GCM.MyInstanceIDListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
@@ -70,7 +70,7 @@
 
         <!-- [START gcm_registration_service] -->
         <service
-            android:name="com.example.bit_user.bitchatting.GCM.RegistrationIntentService"
+            android:name="com.bit.doore.Sokdaksokdak.GCM.RegistrationIntentService"
             android:exported="false">
         </service>
         <!-- [END gcm_registration_service] -->

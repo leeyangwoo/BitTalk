@@ -7,7 +7,7 @@
              tools:ignore="MergeRootFrame">
 
     <fragment
-            class="com.example.bit_user.bitchatting.Unused.MainFragment"
+            class="com.bit.doore.Sokdaksokdak.Unused.MainFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 </FrameLayout>

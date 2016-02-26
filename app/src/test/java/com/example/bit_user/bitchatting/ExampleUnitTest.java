@@ -1,4 +1,4 @@
-package com.example.bit_user.bitchatting;
+package com.bit.doore.Sokdaksokdak;
 
 import org.junit.Test;
 

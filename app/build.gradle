@@ -6,7 +6,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.example.bit_user.bitchatting"
+        applicationId "com.bit.doore.Sokdaksokdak"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
