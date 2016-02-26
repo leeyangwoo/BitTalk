@@ -74,8 +74,8 @@
 
     <!-- 로그인 화면 -->
     <color name="colorLoginBg">#125688</color>
-    <color name="colorLoginFormBg">#99CCFF</color>
-    <color name="colorLoginEdtText">#336699</color>
+    <color name="colorLoginFormBg">#125688</color>
+    <color name="colorLoginEdtText">#99CCFF</color>
     <color name="colorLoginBtnBg">#3366CC</color>
     <color name="colorLoginBtnText">#FFFFFF</color>
 
