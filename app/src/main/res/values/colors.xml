@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!--<color name="colorPrimary">#3F51B5</color>-->
+    <!--<color name="colorPrimaryDark">#303F9F</color>-->
+    <!--<color name="colorAccent">#FF4081</color>-->
+    <!-- -->
+    <color name="colorPrimary">#125688</color>
+    <color name="colorPrimaryDark">#125688</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="colorAccent">#c8e8ff</color>
+    <!-- -->
     <color name="username0">#e21400</color>
     <color name="username1">#91580f</color>
     <color name="username2">#f8a700</color>
@@ -70,4 +78,5 @@
     <color name="colorLoginEdtText">#336699</color>
     <color name="colorLoginBtnBg">#3366CC</color>
     <color name="colorLoginBtnText">#FFFFFF</color>
+
 </resources>

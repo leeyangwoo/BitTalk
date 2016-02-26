@@ -60,6 +60,7 @@ public class Constants {
 
     public static final String JSP_TALK = "talk.jsp";
     public static final String JSP_SEARCH = "search.jsp";
+    public static final String JSP_SETTOKEN = "settoken.jsp";
 
     public static final int REQUEST_LOGIN = 0;
     public static final int TYPING_TIMER_LENGTH = 600;

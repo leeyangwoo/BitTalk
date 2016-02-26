@@ -1,18 +1,21 @@
 package com.example.bit_user.bitchatting.Activity;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 
+import com.example.bit_user.bitchatting.Constants;
 import com.example.bit_user.bitchatting.DB.DatabaseHandler;
 import com.example.bit_user.bitchatting.GCM.QuickstartPreferences;
 import com.example.bit_user.bitchatting.GCM.RegistrationIntentService;
@@ -29,32 +32,61 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by bit-user on 2016-02-19.
  */
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     DatabaseHandler db;
     String myMno;
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private int[] tabIcons = {
+            R.drawable.list,
+            R.drawable.search
+    };
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_main);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
+
         registBroadcastReceiver();
         getInstanceIdToken();
-        Fragment fr = new FragmentMainchat();
+        /*Fragment fr = new FragmentMainchat();
         FragmentManager fm = getFragmentManager();  // Fragment를 관리하기 위한 객체 생성
         FragmentTransaction fragmentTransaction = fm.beginTransaction();    // FragmentTransaction 열기
         fragmentTransaction.replace(R.id.ll_fragment, fr);  //  프래그먼트 옮겨오기
-        fragmentTransaction.commit();   // 명령 commit
+        fragmentTransaction.commit();   // 명령 commit*/
+    }
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new FragmentMainchat(), "채팅방 목록");
+        adapter.addFragment(new FragmentMainsrc(), "친구 검색하기");
+        viewPager.setAdapter(adapter);
+    }
+    private void setupTabIcons() {
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
     }
 
-    public void selectFrag(View view) {
+    /*public void selectFrag(View view) {
         Fragment fr = new FragmentMainchat();
 
         if(view == findViewById(R.id.btnMainsrcFragment)) {
@@ -67,6 +99,34 @@ public class MainActivity extends Activity {
         FragmentTransaction fragmentTransaction = fm.beginTransaction();    // FragmentTransaction 열기
         fragmentTransaction.replace(R.id.ll_fragment, fr);  //  프래그먼트 옮겨오기
         fragmentTransaction.commit();   // 명령 commit
+    }*/
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 
     public void getInstanceIdToken() {
@@ -117,7 +177,7 @@ public class MainActivity extends Activity {
                             HttpURLConnection conn = null;
                             try {
 
-                                URL url = new URL("http://192.168.1.35/BitTalkServer/settoken.jsp"); //요청 URL을 입력
+                                URL url = new URL(Constants.CHAT_SERVER_URL+Constants.JSP_SETTOKEN); //요청 URL을 입력
                                 conn = (HttpURLConnection) url.openConnection();
                                 conn.setRequestMethod("POST"); //요청 방식을 설정 (default : GET)
                                 conn.setDoInput(true); //input을 사용하도록 설정 (default : true)

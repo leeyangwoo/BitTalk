@@ -30,5 +30,6 @@ dependencies {
         exclude group: 'org.json', module: 'json'
     }
     compile "com.github.nkzawa:socket.io-client:0.5.0"
+    compile 'com.android.support:design:23.1.1'
 
 }

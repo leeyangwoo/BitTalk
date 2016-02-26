@@ -1,6 +1,6 @@
 package com.example.bit_user.bitchatting.Activity;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -38,6 +38,7 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
     private MainchatAdapter crAdapter;
     private BroadcastReceiver pushReceiver;
 
+    public FragmentMainchat(){}
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
