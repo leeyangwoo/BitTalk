@@ -88,7 +88,9 @@ public class MyGcmListenerService extends GcmListenerService {
                 e.printStackTrace();
             }
         }
-        Intent pushIntent = new Intent(QuickstartPreferences.MAINCHAT_PUSH_RECEIVE);
+        /*Intent pushIntent = new Intent(QuickstartPreferences.MAINCHAT_PUSH_RECEIVE);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(pushIntent);*/
+        Intent pushIntent = new Intent(QuickstartPreferences.MAIN_PUSH_RECEIVE);
         LocalBroadcastManager.getInstance(this).sendBroadcast(pushIntent);
         db.addMessage(crno, senderNo, message);
     }

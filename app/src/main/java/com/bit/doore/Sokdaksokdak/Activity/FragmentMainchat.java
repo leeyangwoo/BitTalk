@@ -49,7 +49,8 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.activity_fragment_mainchat, container, false);
-
+        DatabaseHandler db = new DatabaseHandler(getActivity());
+        final int myMno = Integer.parseInt(db.getUserDetails().get(Constants.KEY_MNO).toString());
         arChatroom = new ArrayList<>();
 
         crAdapter = new MainchatAdapter(getActivity(), R.layout.mainchat_listviewitem, arChatroom);
@@ -67,6 +68,14 @@ public class FragmentMainchat extends Fragment implements OnItemClickListener {
                 startActivity(i);
             }
         });
+        pushReceiver = new BroadcastReceiver(){
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                new GetMychatTaskInFragment().execute(myMno);
+            }
+        };
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(pushReceiver,
+                new IntentFilter(QuickstartPreferences.MAINCHAT_PUSH_RECEIVE));
         return view;
     }
 

@@ -52,15 +52,13 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private BroadcastReceiver pushReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_main);
 
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -69,11 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
         registBroadcastReceiver();
         getInstanceIdToken();
-        /*Fragment fr = new FragmentMainchat();
-        FragmentManager fm = getFragmentManager();  // Fragment를 관리하기 위한 객체 생성
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();    // FragmentTransaction 열기
-        fragmentTransaction.replace(R.id.ll_fragment, fr);  //  프래그먼트 옮겨오기
-        fragmentTransaction.commit();   // 명령 commit*/
     }
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -86,20 +79,6 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
     }
 
-    /*public void selectFrag(View view) {
-        Fragment fr = new FragmentMainchat();
-
-        if(view == findViewById(R.id.btnMainsrcFragment)) {
-            fr = new FragmentMainsrc();
-        } else {
-            fr = new FragmentMainchat();
-        }
-
-        FragmentManager fm = getFragmentManager();  // Fragment를 관리하기 위한 객체 생성
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();    // FragmentTransaction 열기
-        fragmentTransaction.replace(R.id.ll_fragment, fr);  //  프래그먼트 옮겨오기
-        fragmentTransaction.commit();   // 명령 commit
-    }*/
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
@@ -216,6 +195,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+        pushReceiver = new BroadcastReceiver(){
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Intent pushIntent = new Intent(QuickstartPreferences.MAINCHAT_PUSH_RECEIVE);
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(pushIntent);
+            }
+        };
     }
 
     /**
@@ -231,18 +217,20 @@ public class MainActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter(QuickstartPreferences.REGISTRATION_COMPLETE));
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(pushReceiver,
+                new IntentFilter(QuickstartPreferences.MAIN_PUSH_RECEIVE));
     }
+
 
     /**
      * 앱이 화면에서 사라지면 등록된 LocalBoardcast를 모두 삭제한다.
      */
     @Override
-    protected void onPause() {
+    public void onPause(){
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(pushReceiver);
         super.onPause();
     }
-
-
 
 
 }
