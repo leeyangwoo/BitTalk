@@ -1,0 +1,34 @@
+﻿<resources>
+    <string name="app_name">속닥속닥</string>
+
+
+    <string name="prompt_id">아 이 디</string>
+    <string name="prompt_password">비밀번호</string>
+    <string name="action_sign_in">로그인</string>
+    <string name="action_join">등록</string>
+    <string name="error_invalid_password">비밀번호가 너무 짧습니다</string>
+    <string name="error_confirm_password">비밀번호가 일치하지 않습니다</string>
+    <string name="error_field_required">아이디를 입력하십시오</string>
+    <string name="mainsrc_brn_src">검색</string>
+    <string name="mainsrc_edtv_hint">아이디</string>
+    <string name="splash_main">속닥</string>
+    <string name="chatroom_btn">전송</string>
+
+
+    <string name="action_leave">나가기</string>
+    <string name="action_send">전송</string>
+    <string name="prompt_message">메시지</string>
+
+    <string name="error_connect">접속 실패</string>
+
+    <!-- messages -->
+    <string name="message_welcome">어서오십시오 –</string>
+    <plurals name="message_participants">
+        <item quantity="one">참가자는 %d 명입니다</item>
+        <item quantity="other">참가자는 %d 명입니다</item>
+    </plurals>
+    <string name="message_user_joined">%s 님께서 입장하셨습니다</string>
+    <string name="message_user_left">%s 님께서 퇴장하셨습니다</string>
+    <string name="user_action_typing">입력중</string>
+    <string name="message_room">%d 번 방에 계십니다</string>
+</resources>
