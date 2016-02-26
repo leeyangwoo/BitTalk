@@ -1,9 +1,12 @@
 package com.bit.doore.Sokdaksokdak;
 
 public class Constants {
-    // Server Address
-    public static final String NODE_SERVER_URL = "http://192.168.1.34:3000";                    // Node Server
-    public static final String CHAT_SERVER_URL =  "http://192.168.1.35/BitTalkServer/";         // Chat Server
+
+    //    public static final String NODE_SERVER_URL = "http://192.168.1.34:3000";                    // Node Server
+    public static final String NODE_SERVER_URL = "http://polar-chamber-97314.herokuapp.com/";
+    //    public static final String CHAT_SERVER_URL =  "http://192.168.1.35/BitTalkServer/";         // Chat Server
+    public static final String CHAT_SERVER_URL =  "https://pokkkk-heroku-server.herokuapp.com/";
+
 
     // All Static variables
     // Database Version
