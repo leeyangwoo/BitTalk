@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:background="@color/colorJoinBg">
 
-
-
-    <RelativeLayout
-        android:layout_marginTop="50dp"
-        android:padding="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorJoinBg">
 
         <TextView
             android:layout_width="wrap_content"
@@ -22,81 +14,93 @@
             android:id="@+id/join_textView1"
             android:padding="10dp"
             android:textSize="20dp"
-            android:textColor="@color/colorJoinTxt"/>
+            android:textColor="@color/colorJoinTxt"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username"
+            android:text="이름"
             android:id="@+id/join_textView2"
-            android:layout_below="@id/join_textView1"
             android:padding="10dp"
             android:textSize="20dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/colorJoinTxt"/>
+            android:textColor="@color/colorJoinTxt"
+            android:layout_below="@+id/join_textView1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password"
+            android:text="비밀번호"
             android:id="@+id/join_textView3"
             android:gravity="start"
-            android:layout_below="@id/join_textView2"
             android:padding="10dp"
             android:textSize="20sp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/colorJoinTxt"/>
+            android:textColor="@color/colorJoinTxt"
+            android:layout_below="@+id/join_textView2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Psw confirm"
-            android:layout_below="@id/join_textView3"
+            android:text="비밀번호 확인"
             android:id="@+id/join_textView4"
             android:gravity="start"
             android:padding="10dp"
             android:textSize="20sp"
             android:textAlignment="center"
-            android:textColor="@color/colorJoinTxt"/>
+            android:textColor="@color/colorJoinTxt"
+            android:layout_below="@+id/join_textView3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="10dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Join"
             android:id="@+id/join_btn1"
-            android:layout_below="@+id/join_textView4"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
             android:background="@color/colorJoinBtnBg"
-            android:textColor="@color/colorJoinBtnText"/>
+            android:textColor="@color/colorJoinBtnText"
+            android:layout_marginTop="38dp"
+            android:layout_below="@+id/join_textView4"
+            android:layout_toRightOf="@+id/join_textView1"
+            android:layout_toEndOf="@+id/join_textView1" />
 
-    </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_marginTop="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/join_edtText1"
             android:ems="9"
-            android:layout_centerHorizontal="true"
             android:padding="15dp"
             android:enabled="true"
-            android:background="@color/colorJoinEdtBg"
-            android:textColor="@color/colorJoinEdtText"/>
+            android:textColor="@color/colorJoinEdtText"
+            android:layout_alignBottom="@+id/join_textView1"
+            android:layout_alignLeft="@+id/join_edtText2"
+            android:layout_alignStart="@+id/join_edtText2" />
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="9"
             android:id="@+id/join_edtText2"
-            android:layout_below="@+id/join_edtText1"
-            android:layout_centerHorizontal="true"
             android:padding="15dp"
-            android:background="@color/colorJoinEdtBg"
-            android:textColor="@color/colorJoinEdtText"/>
+            android:textColor="@color/colorJoinEdtText"
+            android:layout_alignTop="@+id/join_textView2"
+            android:layout_toRightOf="@+id/join_btn1"
+            android:layout_toEndOf="@+id/join_btn1"
+            android:layout_alignLeft="@+id/join_edtText3"
+            android:layout_alignBottom="@+id/join_textView2" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -104,11 +108,12 @@
             android:inputType="textPassword"
             android:ems="9"
             android:id="@+id/join_edtText3"
-            android:layout_below="@+id/join_edtText2"
-            android:layout_centerHorizontal="true"
             android:padding="15dp"
-            android:background="@color/colorJoinEdtBg"
-            android:textColor="@color/colorJoinEdtText"/>
+            android:textColor="@color/colorJoinEdtText"
+            android:layout_alignTop="@+id/join_textView3"
+            android:layout_toRightOf="@+id/join_textView4"
+            android:layout_toEndOf="@+id/join_textView4"
+            android:layout_alignBottom="@+id/join_textView3" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -116,22 +121,24 @@
             android:inputType="textPassword"
             android:ems="9"
             android:id="@+id/join_edtText4"
-            android:layout_below="@+id/join_edtText3"
-            android:layout_centerHorizontal="true"
             android:padding="15dp"
-            android:background="@color/colorJoinEdtBg"
-            android:textColor="@color/colorJoinEdtText"/>
+            android:textColor="@color/colorJoinEdtText"
+            android:layout_alignTop="@+id/join_textView4"
+            android:layout_toRightOf="@+id/join_textView4"
+            android:layout_toEndOf="@+id/join_textView4"
+            android:layout_alignBottom="@+id/join_textView4" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
             android:text="Clear"
             android:id="@+id/join_btn2"
-            android:layout_below="@+id/join_edtText4"
             android:background="@color/colorJoinBtnBg"
-            android:textColor="@color/colorJoinBtnText"/>
-    </RelativeLayout>
+            android:textColor="@color/colorJoinBtnText"
+            android:layout_alignTop="@+id/join_btn1"
+            android:layout_alignRight="@+id/join_edtText4"
+            android:layout_alignEnd="@+id/join_edtText4"
+            android:layout_marginRight="52dp"
+            android:layout_marginEnd="52dp" />
 
-
-</LinearLayout>
+</RelativeLayout>

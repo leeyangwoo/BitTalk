@@ -73,7 +73,7 @@
     <color name="colorJoinBtnText">#FFFFFF</color>
 
     <!-- 로그인 화면 -->
-    <color name="colorLoginBg">#FFFFFF</color>
+    <color name="colorLoginBg">#125688</color>
     <color name="colorLoginFormBg">#99CCFF</color>
     <color name="colorLoginEdtText">#336699</color>
     <color name="colorLoginBtnBg">#3366CC</color>
