@@ -24,7 +24,9 @@
         android:transcriptMode="alwaysScroll"
         android:id="@+id/chatroom_lvChatMsg"
         android:layout_above="@+id/chatroom_edtvMsg"
-        android:background="@color/colorChatroomBg"/>
+        android:background="@color/colorChatroomBg"
+        android:dividerHeight="0px"
+        android:divider="#ffffff"/>
 
 
     <EditText

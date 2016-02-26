@@ -96,7 +96,6 @@
             android:id="@+id/join_edtText2"
             android:padding="15dp"
             android:textColor="@color/colorJoinEdtText"
-            android:layout_alignTop="@+id/join_textView2"
             android:layout_toRightOf="@+id/join_btn1"
             android:layout_toEndOf="@+id/join_btn1"
             android:layout_alignLeft="@+id/join_edtText3"
@@ -110,7 +109,6 @@
             android:id="@+id/join_edtText3"
             android:padding="15dp"
             android:textColor="@color/colorJoinEdtText"
-            android:layout_alignTop="@+id/join_textView3"
             android:layout_toRightOf="@+id/join_textView4"
             android:layout_toEndOf="@+id/join_textView4"
             android:layout_alignBottom="@+id/join_textView3" />
@@ -123,7 +121,6 @@
             android:id="@+id/join_edtText4"
             android:padding="15dp"
             android:textColor="@color/colorJoinEdtText"
-            android:layout_alignTop="@+id/join_textView4"
             android:layout_toRightOf="@+id/join_textView4"
             android:layout_toEndOf="@+id/join_textView4"
             android:layout_alignBottom="@+id/join_textView4" />

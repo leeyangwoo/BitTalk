@@ -20,8 +20,13 @@
         android:layout_height="wrap_content"
         android:text="대화시작하기"
         android:id="@+id/search_result_btn_add"
+        android:background="@color/colorSrcResultBtnBg"
+        android:textColor="@color/colorSrcResultBtnText"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_margin="5dp" />
 
 </RelativeLayout>

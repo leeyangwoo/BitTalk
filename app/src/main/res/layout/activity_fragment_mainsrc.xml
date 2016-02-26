@@ -15,8 +15,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="1"
-            android:background="@color/colorMainsrcFormBg">
+            android:weightSum="1">
 
             <EditText
                 android:layout_width="wrap_content"
@@ -25,9 +24,11 @@
                 android:layout_weight="1.01"
                 android:hint="@string/mainsrc_edtv_hint"
                 android:textColorHint="@color/colorMainsrcHintText"
-                android:background="@color/colorMainsrcEdtBg"
                 android:textColor="@color/colorMainsrcEdtText"
-                android:paddingLeft="20dp" />
+                android:paddingLeft="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -35,14 +36,17 @@
                 android:text="@string/mainsrc_brn_src"
                 android:id="@+id/mainSrcFragment_btn_search"
                 android:background="@color/colorMainsrcBtnBg"
-                android:textColor="@color/colorMainsrcBtnText" />
+                android:textColor="@color/colorMainsrcBtnText"
+                android:layout_margin="5dp" />
         </LinearLayout>
 
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/mainSrcFragment_listView"
-            android:background="@color/colorMainsrcBg"/>
+            android:background="@color/colorMainsrcBg"
+            android:dividerHeight="0px"
+            android:divider="#ffffff"/>
 
 
 
