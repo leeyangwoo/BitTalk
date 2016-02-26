@@ -1,0 +1,34 @@
+﻿<resources>
+    <string name="app_name">Sokdaksokdak</string>
+
+
+    <string name="prompt_id">Id</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_join">register</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_confirm_password">This password is not  identical</string>
+    <string name="error_field_required">This id is empty</string>
+    <string name="mainsrc_brn_src">Search</string>
+    <string name="mainsrc_edtv_hint">ID</string>
+    <string name="splash_main">Sokdak</string>
+    <string name="chatroom_btn">SEND</string>
+
+
+    <string name="action_leave">Leave</string>
+    <string name="action_send">Send</string>
+    <string name="prompt_message">Message</string>
+
+    <string name="error_connect">Failed to connect</string>
+
+    <!-- messages -->
+    <string name="message_welcome">Welcome to Socket.IO Chat –</string>
+    <plurals name="message_participants">
+        <item quantity="one">there\'s %d participant</item>
+        <item quantity="other">there are %d participants</item>
+    </plurals>
+    <string name="message_user_joined">%s joined</string>
+    <string name="message_user_left">%s left</string>
+    <string name="user_action_typing">is typing</string>
+    <string name="message_room">You are in room %d</string>
+</resources>
