@@ -1,17 +1,17 @@
 {
   "project_info": {
-    "project_id": "bittalk-9bc03",
-    "project_number": "457604154359",
-    "name": "BitTalk"
+    "project_id": "ssoktalk-641bb",
+    "project_number": "582105572614",
+    "name": "SsokTalk"
   },
   "client": [
     {
       "client_info": {
-//        "mobilesdk_app_id": "1:457604154359:android:65408bf71285d994",
-        "client_id": "android:com.example.bit_user.bitchatting",
+        "mobilesdk_app_id": "1:582105572614:android:8df4faec038f4e03",
+        "client_id": "android:com.bit.doore.Sokdaksokdak",
         "client_type": 1,
         "android_client_info": {
-          "package_name": "com.example.bit_user.bitchatting"
+          "package_name": "com.bit.doore.Sokdaksokdak"
         }
       },
       "oauth_client": [],
