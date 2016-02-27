@@ -40,16 +40,16 @@ import io.socket.emitter.Emitter;
  */
 public class ChatroomActivity extends Activity {
 
-    InputMethodManager imm;
-    ArrayList<ChatroomLvitem> arMsg;  // 채팅메세지 담을 배열
-    ChatmsgAdapter msgAdapter;        // 채팅메세지 adapter
-    ListView lvChatMsg;               // 채팅메세지 리스트뷰
-    EditText edtvMsg;                 // 메세지 입력창
-    Button btnSend;                   // 메세지 입력버튼
-    DatabaseHandler db;
+    private InputMethodManager imm;
+    private ArrayList<ChatroomLvitem> arMsg;  // 채팅메세지 담을 배열
+    private ChatmsgAdapter msgAdapter;        // 채팅메세지 adapter
+    private ListView lvChatMsg;               // 채팅메세지 리스트뷰
+    private EditText edtvMsg;                 // 메세지 입력창
+    private Button btnSend;                   // 메세지 입력버튼
+    private DatabaseHandler db;
     private Socket mSocket;
-    int mno, crno;
-    String detail;
+    private int mno, crno;
+    private String detail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){

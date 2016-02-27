@@ -29,11 +29,11 @@ import java.util.ArrayList;
  * Created by bit-user on 2016-02-19.
  */
 public class SearchResultAdapter extends BaseAdapter {
-    Context mainCon;
-    LayoutInflater inflater;
-    ArrayList<SearchResult> arSrc;
-    int layout;
-    int myMno;
+    private Context mainCon;
+    private LayoutInflater inflater;
+    private ArrayList<SearchResult> arSrc;
+    private int layout;
+    private int myMno;
 
 
     public SearchResultAdapter(Context context, int aLayout, ArrayList<SearchResult> aarSrc, int amyMno){

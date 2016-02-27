@@ -4,8 +4,8 @@ package com.bit.doore.Sokdaksokdak.DTO;
  * Created by bit-user on 2016-02-19.
  */
 public class SearchResult {
-    int mno;
-    String name;                                     // 회원의 name만 표시
+    private int mno;
+    private String name;                                     // 회원의 name만 표시
 
     public SearchResult(String name, int mno){
         this.name = name;

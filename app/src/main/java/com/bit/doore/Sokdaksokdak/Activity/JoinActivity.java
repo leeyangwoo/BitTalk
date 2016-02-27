@@ -31,10 +31,9 @@ import java.net.URL;
 
 public class JoinActivity extends AppCompatActivity {
 
-    Button btn1;
-    Button btn2;
-    EditText edtText1,edtText2,edtText3,edtText4;
-    JSONObject responseJSON;
+    private Button btn1;
+    private Button btn2;
+    private EditText edtText1,edtText2,edtText3,edtText4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

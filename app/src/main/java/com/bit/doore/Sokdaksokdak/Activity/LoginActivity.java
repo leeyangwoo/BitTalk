@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText id;
     private EditText password;
-    JSONObject responseJSON;
+    private JSONObject responseJSON;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

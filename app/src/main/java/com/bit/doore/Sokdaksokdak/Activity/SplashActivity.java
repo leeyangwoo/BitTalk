@@ -17,20 +17,23 @@ import com.bit.doore.Sokdaksokdak.R;
  * Created by bit-user on 2016-02-16.
  */
 public class SplashActivity extends Activity {
+
+    private Thread splashThread;
+
     public void onAttachedToWindow(){
         super.onAttachedToWindow();
         Window window = getWindow();
         window.setFormat(PixelFormat.RGBA_8888);
     }
-    Thread splahsThread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        StartAnimations();
+        startAnimations();
 
     }
-    private void StartAnimations(){
+    private void startAnimations(){
 
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
         anim.reset();
@@ -44,7 +47,7 @@ public class SplashActivity extends Activity {
         iv.clearAnimation();
         iv.startAnimation(anim);
 
-        splahsThread = new Thread(){
+        splashThread = new Thread(){
             @Override
             public void run() {
                 try {
@@ -73,7 +76,7 @@ public class SplashActivity extends Activity {
                 }
             }
         };
-        splahsThread.start();
+        splashThread.start();
     }
 
 

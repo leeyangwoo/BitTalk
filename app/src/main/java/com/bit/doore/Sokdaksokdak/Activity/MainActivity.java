@@ -40,8 +40,8 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity {
 
-    DatabaseHandler db;
-    String myMno;
+    private DatabaseHandler db;
+    private String myMno;
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
